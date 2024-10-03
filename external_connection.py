@@ -1,5 +1,9 @@
 import pandas as pd 
 import requests 
+from dados import url031Str, payload031Str, headers
+import requests
+import xmltodict
+
 
 def retrieve_cnpj_data(cnpj):
         url = f"https://open.cnpja.com/office/{cnpj}"
@@ -18,6 +22,16 @@ def retrieve_cnpj_data(cnpj):
             print(f"Failed to retrieve data for CNPJ {cnpj}. Status code: {response.status_code}")
             return None
 
+class DadosCadastraisJUCERR:
+
+    def BuscarSocios(cnpj):
+
+        # POST request. Aqui que o WS eh consumido
+        # Veja que o XML definido acima eh enviado como uma requisicao para o WS, que irah me retornar um XML
+        response = requests.request("POST", url031Str, headers=headers, data=payload031Str.format(cnpj))
+
+        dados_redesim = xmltodict.parse(response.content.decode(response.apparent_encoding))['soap:Envelope']['soap:Body']['ns2:wsE031Response']['return']['registrosRedesim']['registroRedesim']['dadosRedesim']
+        return dados_redesim
 
 class DadosCadastraisRFB:
 
