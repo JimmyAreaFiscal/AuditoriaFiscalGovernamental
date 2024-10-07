@@ -8,7 +8,7 @@ Base = declarative_base()
 
 
 class Registro0000(Base):
-    __tablename__ = 'registro_0000'
+    __tablename__ = 'INFO0000'
     ID_0000 = Column(Integer, primary_key=True)
     COD_VER = Column(String)
     COD_FIN = Column(String)
@@ -26,20 +26,20 @@ class Registro0000(Base):
     IND_ATIV = Column(String)
 
 class Registro0001(Base):
-    __tablename__ = 'registro_0001'
+    __tablename__ = 'INFO0001'
     ID_0001 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     IND_MOV = Column(String)
 
 class Registro0002(Base):
-    __tablename__ = 'registro_0002'
+    __tablename__ = 'INFO0002'
     ID_0002 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
     CLAS_ESTAB_IND = Column(String)
 
 class Registro0005(Base):
-    __tablename__ = 'registro_0005'
+    __tablename__ = 'INFO0005'
     ID_0005 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -54,7 +54,7 @@ class Registro0005(Base):
     EMAIL = Column(String)
 
 class Registro0015(Base):
-    __tablename__ = 'registro_0015'
+    __tablename__ = 'INFO0015'
     ID_0015 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -62,7 +62,7 @@ class Registro0015(Base):
     IE_ST = Column(String)
 
 class Registro0100(Base):
-    __tablename__ = 'registro_0100'
+    __tablename__ = 'INFO0100'
     ID_0100 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -81,7 +81,7 @@ class Registro0100(Base):
     COD_MUN = Column(String)
 
 class Registro0150(Base):
-    __tablename__ = 'registro_0150'
+    __tablename__ = 'INFO0150'
     ID_0150 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -99,7 +99,7 @@ class Registro0150(Base):
     BAIRRO = Column(String)
 
 class Registro0175(Base):
-    __tablename__ = 'registro_0175'
+    __tablename__ = 'INFO0175'
     ID_0175 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -109,7 +109,7 @@ class Registro0175(Base):
     CONT_ANT = Column(String)
 
 class Registro0190(Base):
-    __tablename__ = 'registro_0190'
+    __tablename__ = 'INFO0190'
     ID_0190 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -117,7 +117,7 @@ class Registro0190(Base):
     DESCR = Column(String)
 
 class Registro0200(Base):
-    __tablename__ = 'registro_0200'
+    __tablename__ = 'INFO0200'
     ID_0200 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -135,7 +135,7 @@ class Registro0200(Base):
     CEST = Column(String)
 
 class Registro0205(Base):
-    __tablename__ = 'registro_0205'
+    __tablename__ = 'INFO0205'
     ID_0205 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -146,7 +146,7 @@ class Registro0205(Base):
     COD_ANT_ITEM = Column(String)
 
 class Registro0206(Base):
-    __tablename__ = 'registro_0206'
+    __tablename__ = 'INFO0206'
     ID_0206 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -154,7 +154,7 @@ class Registro0206(Base):
     COD_COMB = Column(String)
 
 class Registro0210(Base):
-    __tablename__ = 'registro_0210'
+    __tablename__ = 'INFO0210'
     ID_0210 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -164,7 +164,7 @@ class Registro0210(Base):
     PERDA = Column(String)
 
 class Registro0220(Base):
-    __tablename__ = 'registro_0220'
+    __tablename__ = 'INFO0220'
     ID_0220 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -174,7 +174,7 @@ class Registro0220(Base):
     COD_BARRA = Column(String)
 
 class Registro0221(Base):
-    __tablename__ = 'registro_0221'
+    __tablename__ = 'INFO0221'
     ID_0221 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -184,7 +184,7 @@ class Registro0221(Base):
     QTD_CONTIDA = Column(String)
 
 class Registro0300(Base):
-    __tablename__ = 'registro_0300'
+    __tablename__ = 'INFO0300'
     ID_0300 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -196,7 +196,7 @@ class Registro0300(Base):
     NR_PARC = Column(String)
 
 class Registro0305(Base):
-    __tablename__ = 'registro_0305'
+    __tablename__ = 'INFO0305'
     ID_0305 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -206,7 +206,7 @@ class Registro0305(Base):
     VIDA_UTIL = Column(String)
 
 class Registro0400(Base):
-    __tablename__ = 'registro_0400'
+    __tablename__ = 'INFO0400'
     ID_0400 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -214,7 +214,7 @@ class Registro0400(Base):
     DESCR_NAT = Column(String)
 
 class Registro0450(Base):
-    __tablename__ = 'registro_0450'
+    __tablename__ = 'INFO0450'
     ID_0450 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -222,7 +222,7 @@ class Registro0450(Base):
     TXT = Column(String)
 
 class Registro0460(Base):
-    __tablename__ = 'registro_0460'
+    __tablename__ = 'INFO0460'
     ID_0460 = Column(Integer, primary_key=True)
     ID_0001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -230,7 +230,7 @@ class Registro0460(Base):
     TXT = Column(String)
 
 class Registro0500(Base):
-    __tablename__ = 'registro_0500'
+    __tablename__ = 'INFO0500'
     ID_0500 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -242,7 +242,7 @@ class Registro0500(Base):
     NOME_CTA = Column(String)
 
 class Registro0600(Base):
-    __tablename__ = 'registro_0600'
+    __tablename__ = 'INFO0600'
     ID_0600 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -251,7 +251,7 @@ class Registro0600(Base):
     CCUS = Column(String)
 
 class Registro0990(Base):
-    __tablename__ = 'registro_0990'
+    __tablename__ = 'INFO0990'
     ID_0990 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_0001 = Column(Integer)
@@ -262,13 +262,13 @@ class Registro0990(Base):
 ########################## BLOCO B ##########################
 
 class RegistroB001(Base):
-    __tablename__ = 'registro_b001'
+    __tablename__ = 'B001'
     ID_B001 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     IND_DAD = Column(String)
 
 class RegistroB020(Base):
-    __tablename__ = 'registro_b020'
+    __tablename__ = 'B020'
     ID_B020 = Column(Integer, primary_key=True)
     ID_B001 = Column(Integer)
     IND_OPER = Column(String)
@@ -293,7 +293,7 @@ class RegistroB020(Base):
     COD_INF_OBS = Column(String)
 
 class RegistroB025(Base):
-    __tablename__ = 'registro_b025'
+    __tablename__ = 'B025'
     ID_B025 = Column(Integer, primary_key=True)
     ID_B020 = Column(Integer)
     ID_B001 = Column(Integer)
@@ -306,7 +306,7 @@ class RegistroB025(Base):
     COD_SERV = Column(String)
 
 class RegistroB030(Base):
-    __tablename__ = 'registro_b030'
+    __tablename__ = 'B030'
     ID_B030 = Column(Integer, primary_key=True)
     ID_B001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -323,7 +323,7 @@ class RegistroB030(Base):
     COD_INF_OBS = Column(String)
 
 class RegistroB035(Base):
-    __tablename__ = 'registro_b035'
+    __tablename__ = 'B035'
     ID_B035 = Column(Integer, primary_key=True)
     ID_B030 = Column(Integer)
     ID_B001 = Column(Integer)
@@ -336,7 +336,7 @@ class RegistroB035(Base):
     COD_SERV = Column(String)
 
 class RegistroB350(Base):
-    __tablename__ = 'registro_b350'
+    __tablename__ = 'B350'
     ID_B350 = Column(Integer, primary_key=True)
     ID_B001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -352,7 +352,7 @@ class RegistroB350(Base):
     COD_INF_OBS = Column(String)
 
 class RegistroB420(Base):
-    __tablename__ = 'registro_b420'
+    __tablename__ = 'B420'
     ID_B420 = Column(Integer, primary_key=True)
     ID_B001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -364,7 +364,7 @@ class RegistroB420(Base):
     COD_SERV = Column(String)
 
 class RegistroB440(Base):
-    __tablename__ = 'registro_b440'
+    __tablename__ = 'B440'
     ID_B440 = Column(Integer, primary_key=True)
     ID_B001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -375,7 +375,7 @@ class RegistroB440(Base):
     VL_ISS_RT = Column(String)
 
 class RegistroB460(Base):
-    __tablename__ = 'registro_b460'
+    __tablename__ = 'B460'
     ID_B460 = Column(Integer, primary_key=True)
     ID_B001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -388,7 +388,7 @@ class RegistroB460(Base):
     IND_OBR = Column(String)
 
 class RegistroB470(Base):
-    __tablename__ = 'registro_b470'
+    __tablename__ = 'B470'
     ID_B470 = Column(Integer, primary_key=True)
     ID_B001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -408,7 +408,7 @@ class RegistroB470(Base):
     VL_ISS_REC_UNI = Column(String)
 
 class RegistroB500(Base):
-    __tablename__ = 'registro_b500'
+    __tablename__ = 'B500'
     ID_B500 = Column(Integer, primary_key=True)
     ID_B001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -417,7 +417,7 @@ class RegistroB500(Base):
     VL_OR = Column(String)
 
 class RegistroB510(Base):
-    __tablename__ = 'registro_b510'
+    __tablename__ = 'B510'
     ID_B510 = Column(Integer, primary_key=True)
     ID_B500 = Column(Integer)
     ID_B001 = Column(Integer)
@@ -429,7 +429,7 @@ class RegistroB510(Base):
     NOME = Column(String)
 
 class RegistroB990(Base):
-    __tablename__ = 'registro_b990'
+    __tablename__ = 'B990'
     ID_B990 = Column(Integer, primary_key=True)
     ID_B001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -439,13 +439,13 @@ class RegistroB990(Base):
 ########################## BLOCO C ##########################
 
 class RegistroC001(Base):
-    __tablename__ = 'registro_c001'
+    __tablename__ = 'C001'
     ID_C001 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     IND_MOV = Column(String)
 
 class RegistroC100(Base):
-    __tablename__ = 'registro_c100'
+    __tablename__ = 'C100'
     ID_C100 = Column(Integer, primary_key=True)
     ID_C001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -480,7 +480,7 @@ class RegistroC100(Base):
 
 
 class RegistroC101(Base):
-    __tablename__ = 'registro_c101'
+    __tablename__ = 'C101'
     ID_C101 = Column(Integer, primary_key=True)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -490,7 +490,7 @@ class RegistroC101(Base):
     VL_ICMS_UF_REM = Column(Numeric(12, 2))
 
 class RegistroC105(Base):
-    __tablename__ = 'registro_c105'
+    __tablename__ = 'C105'
     ID_C105 = Column(Integer, primary_key=True)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -499,7 +499,7 @@ class RegistroC105(Base):
     UF = Column(String)
 
 class RegistroC110(Base):
-    __tablename__ = 'registro_c110'
+    __tablename__ = 'C110'
     ID_C110 = Column(Integer, primary_key=True)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -508,7 +508,7 @@ class RegistroC110(Base):
     TXT_COMPL = Column(String)
 
 class RegistroC111(Base):
-    __tablename__ = 'registro_c111'
+    __tablename__ = 'C111'
     ID_C111 = Column(Integer, primary_key=True)
     ID_C110 = Column(Integer)
     ID_C100 = Column(Integer)
@@ -518,7 +518,7 @@ class RegistroC111(Base):
     IND_PROC = Column(String)
 
 class RegistroC112(Base):
-    __tablename__ = 'registro_c112'
+    __tablename__ = 'C112'
     ID_C112 = Column(Integer, primary_key=True)
     ID_C110 = Column(Integer)
     ID_C100 = Column(Integer)
@@ -533,7 +533,7 @@ class RegistroC112(Base):
     DT_PGTO = Column(String)
 
 class RegistroC113(Base):
-    __tablename__ = 'registro_c113'
+    __tablename__ = 'C113'
     ID_C113 = Column(Integer, primary_key=True)
     ID_C110 = Column(Integer)
     ID_C100 = Column(Integer)
@@ -550,7 +550,7 @@ class RegistroC113(Base):
     CHV_DOC = Column(String)
 
 class RegistroC114(Base):
-    __tablename__ = 'registro_c114'
+    __tablename__ = 'C114'
     ID_C114 = Column(Integer, primary_key=True)
     ID_C110 = Column(Integer)
     ID_C100 = Column(Integer)
@@ -563,8 +563,9 @@ class RegistroC114(Base):
     DT_DOC = Column(String)
 
 class RegistroC115(Base):
-    __tablename__ = 'registro_c115'
+    __tablename__ = 'C115'
     ID_C115 = Column(Integer, primary_key=True)
+    ID_C110 = Column(Integer)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -579,8 +580,9 @@ class RegistroC115(Base):
     COD_MUN_ENTG = Column(String)
 
 class RegistroC116(Base):
-    __tablename__ = 'registro_c116'
+    __tablename__ = 'C116'
     ID_C116 = Column(Integer, primary_key=True)
+    ID_C110 = Column(Integer)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -591,7 +593,7 @@ class RegistroC116(Base):
     DT_DOC = Column(String)
 
 class RegistroC120(Base):
-    __tablename__ = 'registro_c120'
+    __tablename__ = 'C120'
     ID_C120 = Column(Integer, primary_key=True)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -603,7 +605,7 @@ class RegistroC120(Base):
     NUM_ACDRAW = Column(String)
 
 class RegistroC130(Base):
-    __tablename__ = 'registro_c130'
+    __tablename__ = 'C130'
     ID_C130 = Column(Integer, primary_key=True)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -617,7 +619,7 @@ class RegistroC130(Base):
     VL_PREV = Column(Float)
 
 class RegistroC140(Base):
-    __tablename__ = 'registro_c140'
+    __tablename__ = 'C140'
     ID_C140 = Column(Integer, primary_key=True)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -630,7 +632,7 @@ class RegistroC140(Base):
     VL_TIT = Column(Float)
 
 class RegistroC141(Base):
-    __tablename__ = 'registro_c141'
+    __tablename__ = 'C141'
     ID_C141 = Column(Integer, primary_key=True)
     ID_C140 = Column(Integer)
     ID_C100 = Column(Integer)
@@ -641,7 +643,7 @@ class RegistroC141(Base):
     VL_PARC = Column(Float)
 
 class RegistroC160(Base):
-    __tablename__ = 'registro_c160'
+    __tablename__ = 'C160'
     ID_C160 = Column(Integer, primary_key=True)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -654,7 +656,7 @@ class RegistroC160(Base):
     UF_ID = Column(String)
 
 class RegistroC165(Base):
-    __tablename__ = 'registro_c165'
+    __tablename__ = 'C165'
     ID_C165 = Column(Integer, primary_key=True)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -673,7 +675,7 @@ class RegistroC165(Base):
     UF_ID = Column(String)
 
 class RegistroC170(Base):
-    __tablename__ = 'registro_c170'
+    __tablename__ = 'C170'
     ID_C170 = Column(Integer, primary_key=True)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -717,7 +719,7 @@ class RegistroC170(Base):
     VL_ABAT_NT = Column(Float)
 
 class RegistroC171(Base):
-    __tablename__ = 'registro_c171'
+    __tablename__ = 'C171'
     ID_C171 = Column(Integer, primary_key=True)
     ID_C170 = Column(Integer)
     ID_C100 = Column(Integer)
@@ -727,7 +729,7 @@ class RegistroC171(Base):
     QTDE = Column(Float)
 
 class RegistroC172(Base):
-    __tablename__ = 'registro_c172'
+    __tablename__ = 'C172'
     ID_C172 = Column(Integer, primary_key=True)
     ID_C170 = Column(Integer)
     ID_C100 = Column(Integer)
@@ -738,7 +740,7 @@ class RegistroC172(Base):
     VL_ISSQN = Column(Float)
 
 class RegistroC173(Base):
-    __tablename__ = 'registro_c173'
+    __tablename__ = 'C173'
     ID_C173 = Column(Integer, primary_key=True)
     ID_C170 = Column(Integer)
     ID_C100 = Column(Integer)
@@ -753,7 +755,7 @@ class RegistroC173(Base):
     VL_TAB_MAX = Column(Float)
 
 class RegistroC174(Base):
-    __tablename__ = 'registro_c174'
+    __tablename__ = 'C174'
     ID_C174 = Column(Integer, primary_key=True)
     ID_C170 = Column(Integer)
     ID_C100 = Column(Integer)
@@ -764,7 +766,7 @@ class RegistroC174(Base):
     DESCR_COMPL = Column(String)
 
 class RegistroC175(Base):
-    __tablename__ = 'registro_c175'
+    __tablename__ = 'C175'
     ID_C175 = Column(Integer, primary_key=True)
     ID_C170 = Column(Integer)
     ID_C100 = Column(Integer)
@@ -776,7 +778,7 @@ class RegistroC175(Base):
     CHASSI_VEIC = Column(String)
 
 class RegistroC176(Base):
-    __tablename__ = 'registro_c176'
+    __tablename__ = 'C176'
     ID_C176 = Column(Integer, primary_key=True)
     ID_C170 = Column(Integer)
     ID_C100 = Column(Integer)
@@ -810,7 +812,7 @@ class RegistroC176(Base):
     VL_UNIT_RES_FCP_ST = Column(Float)
 
 class RegistroC177(Base):
-    __tablename__ = 'registro_c177'
+    __tablename__ = 'C177'
     ID_C177 = Column(Integer, primary_key=True)
     ID_C170 = Column(Integer)
     ID_C100 = Column(Integer)
@@ -819,7 +821,7 @@ class RegistroC177(Base):
     COD_INF_ITEM = Column(String)
 
 class RegistroC178(Base):
-    __tablename__ = 'registro_c178'
+    __tablename__ = 'C178'
     ID_C178 = Column(Integer, primary_key=True)
     ID_C170 = Column(Integer)
     ID_C100 = Column(Integer)
@@ -830,8 +832,9 @@ class RegistroC178(Base):
     QUANT_PAD = Column(Float)
 
 class RegistroC179(Base):
-    __tablename__ = 'registro_c179'
+    __tablename__ = 'C179'
     ID_C179 = Column(Integer, primary_key=True)
+    ID_C170 = Column(Integer)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -842,7 +845,7 @@ class RegistroC179(Base):
     ICMS_RET = Column(Float)
 
 class RegistroC180(Base):
-    __tablename__ = 'registro_c180'
+    __tablename__ = 'C180'
     ID_C180 = Column(Integer, primary_key=True)
     ID_C170 = Column(Integer)
     ID_C100 = Column(Integer)
@@ -860,7 +863,7 @@ class RegistroC180(Base):
     NUM_DA = Column(String)
 
 class RegistroC181(Base):
-    __tablename__ = 'registro_c181'
+    __tablename__ = 'C181'
     ID_C181 = Column(Integer, primary_key=True)
     ID_C180 = Column(Integer)
     ID_C170 = Column(Integer)
@@ -889,7 +892,7 @@ class RegistroC181(Base):
     VL_UNIT_FCP_ST_CONV_COMPL = Column(Float)
 
 class RegistroC185(Base):
-    __tablename__ = 'registro_c185'
+    __tablename__ = 'C185'
     ID_C185 = Column(Integer, primary_key=True)
     ID_C180 = Column(Integer)
     ID_C170 = Column(Integer)
@@ -898,9 +901,14 @@ class RegistroC185(Base):
     ID_0000 = Column(Integer)
     NUM_ITEM = Column(Integer)
     COD_ITEM = Column(String)
+    CST_ICMS = Column(String)
+    CFOP = Column(String)
+    COD_MOT_REST_COMPL = Column(String)
     QUANT_CONV = Column(Float)
     UNID = Column(String)
+    VL_UNIT_CONV = Column(String)
     VL_UNIT_ICMS_NA_OPERACAO_CONV = Column(Float)
+    VL_UNIT_ICMS_OP_CONV = Column(Float)
     VL_UNIT_ICMS_OP_ESTOQUE_CONV = Column(Float)
     VL_UNIT_ICMS_ST_ESTOQUE_CONV = Column(Float)
     VL_UNIT_FCP_ICMS_ST_ESTOQUE_CONV = Column(Float)
@@ -910,7 +918,7 @@ class RegistroC185(Base):
     VL_UNIT_FCP_ST_CONV_COMPL = Column(Float)
 
 class RegistroC186(Base):
-    __tablename__ = 'registro_c186'
+    __tablename__ = 'C186'
     ID_C186 = Column(Integer, primary_key=True)
     ID_C185 = Column(Integer)
     ID_C100 = Column(Integer)
@@ -934,11 +942,11 @@ class RegistroC186(Base):
     VL_UNIT_ICMS_OP_CONV_ENTRADA = Column(Float)
     VL_UNIT_BC_ICMS_ST_CONV_ENTRADA = Column(Float)
     VL_UNIT_ICMS_ST_CONV_ENTRADA = Column(Float)
-    VL_UNIT_FCP_ICMS_ST_CONV_ENTRADA = Column(Float)
+    VL_UNIT_FCP_ST_CONV_ENTRADA = Column(Float)
 
 
 class RegistroC190(Base):
-    __tablename__ = 'registro_c190'
+    __tablename__ = 'C190'
     ID_C190 = Column(Integer, primary_key=True)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -956,8 +964,9 @@ class RegistroC190(Base):
     COD_OBS = Column(String)
 
 class RegistroC191(Base):
-    __tablename__ = 'registro_c191'
+    __tablename__ = 'C191'
     ID_C191 = Column(Integer, primary_key=True)
+    ID_C190 = Column(Integer)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -966,7 +975,7 @@ class RegistroC191(Base):
     VL_FCP_RET = Column(Float)
 
 class RegistroC195(Base):
-    __tablename__ = 'registro_c195'
+    __tablename__ = 'C195'
     ID_C195 = Column(Integer, primary_key=True)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -975,9 +984,9 @@ class RegistroC195(Base):
     TXT_COMPL = Column(String)
 
 class RegistroC197(Base):
-    __tablename__ = 'registro_c197'
+    __tablename__ = 'C197'
     ID_C197 = Column(Integer, primary_key=True)
-    ID_C190 = Column(Integer)
+    ID_C195 = Column(Integer)
     ID_C100 = Column(Integer)
     ID_C001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -990,7 +999,7 @@ class RegistroC197(Base):
     VL_OUTROS = Column(Float)
 
 class RegistroC300(Base):
-    __tablename__ = 'registro_c300'
+    __tablename__ = 'C300'
     ID_C300 = Column(Integer, primary_key=True)
     ID_C001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -1006,7 +1015,7 @@ class RegistroC300(Base):
     COD_CTA = Column(String)
 
 class RegistroC310(Base):
-    __tablename__ = 'registro_c310'
+    __tablename__ = 'C310'
     ID_C310 = Column(Integer, primary_key=True)
     ID_C300 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1014,7 +1023,7 @@ class RegistroC310(Base):
     NUM_DOC_CANC = Column(String)
 
 class RegistroC320(Base):
-    __tablename__ = 'registro_c320'
+    __tablename__ = 'C320'
     ID_C320 = Column(Integer, primary_key=True)
     ID_C300 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1029,7 +1038,7 @@ class RegistroC320(Base):
     COD_OBS = Column(String)
 
 class RegistroC321(Base):
-    __tablename__ = 'registro_c321'
+    __tablename__ = 'C321'
     ID_C321 = Column(Integer, primary_key=True)
     ID_C320 = Column(Integer)
     ID_C300 = Column(Integer)
@@ -1046,7 +1055,7 @@ class RegistroC321(Base):
     VL_COFINS = Column(Float)
 
 class RegistroC330(Base):
-    __tablename__ = 'registro_c330'
+    __tablename__ = 'C330'
     ID_C330 = Column(Integer, primary_key=True)
     ID_C300 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1066,7 +1075,7 @@ class RegistroC330(Base):
     VL_UNIT_FCP_ST_CONV_COMPL = Column(Float)
 
 class RegistroC350(Base):
-    __tablename__ = 'registro_c350'
+    __tablename__ = 'C350'
     ID_C350 = Column(Integer, primary_key=True)
     ID_C300 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1084,7 +1093,7 @@ class RegistroC350(Base):
     COD_CTA = Column(String)
 
 class RegistroC370(Base):
-    __tablename__ = 'registro_c370'
+    __tablename__ = 'C370'
     ID_C370 = Column(Integer, primary_key=True)
     ID_C350 = Column(Integer)
     ID_C300 = Column(Integer)
@@ -1098,7 +1107,7 @@ class RegistroC370(Base):
     VL_DESC = Column(Float)
 
 class RegistroC380(Base):
-    __tablename__ = 'registro_c380'
+    __tablename__ = 'C380'
     ID_C380 = Column(Integer, primary_key=True)
     ID_C300 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1120,7 +1129,7 @@ class RegistroC380(Base):
     CFOP = Column(String)
 
 class RegistroC390(Base):
-    __tablename__ = 'registro_c390'
+    __tablename__ = 'C390'
     ID_C390 = Column(Integer, primary_key=True)
     ID_C300 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1135,7 +1144,7 @@ class RegistroC390(Base):
     COD_OBS = Column(String)
 
 class RegistroC400(Base):
-    __tablename__ = 'registro_c400'
+    __tablename__ = 'C400'
     ID_C400 = Column(Integer, primary_key=True)
     ID_C001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -1145,7 +1154,7 @@ class RegistroC400(Base):
     ECF_CX = Column(Integer)
 
 class RegistroC405(Base):
-    __tablename__ = 'registro_c405'
+    __tablename__ = 'C405'
     ID_C405 = Column(Integer, primary_key=True)
     ID_C400 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1158,7 +1167,7 @@ class RegistroC405(Base):
     VL_BRT = Column(Float)
 
 class RegistroC410(Base):
-    __tablename__ = 'registro_c410'
+    __tablename__ = 'C410'
     ID_C410 = Column(Integer, primary_key=True)
     ID_C405 = Column(Integer)
     ID_C400 = Column(Integer)
@@ -1168,7 +1177,7 @@ class RegistroC410(Base):
     VL_COFINS = Column(Float)
 
 class RegistroC420(Base):
-    __tablename__ = 'registro_c420'
+    __tablename__ = 'C420'
     ID_C420 = Column(Integer, primary_key=True)
     ID_C400 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1179,7 +1188,7 @@ class RegistroC420(Base):
     DESCR_NR_TOT = Column(String)
 
 class RegistroC425(Base):
-    __tablename__ = 'registro_c425'
+    __tablename__ = 'C425'
     ID_C425 = Column(Integer, primary_key=True)
     ID_C420 = Column(Integer)
     ID_C405 = Column(Integer)
@@ -1194,7 +1203,7 @@ class RegistroC425(Base):
     VL_COFINS = Column(Float)
 
 class RegistroC430(Base):
-    __tablename__ = 'registro_c430'
+    __tablename__ = 'C430'
     ID_C430 = Column(Integer, primary_key=True)
     ID_C425 = Column(Integer)
     ID_C420 = Column(Integer)
@@ -1219,7 +1228,7 @@ class RegistroC430(Base):
     CFOP = Column(String)
 
 class RegistroC460(Base):
-    __tablename__ = 'registro_c460'
+    __tablename__ = 'C460'
     ID_C460 = Column(Integer, primary_key=True)
     ID_C405 = Column(Integer)
     ID_C400 = Column(Integer)
@@ -1236,7 +1245,7 @@ class RegistroC460(Base):
     NOM_ADQ = Column(String)
 
 class RegistroC465(Base):
-    __tablename__ = 'registro_c465'
+    __tablename__ = 'C465'
     ID_C465 = Column(Integer, primary_key=True)
     ID_C460 = Column(Integer)
     ID_C405 = Column(Integer)
@@ -1247,7 +1256,7 @@ class RegistroC465(Base):
     NUM_CCF = Column(Integer)
 
 class RegistroC470(Base):
-    __tablename__ = 'registro_c470'
+    __tablename__ = 'C470'
     ID_C470 = Column(Integer, primary_key=True)
     ID_C460 = Column(Integer)
     ID_C405 = Column(Integer)
@@ -1266,7 +1275,7 @@ class RegistroC470(Base):
     VL_COFINS = Column(Float)
 
 class RegistroC480(Base):
-    __tablename__ = 'registro_c480'
+    __tablename__ = 'C480'
     ID_C480 = Column(Integer, primary_key=True)
     ID_C470 = Column(Integer)
     ID_C460 = Column(Integer)
@@ -1291,7 +1300,7 @@ class RegistroC480(Base):
     CFOP = Column(String)
 
 class RegistroC490(Base):
-    __tablename__ = 'registro_c490'
+    __tablename__ = 'C490'
     ID_C490 = Column(Integer, primary_key=True)
     ID_C405 = Column(Integer)
     ID_C400 = Column(Integer)
@@ -1306,7 +1315,7 @@ class RegistroC490(Base):
     COD_OBS = Column(String)
 
 class RegistroC495(Base):
-    __tablename__ = 'registro_c495'
+    __tablename__ = 'C495'
     ID_C495 = Column(Integer, primary_key=True)
     ID_C405 = Column(Integer)
     ID_C400 = Column(Integer)
@@ -1328,7 +1337,7 @@ class RegistroC495(Base):
     VL_ICMS_ST = Column(Float)
 
 class RegistroC500(Base):
-    __tablename__ = 'registro_c500'
+    __tablename__ = 'C500'
     ID_C500 = Column(Integer, primary_key=True)
     ID_C001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -1374,7 +1383,7 @@ class RegistroC500(Base):
 
 
 class RegistroC510(Base):
-    __tablename__ = 'registro_c510'
+    __tablename__ = 'C510'
     ID_C510 = Column(Integer, primary_key=True)
     ID_C500 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1401,7 +1410,7 @@ class RegistroC510(Base):
     COD_CTA = Column(String)
 
 class RegistroC590(Base):
-    __tablename__ = 'registro_c590'
+    __tablename__ = 'C590'
     ID_C590 = Column(Integer, primary_key=True)
     ID_C500 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1418,7 +1427,7 @@ class RegistroC590(Base):
     COD_OBS = Column(String)
 
 class RegistroC591(Base):
-    __tablename__ = 'registro_c591'
+    __tablename__ = 'C591'
     ID_C591 = Column(Integer, primary_key=True)
     ID_C590 = Column(Integer)
     ID_C500 = Column(Integer)
@@ -1428,7 +1437,7 @@ class RegistroC591(Base):
     VL_FCP_ST = Column(Float)
 
 class RegistroC595(Base):
-    __tablename__ = 'registro_c595'
+    __tablename__ = 'C595'
     ID_C595 = Column(Integer, primary_key=True)
     ID_C500 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1437,7 +1446,7 @@ class RegistroC595(Base):
     TXT_COMPL = Column(String)
 
 class RegistroC597(Base):
-    __tablename__ = 'registro_c597'
+    __tablename__ = 'C597'
     ID_C597 = Column(Integer, primary_key=True)
     ID_C595 = Column(Integer)
     ID_C500 = Column(Integer)
@@ -1452,7 +1461,7 @@ class RegistroC597(Base):
     VL_OUTROS = Column(Float)
 
 class RegistroC600(Base):
-    __tablename__ = 'registro_c600'
+    __tablename__ = 'C600'
     ID_C600 = Column(Integer, primary_key=True)
     ID_C001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -1479,7 +1488,7 @@ class RegistroC600(Base):
     VL_COFINS = Column(Float)
 
 class RegistroC601(Base):
-    __tablename__ = 'registro_c601'
+    __tablename__ = 'C601'
     ID_C601 = Column(Integer, primary_key=True)
     ID_C600 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1487,7 +1496,7 @@ class RegistroC601(Base):
     NUM_DOC_CANC = Column(String)
 
 class RegistroC610(Base):
-    __tablename__ = 'registro_c610'
+    __tablename__ = 'C610'
     ID_C610 = Column(Integer, primary_key=True)
     ID_C600 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1510,7 +1519,7 @@ class RegistroC610(Base):
     COD_CTA = Column(String)
 
 class RegistroC690(Base):
-    __tablename__ = 'registro_c690'
+    __tablename__ = 'C690'
     ID_C690 = Column(Integer, primary_key=True)
     ID_C600 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1527,7 +1536,7 @@ class RegistroC690(Base):
     COD_OBS = Column(String)
 
 class RegistroC700(Base):
-    __tablename__ = 'registro_c700'
+    __tablename__ = 'C700'
     ID_C700 = Column(Integer, primary_key=True)
     ID_C001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -1541,7 +1550,7 @@ class RegistroC700(Base):
     CHV_COD_DIG = Column(String)
 
 class RegistroC790(Base):
-    __tablename__ = 'registro_c790'
+    __tablename__ = 'C790'
     ID_C790 = Column(Integer, primary_key=True)
     ID_C700 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1558,7 +1567,7 @@ class RegistroC790(Base):
     COD_OBS = Column(String)
 
 class RegistroC791(Base):
-    __tablename__ = 'registro_c791'
+    __tablename__ = 'C791'
     ID_C791 = Column(Integer, primary_key=True)
     ID_C790 = Column(Integer)
     ID_C700 = Column(Integer)
@@ -1569,7 +1578,7 @@ class RegistroC791(Base):
     VL_ICMS_ST = Column(Float)
 
 class RegistroC800(Base):
-    __tablename__ = 'registro_c800'
+    __tablename__ = 'C800'
     ID_C800 = Column(Integer, primary_key=True)
     ID_C001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -1591,7 +1600,7 @@ class RegistroC800(Base):
     VL_COFINS_ST = Column(Float)
 
 class RegistroC810(Base):
-    __tablename__ = 'registro_c810'
+    __tablename__ = 'C810'
     ID_C810 = Column(Integer, primary_key=True)
     ID_C800 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1605,7 +1614,7 @@ class RegistroC810(Base):
     CFOP = Column(String)
 
 class RegistroC815(Base):
-    __tablename__ = 'registro_c815'
+    __tablename__ = 'C815'
     ID_C815 = Column(Integer, primary_key=True)
     ID_C810 = Column(Integer)
     ID_C800 = Column(Integer)
@@ -1626,7 +1635,7 @@ class RegistroC815(Base):
     VL_UNIT_FCP_ST_CONV_COMPL = Column(Float)
 
 class RegistroC850(Base):
-    __tablename__ = 'registro_c850'
+    __tablename__ = 'C850'
     ID_C850 = Column(Integer, primary_key=True)
     ID_C800 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1640,7 +1649,7 @@ class RegistroC850(Base):
     COD_OBS = Column(String)
 
 class RegistroC855(Base):
-    __tablename__ = 'registro_c855'
+    __tablename__ = 'C855'
     ID_C855 = Column(Integer, primary_key=True)
     ID_C850 = Column(Integer)
     ID_C800 = Column(Integer)
@@ -1650,7 +1659,7 @@ class RegistroC855(Base):
     TXT_COMPL = Column(String)
 
 class RegistroC857(Base):
-    __tablename__ = 'registro_c857'
+    __tablename__ = 'C857'
     ID_C857 = Column(Integer, primary_key=True)
     ID_C855 = Column(Integer)
     ID_C850 = Column(Integer)
@@ -1666,7 +1675,7 @@ class RegistroC857(Base):
     VL_OUTROS = Column(Float)
 
 class RegistroC860(Base):
-    __tablename__ = 'registro_c860'
+    __tablename__ = 'C860'
     ID_C860 = Column(Integer, primary_key=True)
     ID_C800 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1678,7 +1687,7 @@ class RegistroC860(Base):
     DOC_FIM = Column(String)
 
 class RegistroC870(Base):
-    __tablename__ = 'registro_c870'
+    __tablename__ = 'C870'
     ID_C870 = Column(Integer, primary_key=True)
     ID_C860 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1690,7 +1699,7 @@ class RegistroC870(Base):
     CFOP = Column(String)
 
 class RegistroC880(Base):
-    __tablename__ = 'registro_c880'
+    __tablename__ = 'C880'
     ID_C880 = Column(Integer, primary_key=True)
     ID_C870 = Column(Integer)
     ID_C860 = Column(Integer)
@@ -1711,7 +1720,7 @@ class RegistroC880(Base):
     VL_UNIT_FCP_ST_CONV_COMPL = Column(Float)
 
 class RegistroC890(Base):
-    __tablename__ = 'registro_c890'
+    __tablename__ = 'C890'
     ID_C890 = Column(Integer, primary_key=True)
     ID_C860 = Column(Integer)
     ID_C800 = Column(Integer)
@@ -1732,7 +1741,7 @@ class RegistroC890(Base):
     VL_UNIT_FCP_ST_CONV_COMPL = Column(Float)
 
 class RegistroC895(Base):
-    __tablename__ = 'registro_c895'
+    __tablename__ = 'C895'
     ID_C895 = Column(Integer, primary_key=True)
     ID_C890 = Column(Integer)
     ID_C860 = Column(Integer)
@@ -1754,7 +1763,7 @@ class RegistroC895(Base):
     VL_UNIT_FCP_ST_CONV_COMPL = Column(Float)
 
 class RegistroC897(Base):
-    __tablename__ = 'registro_c897'
+    __tablename__ = 'C897'
     ID_C897 = Column(Integer, primary_key=True)
     ID_C895 = Column(Integer)
     ID_C890 = Column(Integer)
@@ -1771,7 +1780,7 @@ class RegistroC897(Base):
     VL_OUTROS = Column(Float)
 
 class RegistroC990(Base):
-    __tablename__ = 'registro_c990'
+    __tablename__ = 'C990'
     ID_C990 = Column(Integer, primary_key=True)
     ID_C001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -1781,14 +1790,14 @@ class RegistroC990(Base):
 ########################## BLOCO D ##########################
 
 class RegistroD001(Base):
-    __tablename__ = 'registro_d001'
+    __tablename__ = 'D001'
     ID_D001 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     IND_MOV = Column(String)
 
 
 class RegistroD100(Base):
-    __tablename__ = 'registro_d100'
+    __tablename__ = 'D100'
     ID_D100 = Column(Integer, primary_key=True)
     ID_D001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -1818,7 +1827,7 @@ class RegistroD100(Base):
     COD_MUN_DEST = Column(String)
 
 class RegistroD101(Base):
-    __tablename__ = 'registro_d101'
+    __tablename__ = 'D101'
     ID_D101 = Column(Integer, primary_key=True)
     ID_D100 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -1828,7 +1837,7 @@ class RegistroD101(Base):
     VL_ICMS_UF_REM = Column(Float)
 
 class RegistroD110(Base):
-    __tablename__ = 'registro_d110'
+    __tablename__ = 'D110'
     ID_D110 = Column(Integer, primary_key=True)
     ID_D100 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -1839,7 +1848,7 @@ class RegistroD110(Base):
     VL_OUT = Column(Float)
 
 class RegistroD120(Base):
-    __tablename__ = 'registro_d120'
+    __tablename__ = 'D120'
     ID_D120 = Column(Integer, primary_key=True)
     ID_D100 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -1850,7 +1859,7 @@ class RegistroD120(Base):
     UF_ID = Column(String)
 
 class RegistroD130(Base):
-    __tablename__ = 'registro_d130'
+    __tablename__ = 'D130'
     ID_D130 = Column(Integer, primary_key=True)
     ID_D100 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -1871,7 +1880,7 @@ class RegistroD130(Base):
     UF_ID = Column(String)
 
 class RegistroD140(Base):
-    __tablename__ = 'registro_d140'
+    __tablename__ = 'D140'
     ID_D140 = Column(Integer, primary_key=True)
     ID_D100 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -1891,7 +1900,7 @@ class RegistroD140(Base):
     VL_FRT_MM = Column(Float)
 
 class RegistroD150(Base):
-    __tablename__ = 'registro_d150'
+    __tablename__ = 'D150'
     ID_D150 = Column(Integer, primary_key=True)
     ID_D100 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -1908,7 +1917,7 @@ class RegistroD150(Base):
     VL_TX_ADV = Column(Float)
 
 class RegistroD160(Base):
-    __tablename__ = 'registro_d160'
+    __tablename__ = 'D160'
     ID_D160 = Column(Integer, primary_key=True)
     ID_D100 = Column(Integer)
     ID_C001 = Column(Integer)
@@ -1923,7 +1932,7 @@ class RegistroD160(Base):
     COD_MUN_DEST = Column(String)
 
 class RegistroD161(Base):
-    __tablename__ = 'registro_d161'
+    __tablename__ = 'D161'
     ID_D161 = Column(Integer, primary_key=True)
     ID_D160 = Column(Integer)
     ID_D100 = Column(Integer)
@@ -1939,7 +1948,7 @@ class RegistroD161(Base):
     COD_MUN_ENTG = Column(String)
 
 class RegistroD162(Base):
-    __tablename__ = 'registro_d162'
+    __tablename__ = 'D162'
     ID_D162 = Column(Integer, primary_key=True)
     ID_D160 = Column(Integer)
     ID_D100 = Column(Integer)
@@ -1957,7 +1966,7 @@ class RegistroD162(Base):
     PESO_LIQ = Column(Float)
 
 class RegistroD170(Base):
-    __tablename__ = 'registro_d170'
+    __tablename__ = 'D170'
     ID_D170 = Column(Integer, primary_key=True)
     ID_D100 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -1977,7 +1986,7 @@ class RegistroD170(Base):
     UF_ID = Column(String)
 
 class RegistroD180(Base):
-    __tablename__ = 'registro_d180'
+    __tablename__ = 'D180'
     ID_D180 = Column(Integer, primary_key=True)
     ID_D100 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2000,7 +2009,7 @@ class RegistroD180(Base):
     VL_DOC = Column(Float)
 
 class RegistroD190(Base):
-    __tablename__ = 'registro_d190'
+    __tablename__ = 'D190'
     ID_D190 = Column(Integer, primary_key=True)
     ID_D100 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2015,7 +2024,7 @@ class RegistroD190(Base):
     COD_OBS = Column(String)
 
 class RegistroD195(Base):
-    __tablename__ = 'registro_d195'
+    __tablename__ = 'D195'
     ID_D195 = Column(Integer, primary_key=True)
     ID_D100 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2024,7 +2033,7 @@ class RegistroD195(Base):
     TXT_COMPL = Column(String)
 
 class RegistroD197(Base):
-    __tablename__ = 'registro_d197'
+    __tablename__ = 'D197'
     ID_D197 = Column(Integer, primary_key=True)
     ID_D195 = Column(Integer)
     ID_D100 = Column(Integer)
@@ -2039,7 +2048,7 @@ class RegistroD197(Base):
     VL_OUTROS = Column(Float)
 
 class RegistroD300(Base):
-    __tablename__ = 'registro_d300'
+    __tablename__ = 'D300'
     ID_D300 = Column(Integer, primary_key=True)
     ID_D001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -2064,7 +2073,7 @@ class RegistroD300(Base):
     COD_CTA = Column(String)
 
 class RegistroD301(Base):
-    __tablename__ = 'registro_d301'
+    __tablename__ = 'D301'
     ID_D301 = Column(Integer, primary_key=True)
     ID_D300 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2072,7 +2081,7 @@ class RegistroD301(Base):
     NUM_DOC_CANC = Column(String)
 
 class RegistroD310(Base):
-    __tablename__ = 'registro_d310'
+    __tablename__ = 'D310'
     ID_D310 = Column(Integer, primary_key=True)
     ID_D300 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2083,7 +2092,7 @@ class RegistroD310(Base):
     VL_ICMS = Column(Float)
 
 class RegistroD350(Base):
-    __tablename__ = 'registro_d350'
+    __tablename__ = 'D350'
     ID_D350 = Column(Integer, primary_key=True)
     ID_D001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -2093,7 +2102,7 @@ class RegistroD350(Base):
     ECF_CX = Column(String)
 
 class RegistroD355(Base):
-    __tablename__ = 'registro_d355'
+    __tablename__ = 'D355'
     ID_D355 = Column(Integer, primary_key=True)
     ID_D350 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2106,7 +2115,7 @@ class RegistroD355(Base):
     VL_BRT = Column(Float)
 
 class RegistroD360(Base):
-    __tablename__ = 'registro_d360'
+    __tablename__ = 'D360'
     ID_D360 = Column(Integer, primary_key=True)
     ID_D355 = Column(Integer)
     ID_D350 = Column(Integer)
@@ -2116,7 +2125,7 @@ class RegistroD360(Base):
     VL_COFINS = Column(Float)
 
 class RegistroD365(Base):
-    __tablename__ = 'registro_d365'
+    __tablename__ = 'D365'
     ID_D365 = Column(Integer, primary_key=True)
     ID_D355 = Column(Integer)
     ID_D350 = Column(Integer)
@@ -2128,7 +2137,7 @@ class RegistroD365(Base):
     DESCR_NR_TOT = Column(String)
 
 class RegistroD370(Base):
-    __tablename__ = 'registro_d370'
+    __tablename__ = 'D370'
     ID_D370 = Column(Integer, primary_key=True)
     ID_D365 = Column(Integer)
     ID_D355 = Column(Integer)
@@ -2142,7 +2151,7 @@ class RegistroD370(Base):
     VL_ICMS = Column(Float)
 
 class RegistroD390(Base):
-    __tablename__ = 'registro_d390'
+    __tablename__ = 'D390'
     ID_D390 = Column(Integer, primary_key=True)
     ID_D355 = Column(Integer)
     ID_D350 = Column(Integer)
@@ -2160,7 +2169,7 @@ class RegistroD390(Base):
     COD_OBS = Column(String)
 
 class RegistroD400(Base):
-    __tablename__ = 'registro_d400'
+    __tablename__ = 'D400'
     ID_D400 = Column(Integer, primary_key=True)
     ID_D001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -2180,7 +2189,7 @@ class RegistroD400(Base):
     COD_CTA = Column(String)
 
 class RegistroD410(Base):
-    __tablename__ = 'registro_d410'
+    __tablename__ = 'D410'
     ID_D410 = Column(Integer, primary_key=True)
     ID_D400 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2201,7 +2210,7 @@ class RegistroD410(Base):
     VL_ICMS = Column(Float)
 
 class RegistroD411(Base):
-    __tablename__ = 'registro_d411'
+    __tablename__ = 'D411'
     ID_D411 = Column(Integer, primary_key=True)
     ID_D410 = Column(Integer)
     ID_D400 = Column(Integer)
@@ -2210,7 +2219,7 @@ class RegistroD411(Base):
     NUM_DOC_CANC = Column(String)
 
 class RegistroD420(Base):
-    __tablename__ = 'registro_d420'
+    __tablename__ = 'D420'
     ID_D420 = Column(Integer, primary_key=True)
     ID_D400 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2221,7 +2230,7 @@ class RegistroD420(Base):
     VL_ICMS = Column(Float)
 
 class RegistroD500(Base):
-    __tablename__ = 'registro_d500'
+    __tablename__ = 'D500'
     ID_D500 = Column(Integer, primary_key=True)
     ID_D001 = Column(Integer)
     ID_0000 = Column(Integer) 
@@ -2250,7 +2259,7 @@ class RegistroD500(Base):
     TP_ASSINANTE = Column(String)
 
 class RegistroD510(Base):
-    __tablename__ = 'registro_d510'
+    __tablename__ = 'D510'
     ID_D510 = Column(Integer, primary_key=True)
     ID_D500 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2276,7 +2285,7 @@ class RegistroD510(Base):
     COD_CTA = Column(String)
 
 class RegistroD530(Base):
-    __tablename__ = 'registro_d530'
+    __tablename__ = 'D530'
     ID_D530 = Column(Integer, primary_key=True)
     ID_D500 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2289,7 +2298,7 @@ class RegistroD530(Base):
     TERMINAL = Column(String)
 
 class RegistroD590(Base):
-    __tablename__ = 'registro_d590'
+    __tablename__ = 'D590'
     ID_D590 = Column(Integer, primary_key=True)
     ID_D500 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2306,7 +2315,7 @@ class RegistroD590(Base):
     COD_OBS = Column(String)
 
 class RegistroD600(Base):
-    __tablename__ = 'registro_d600'
+    __tablename__ = 'D600'
     ID_D600 = Column(Integer, primary_key=True)
     ID_D001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -2329,7 +2338,7 @@ class RegistroD600(Base):
     VL_COFINS = Column(Float)
 
 class RegistroD610(Base):
-    __tablename__ = 'registro_d610'
+    __tablename__ = 'D610'
     ID_D610 = Column(Integer, primary_key=True)
     ID_D600 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2353,7 +2362,7 @@ class RegistroD610(Base):
     COD_CTA = Column(String)
 
 class RegistroD690(Base):
-    __tablename__ = 'registro_d690'
+    __tablename__ = 'D690'
     ID_D690 = Column(Integer, primary_key=True)
     ID_D600 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2370,7 +2379,7 @@ class RegistroD690(Base):
     COD_OBS = Column(String)
 
 class RegistroD695(Base):
-    __tablename__ = 'registro_d695'
+    __tablename__ = 'D695'
     ID_D695 = Column(Integer, primary_key=True)
     ID_D001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -2384,7 +2393,7 @@ class RegistroD695(Base):
     CHV_COD_DIG = Column(String)
 
 class RegistroD696(Base):
-    __tablename__ = 'registro_d696'
+    __tablename__ = 'D696'
     ID_D696 = Column(Integer, primary_key=True)
     ID_D695 = Column(Integer)
     ID_D600 = Column(Integer)
@@ -2402,7 +2411,7 @@ class RegistroD696(Base):
     COD_OBS = Column(String)
 
 class RegistroD697(Base):
-    __tablename__ = 'registro_d697'
+    __tablename__ = 'D697'
     ID_D697 = Column(Integer, primary_key=True)
     ID_D696 = Column(Integer)
     ID_D695 = Column(Integer)
@@ -2414,7 +2423,7 @@ class RegistroD697(Base):
     VL_ICMS = Column(Float)
 
 class RegistroD700(Base):
-    __tablename__ = 'registro_d700'
+    __tablename__ = 'D700'
     ID_D700 = Column(Integer, primary_key=True)
     ID_D600 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2451,7 +2460,7 @@ class RegistroD700(Base):
     COD_MUN_DEST = Column(String)
 
 class RegistroD730(Base):
-    __tablename__ = 'registro_d730'
+    __tablename__ = 'D730'
     ID_D730 = Column(Integer, primary_key=True)
     ID_D700 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2466,7 +2475,7 @@ class RegistroD730(Base):
     COD_OBS = Column(String)
 
 class RegistroD731(Base):
-    __tablename__ = 'registro_d731'
+    __tablename__ = 'D731'
     ID_D731 = Column(Integer, primary_key=True)
     ID_D700 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2474,7 +2483,7 @@ class RegistroD731(Base):
     VL_FCP_OP = Column(Float)
 
 class RegistroD735(Base):
-    __tablename__ = 'registro_d735'
+    __tablename__ = 'D735'
     ID_D735 = Column(Integer, primary_key=True)
     ID_D700 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2483,7 +2492,7 @@ class RegistroD735(Base):
     TXT_COMPL = Column(String)
 
 class RegistroD737(Base):
-    __tablename__ = 'registro_d737'
+    __tablename__ = 'D737'
     ID_D737 = Column(Integer, primary_key=True)
     ID_D735 = Column(Integer)
     ID_D700 = Column(Integer)
@@ -2498,7 +2507,7 @@ class RegistroD737(Base):
     VL_OUTROS = Column(Float)
 
 class RegistroD750(Base):
-    __tablename__ = 'registro_d750'
+    __tablename__ = 'D750'
     ID_D750 = Column(Integer, primary_key=True)
     ID_D700 = Column(Integer)
     ID_D001 = Column(Integer)
@@ -2520,7 +2529,7 @@ class RegistroD750(Base):
     VL_COFINS = Column(Float)
 
 class RegistroD760(Base):
-    __tablename__ = 'registro_d760'
+    __tablename__ = 'D760'
     ID_D760 = Column(Integer, primary_key=True)
     ID_D750 = Column(Integer)
     ID_D700 = Column(Integer)
@@ -2536,7 +2545,7 @@ class RegistroD760(Base):
     COD_OBS = Column(String)
 
 class RegistroD761(Base):
-    __tablename__ = 'registro_d761'
+    __tablename__ = 'D761'
     ID_D761 = Column(Integer, primary_key=True)
     ID_D760 = Column(Integer)
     ID_D750 = Column(Integer)
@@ -2546,7 +2555,7 @@ class RegistroD761(Base):
     VL_FCP_OP = Column(Float)
 
 class RegistroD990(Base):
-    __tablename__ = 'registro_d990'
+    __tablename__ = 'D990'
     ID_D990 = Column(Integer, primary_key=True)
     ID_D001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -2556,13 +2565,13 @@ class RegistroD990(Base):
 ########################## BLOCO E ##########################
 
 class RegistroE001(Base):
-    __tablename__ = 'registro_e001'
+    __tablename__ = 'E001'
     ID_E001 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     IND_MOV = Column(String)
 
 class RegistroE100(Base):
-    __tablename__ = 'registro_e100'
+    __tablename__ = 'E100'
     ID_E100 = Column(Integer, primary_key=True)
     ID_E001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -2570,7 +2579,7 @@ class RegistroE100(Base):
     DT_FIN = Column(String)
 
 class RegistroE110(Base):
-    __tablename__ = 'registro_e110'
+    __tablename__ = 'E110'
     ID_E110 = Column(Integer, primary_key=True)
     ID_E100 = Column(Integer)
     ID_E001 = Column(Integer)
@@ -2591,7 +2600,7 @@ class RegistroE110(Base):
     DEB_ESP = Column(Float)
 
 class RegistroE111(Base):
-    __tablename__ = 'registro_e111'
+    __tablename__ = 'E111'
     ID_E111 = Column(Integer, primary_key=True)
     ID_E110 = Column(Integer)
     ID_E100 = Column(Integer)
@@ -2602,7 +2611,7 @@ class RegistroE111(Base):
     VL_AJ_APUR = Column(Float)
 
 class RegistroE112(Base):
-    __tablename__ = 'registro_e112'
+    __tablename__ = 'E112'
     ID_E112 = Column(Integer, primary_key=True)
     ID_E111 = Column(Integer)
     ID_E110 = Column(Integer)
@@ -2616,7 +2625,7 @@ class RegistroE112(Base):
     TXT_COMPL = Column(String)
 
 class RegistroE113(Base):
-    __tablename__ = 'registro_e113'
+    __tablename__ = 'E113'
     ID_E113 = Column(Integer, primary_key=True)
     ID_E111 = Column(Integer)
     ID_E110 = Column(Integer)
@@ -2634,7 +2643,7 @@ class RegistroE113(Base):
     CHV_DOCe = Column(String)
 
 class RegistroE115(Base):
-    __tablename__ = 'registro_e115'
+    __tablename__ = 'E115'
     ID_E115 = Column(Integer, primary_key=True)
     ID_E110 = Column(Integer)
     ID_E100 = Column(Integer)
@@ -2645,7 +2654,7 @@ class RegistroE115(Base):
     DESCR_COMPL_AJ = Column(String)
 
 class RegistroE116(Base):
-    __tablename__ = 'registro_e116'
+    __tablename__ = 'E116'
     ID_E116 = Column(Integer, primary_key=True)
     ID_E110 = Column(Integer)
     ID_E100 = Column(Integer)
@@ -2662,7 +2671,7 @@ class RegistroE116(Base):
     MES_REF = Column(String)
 
 class RegistroE200(Base):
-    __tablename__ = 'registro_e200'
+    __tablename__ = 'E200'
     ID_E200 = Column(Integer, primary_key=True)
     ID_E001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -2671,7 +2680,7 @@ class RegistroE200(Base):
     DT_FIN = Column(Date)
 
 class RegistroE210(Base):
-    __tablename__ = 'registro_e210'
+    __tablename__ = 'E210'
     ID_E210 = Column(Integer, primary_key=True)
     ID_E200 = Column(Integer)
     ID_E001 = Column(Integer)
@@ -2693,7 +2702,7 @@ class RegistroE210(Base):
     DEB_ESP_ST = Column(Float)
 
 class RegistroE220(Base):
-    __tablename__ = 'registro_e220'
+    __tablename__ = 'E220'
     ID_E220 = Column(Integer, primary_key=True)
     ID_E210 = Column(Integer)
     ID_E100 = Column(Integer)
@@ -2704,7 +2713,7 @@ class RegistroE220(Base):
     VL_AJ_APUR = Column(Float)
 
 class RegistroE230(Base):
-    __tablename__ = 'registro_e230'
+    __tablename__ = 'E230'
     ID_E230 = Column(Integer, primary_key=True)
     ID_E220 = Column(Integer)
     ID_E210 = Column(Integer)
@@ -2718,7 +2727,7 @@ class RegistroE230(Base):
     TXT_COMPL = Column(String)
 
 class RegistroE240(Base):
-    __tablename__ = 'registro_e240'
+    __tablename__ = 'E240'
     ID_E240 = Column(Integer, primary_key=True)
     ID_E220 = Column(Integer)
     ID_E210 = Column(Integer)
@@ -2737,7 +2746,7 @@ class RegistroE240(Base):
 
 
 class RegistroE250(Base):
-    __tablename__ = 'registro_e250'
+    __tablename__ = 'E250'
     ID_E250 = Column(Integer, primary_key=True)
     ID_E210 = Column(Integer)
     ID_E200 = Column(Integer)
@@ -2754,7 +2763,7 @@ class RegistroE250(Base):
     MES_REF = Column(String)
 
 class RegistroE300(Base):
-    __tablename__ = 'registro_e300'
+    __tablename__ = 'E300'
     ID_E300 = Column(Integer, primary_key=True)
     ID_E001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -2763,7 +2772,7 @@ class RegistroE300(Base):
     DT_FIN = Column(Date)
 
 class RegistroE310(Base):
-    __tablename__ = 'registro_e310'
+    __tablename__ = 'E310'
     ID_E310 = Column(Integer, primary_key=True)
     ID_E300 = Column(Integer)
     ID_E001 = Column(Integer)
@@ -2791,7 +2800,7 @@ class RegistroE310(Base):
     DEB_ESP_FCP = Column(Float)
 
 class RegistroE311(Base):
-    __tablename__ = 'registro_e311'
+    __tablename__ = 'E311'
     ID_E311 = Column(Integer, primary_key=True)
     ID_E310 = Column(Integer)
     ID_E300 = Column(Integer)
@@ -2802,7 +2811,7 @@ class RegistroE311(Base):
     VL_AJ_APUR = Column(Float)
 
 class RegistroE312(Base):
-    __tablename__ = 'registro_e312'
+    __tablename__ = 'E312'
     ID_E312 = Column(Integer, primary_key=True)
     ID_E311 = Column(Integer)
     ID_E310 = Column(Integer)
@@ -2816,7 +2825,7 @@ class RegistroE312(Base):
     TXT_COMPL = Column(String)
 
 class RegistroE313(Base):
-    __tablename__ = 'registro_e313'
+    __tablename__ = 'E313'
     ID_E313 = Column(Integer, primary_key=True)
     ID_E311 = Column(Integer)
     ID_E310 = Column(Integer)
@@ -2834,7 +2843,7 @@ class RegistroE313(Base):
     VL_AJ_ITEM = Column(Float)
 
 class RegistroE316(Base):
-    __tablename__ = 'registro_e316'
+    __tablename__ = 'E316'
     ID_E316 = Column(Integer, primary_key=True)
     ID_E310 = Column(Integer)
     ID_E300 = Column(Integer)
@@ -2851,7 +2860,7 @@ class RegistroE316(Base):
     MES_REF = Column(String)
 
 class RegistroE500(Base):
-    __tablename__ = 'registro_e500'
+    __tablename__ = 'E500'
     ID_E500 = Column(Integer, primary_key=True)
     ID_E001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -2860,7 +2869,7 @@ class RegistroE500(Base):
     DT_FIN = Column(String)
 
 class RegistroE510(Base):
-    __tablename__ = 'registro_e510'
+    __tablename__ = 'E510'
     ID_E510 = Column(Integer, primary_key=True)
     ID_E500 = Column(Integer)
     ID_E001 = Column(Integer)
@@ -2872,7 +2881,7 @@ class RegistroE510(Base):
     VL_IPI = Column(Float)
 
 class RegistroE520(Base):
-    __tablename__ = 'registro_e520'
+    __tablename__ = 'E520'
     ID_E520 = Column(Integer, primary_key=True)
     ID_E500 = Column(Integer)
     ID_E001 = Column(Integer)
@@ -2886,7 +2895,7 @@ class RegistroE520(Base):
     VL_SD_IPI = Column(Float)
 
 class RegistroE530(Base):
-    __tablename__ = 'registro_e530'
+    __tablename__ = 'E530'
     ID_E530 = Column(Integer, primary_key=True)
     ID_E520 = Column(Integer)
     ID_E500 = Column(Integer)
@@ -2900,7 +2909,7 @@ class RegistroE530(Base):
     DESCR_AJ = Column(String)
 
 class RegistroE531(Base):
-    __tablename__ = 'registro_e531'
+    __tablename__ = 'E531'
     ID_E531 = Column(Integer, primary_key=True)
     ID_E530 = Column(Integer)
     ID_E520 = Column(Integer)
@@ -2918,7 +2927,7 @@ class RegistroE531(Base):
     CHV_NFE = Column(String)
 
 class RegistroE990(Base):
-    __tablename__ = 'registro_e990'
+    __tablename__ = 'E990'
     ID_E990 = Column(Integer, primary_key=True)
     ID_E001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -2929,13 +2938,13 @@ class RegistroE990(Base):
 
 
 class RegistroG001(Base):
-    __tablename__ = 'registro_g001'
+    __tablename__ = 'G001'
     ID_G001 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     IND_MOV = Column(Integer)
 
 class RegistroG110(Base):
-    __tablename__ = 'registro_g110'
+    __tablename__ = 'G110'
     ID_G110 = Column(Integer, primary_key=True)
     ID_G001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -2950,7 +2959,7 @@ class RegistroG110(Base):
     SOM_ICMS_OC = Column(Float)
 
 class RegistroG125(Base):
-    __tablename__ = 'registro_g125'
+    __tablename__ = 'G125'
     ID_G125 = Column(Integer, primary_key=True)
     ID_G110 = Column(Integer)
     ID_G001 = Column(Integer)
@@ -2966,7 +2975,7 @@ class RegistroG125(Base):
     VL_PARC_PASS = Column(Float)
 
 class RegistroG126(Base):
-    __tablename__ = 'registro_g126'
+    __tablename__ = 'G126'
     ID_G126 = Column(Integer, primary_key=True)
     ID_G125 = Column(Integer)
     ID_G110 = Column(Integer)
@@ -2982,7 +2991,7 @@ class RegistroG126(Base):
     VL_PARC_APROP = Column(Float)
 
 class RegistroG130(Base):
-    __tablename__ = 'registro_g130'
+    __tablename__ = 'G130'
     ID_G130 = Column(Integer, primary_key=True)
     ID_G125 = Column(Integer)
     ID_G110 = Column(Integer)
@@ -2998,7 +3007,7 @@ class RegistroG130(Base):
     NUM_DA = Column(String)
 
 class RegistroG140(Base):
-    __tablename__ = 'registro_g140'
+    __tablename__ = 'G140'
     ID_G140 = Column(Integer, primary_key=True)
     ID_G130 = Column(Integer)
     ID_G125 = Column(Integer)
@@ -3015,7 +3024,7 @@ class RegistroG140(Base):
     VL_ICMS_DIF_APLICADO = Column(Float)
 
 class RegistroG990(Base):
-    __tablename__ = 'registro_g990'
+    __tablename__ = 'G990'
     ID_G990 = Column(Integer, primary_key=True)
     ID_G001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3025,14 +3034,14 @@ class RegistroG990(Base):
 ########################## BLOCO H ##########################
 
 class RegistroH001(Base):
-    __tablename__ = 'registro_h001'
+    __tablename__ = 'H001'
     ID_H001 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     REG = Column(String)
     IND_MOV = Column(String)
 
 class RegistroH005(Base):
-    __tablename__ = 'registro_h005'
+    __tablename__ = 'H005'
     ID_H005 = Column(Integer, primary_key=True)
     ID_H001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3042,7 +3051,7 @@ class RegistroH005(Base):
     MOT_INV = Column(String)
 
 class RegistroH010(Base):
-    __tablename__ = 'registro_h010'
+    __tablename__ = 'H010'
     ID_H010 = Column(Integer, primary_key=True)
     ID_H005 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3059,7 +3068,7 @@ class RegistroH010(Base):
     VL_ITEM_IR = Column(Float)
 
 class RegistroH020(Base):
-    __tablename__ = 'registro_h020'
+    __tablename__ = 'H020'
     ID_H020 = Column(Integer, primary_key=True)
     ID_H010 = Column(Integer)
     ID_H005 = Column(Integer)
@@ -3070,7 +3079,7 @@ class RegistroH020(Base):
     VL_ICMS = Column(Float)
 
 class RegistroH030(Base):
-    __tablename__ = 'registro_h030'
+    __tablename__ = 'H030'
     ID_H030 = Column(Integer, primary_key=True)
     ID_H010 = Column(Integer)
     ID_H005 = Column(Integer)
@@ -3082,7 +3091,7 @@ class RegistroH030(Base):
     VL_FCP = Column(Float)
 
 class RegistroH990(Base):
-    __tablename__ = 'registro_h990'
+    __tablename__ = 'H990'
     ID_H990 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     QTD_LIN_H = Column(Integer)
@@ -3092,20 +3101,20 @@ class RegistroH990(Base):
 
 
 class RegistroK001(Base):
-    __tablename__ = 'registro_k001'
+    __tablename__ = 'K001'
     ID_K001 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     IND_MOV = Column(String)
 
 class RegistroK010(Base):
-    __tablename__ = 'registro_k010'
+    __tablename__ = 'K010'
     ID_K010 = Column(Integer, primary_key=True)
     ID_K001 = Column(Integer)
     ID_0000 = Column(Integer)
     IND_TP_LEIAUTE = Column(String)
 
 class RegistroK100(Base):
-    __tablename__ = 'registro_k100'
+    __tablename__ = 'K100'
     ID_K100 = Column(Integer, primary_key=True)
     ID_K001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3113,7 +3122,7 @@ class RegistroK100(Base):
     DT_FIN = Column(String)
 
 class RegistroK200(Base):
-    __tablename__ = 'registro_k200'
+    __tablename__ = 'K200'
     ID_K200 = Column(Integer, primary_key=True)
     ID_K100 = Column(Integer)
     ID_K001 = Column(Integer)
@@ -3125,7 +3134,7 @@ class RegistroK200(Base):
     COD_PART = Column(String)
 
 class RegistroK210(Base):
-    __tablename__ = 'registro_k210'
+    __tablename__ = 'K210'
     ID_K210 = Column(Integer, primary_key=True)
     ID_K100 = Column(Integer)
     ID_K001 = Column(Integer)
@@ -3137,7 +3146,7 @@ class RegistroK210(Base):
     QTD_ORI = Column(Float)
 
 class RegistroK215(Base):
-    __tablename__ = 'registro_k215'
+    __tablename__ = 'K215'
     ID_K215 = Column(Integer, primary_key=True)
     ID_K210 = Column(Integer)
     ID_K100 = Column(Integer)
@@ -3147,7 +3156,7 @@ class RegistroK215(Base):
     QTD_DES = Column(Float)
 
 class RegistroK220(Base):
-    __tablename__ = 'registro_k220'
+    __tablename__ = 'K220'
     ID_K220 = Column(Integer, primary_key=True)
     ID_K100 = Column(Integer)
     ID_K001 = Column(Integer)
@@ -3159,7 +3168,7 @@ class RegistroK220(Base):
     QTD_DEST = Column(Float)
 
 class RegistroK230(Base):
-    __tablename__ = 'registro_k230'
+    __tablename__ = 'K230'
     ID_K230 = Column(Integer, primary_key=True)
     ID_K100 = Column(Integer)
     ID_K001 = Column(Integer)
@@ -3171,7 +3180,7 @@ class RegistroK230(Base):
     QTD_ENC = Column(Float)
 
 class RegistroK235(Base):
-    __tablename__ = 'registro_k235'
+    __tablename__ = 'K235'
     ID_K235 = Column(Integer, primary_key=True)
     ID_K230 = Column(Integer)
     ID_K100 = Column(Integer)
@@ -3183,7 +3192,7 @@ class RegistroK235(Base):
     COD_INS_SUBST = Column(String)
 
 class RegistroK250(Base):
-    __tablename__ = 'registro_k250'
+    __tablename__ = 'K250'
     ID_K250 = Column(Integer, primary_key=True)
     ID_K100 = Column(Integer)
     ID_K001 = Column(Integer)
@@ -3193,7 +3202,7 @@ class RegistroK250(Base):
     QTD = Column(Float)
 
 class RegistroK255(Base):
-    __tablename__ = 'registro_k255'
+    __tablename__ = 'K255'
     ID_K255 = Column(Integer, primary_key=True)
     ID_K250 = Column(Integer)
     ID_K100 = Column(Integer)
@@ -3205,7 +3214,7 @@ class RegistroK255(Base):
     COD_INS_SUBST = Column(String)
 
 class RegistroK260(Base):
-    __tablename__ = 'registro_k260'
+    __tablename__ = 'K260'
     ID_K260 = Column(Integer, primary_key=True)
     ID_K100 = Column(Integer)
     ID_K001 = Column(Integer)
@@ -3216,7 +3225,7 @@ class RegistroK260(Base):
     DT_RET = Column(Date)
 
 class RegistroK265(Base):
-    __tablename__ = 'registro_k265'
+    __tablename__ = 'K265'
     ID_K265 = Column(Integer, primary_key=True)
     ID_K260 = Column(Integer)
     ID_K100 = Column(Integer)
@@ -3227,7 +3236,7 @@ class RegistroK265(Base):
     QTD_RET = Column(Float)
 
 class RegistroK270(Base):
-    __tablename__ = 'registro_k270'
+    __tablename__ = 'K270'
     ID_K270 = Column(Integer, primary_key=True)
     ID_K100 = Column(Integer)
     ID_K001 = Column(Integer)
@@ -3241,7 +3250,7 @@ class RegistroK270(Base):
     ORIGEM = Column(Integer)
 
 class RegistroK275(Base):
-    __tablename__ = 'registro_k275'
+    __tablename__ = 'K275'
     ID_K275 = Column(Integer, primary_key=True)
     ID_K270 = Column(Integer)
     ID_K100 = Column(Integer)
@@ -3253,7 +3262,7 @@ class RegistroK275(Base):
     COD_INS_SUBST = Column(String)
 
 class RegistroK280(Base):
-    __tablename__ = 'registro_k280'
+    __tablename__ = 'K280'
     ID_K280 = Column(Integer, primary_key=True)
     ID_K100 = Column(Integer)
     ID_K001 = Column(Integer)
@@ -3266,7 +3275,7 @@ class RegistroK280(Base):
     COD_PART = Column(String)
 
 class RegistroK290(Base):
-    __tablename__ = 'registro_k290'
+    __tablename__ = 'K290'
     ID_K290 = Column(Integer, primary_key=True)
     ID_K100 = Column(Integer)
     ID_K001 = Column(Integer)
@@ -3275,7 +3284,7 @@ class RegistroK290(Base):
     QTD = Column(Float)
 
 class RegistroK291(Base):
-    __tablename__ = 'registro_k291'
+    __tablename__ = 'K291'
     ID_K291 = Column(Integer, primary_key=True)
     ID_K290 = Column(Integer)
     ID_K100 = Column(Integer)
@@ -3285,7 +3294,7 @@ class RegistroK291(Base):
     QTD = Column(Float)
 
 class RegistroK292(Base):
-    __tablename__ = 'registro_k292'
+    __tablename__ = 'K292'
     ID_K292 = Column(Integer, primary_key=True)
     ID_K290 = Column(Integer)
     ID_K100 = Column(Integer)
@@ -3295,7 +3304,7 @@ class RegistroK292(Base):
     QTD = Column(Float)
 
 class RegistroK300(Base):
-    __tablename__ = 'registro_k300'
+    __tablename__ = 'K300'
     ID_K300 = Column(Integer, primary_key=True)
     ID_K100 = Column(Integer)
     ID_K001 = Column(Integer)
@@ -3303,7 +3312,7 @@ class RegistroK300(Base):
     DT_PROD = Column(Date)
 
 class RegistroK301(Base):
-    __tablename__ = 'registro_k301'
+    __tablename__ = 'K301'
     ID_K301 = Column(Integer, primary_key=True)
     ID_K300 = Column(Integer)
     ID_K100 = Column(Integer)
@@ -3313,7 +3322,7 @@ class RegistroK301(Base):
     QTD = Column(Float)
 
 class RegistroK302(Base):
-    __tablename__ = 'registro_k302'
+    __tablename__ = 'K302'
     ID_K302 = Column(Integer, primary_key=True)
     ID_K300 = Column(Integer)
     ID_K100 = Column(Integer)
@@ -3323,7 +3332,7 @@ class RegistroK302(Base):
     QTD = Column(Float)
 
 class RegistroK990(Base):
-    __tablename__ = 'registro_k990'
+    __tablename__ = 'K990'
     ID_K990 = Column(Integer, primary_key=True)
     ID_K001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3333,14 +3342,14 @@ class RegistroK990(Base):
 ########################## BLOCO 1 ##########################
 
 class Registro1001(Base):
-    __tablename__ = 'registro_1001'
+    __tablename__ = 'INFO1001'
     ID_1001 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     IND_MOV = Column(Integer)
 
 
 class Registro1010(Base):
-    __tablename__ = 'registro_1010'
+    __tablename__ = 'INFO1010'
     ID_1010 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3359,7 +3368,7 @@ class Registro1010(Base):
     IND_REST_RESSARC_COMPL_ICMS = Column(String)
 
 class Registro1100(Base):
-    __tablename__ = 'registro_1100'
+    __tablename__ = 'INFO1100'
     ID_1100 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3376,7 +3385,7 @@ class Registro1100(Base):
     PAIS = Column(String)
 
 class Registro1105(Base):
-    __tablename__ = 'registro_1105'
+    __tablename__ = 'INFO1105'
     ID_1105 = Column(Integer, primary_key=True)
     ID_1100 = Column(Integer)
     ID_1001 = Column(Integer)
@@ -3389,7 +3398,7 @@ class Registro1105(Base):
     COD_ITEM = Column(String)
 
 class Registro1110(Base):
-    __tablename__ = 'registro_1110'
+    __tablename__ = 'INFO1110'
     ID_1110 = Column(Integer, primary_key=True)
     ID_1105 = Column(Integer)
     ID_1100 = Column(Integer)
@@ -3406,7 +3415,7 @@ class Registro1110(Base):
     UNID = Column(String)
 
 class Registro1200(Base):
-    __tablename__ = 'registro_1200'
+    __tablename__ = 'INFO1200'
     ID_1200 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3418,7 +3427,7 @@ class Registro1200(Base):
     SLD_CRED_FIM = Column(Float)
 
 class Registro1210(Base):
-    __tablename__ = 'registro_1210'
+    __tablename__ = 'INFO1210'
     ID_1210 = Column(Integer, primary_key=True)
     ID_1200 = Column(Integer)
     ID_1001 = Column(Integer)
@@ -3429,7 +3438,7 @@ class Registro1210(Base):
     CHV_DOCe = Column(String)
 
 class Registro1250(Base):
-    __tablename__ = 'registro_1250'
+    __tablename__ = 'INFO1250'
     ID_1250 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3440,7 +3449,7 @@ class Registro1250(Base):
     VL_FCP_ST_COMPL = Column(Float)
 
 class Registro1255(Base):
-    __tablename__ = 'registro_1255'
+    __tablename__ = 'INFO1255'
     ID_1255 = Column(Integer, primary_key=True)
     ID_1250 = Column(Integer)
     ID_1001 = Column(Integer)
@@ -3453,7 +3462,7 @@ class Registro1255(Base):
     VL_FCP_ST_COMPL_MOT = Column(Float)
 
 class Registro1300(Base):
-    __tablename__ = 'registro_1300'
+    __tablename__ = 'INFO1300'
     ID_1300 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3469,7 +3478,7 @@ class Registro1300(Base):
     FECH_FISICO = Column(Float)
 
 class Registro1310(Base):
-    __tablename__ = 'registro_1310'
+    __tablename__ = 'INFO1310'
     ID_1310 = Column(Integer, primary_key=True)
     ID_1300 = Column(Integer)
     ID_1001 = Column(Integer)
@@ -3485,7 +3494,7 @@ class Registro1310(Base):
     FECH_FISICO = Column(Float)
 
 class Registro1320(Base):
-    __tablename__ = 'registro_1320'
+    __tablename__ = 'INFO1320'
     ID_1320 = Column(Integer, primary_key=True)
     ID_1310 = Column(Integer)
     ID_1300 = Column(Integer)
@@ -3503,7 +3512,7 @@ class Registro1320(Base):
     VOL_VENDAS = Column(Float)
 
 class Registro1350(Base):
-    __tablename__ = 'registro_1350'
+    __tablename__ = 'INFO1350'
     ID_1350 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3513,7 +3522,7 @@ class Registro1350(Base):
     TIPO_MEDICAO = Column(Integer)
 
 class Registro1360(Base):
-    __tablename__ = 'registro_1360'
+    __tablename__ = 'INFO1360'
     ID_1360 = Column(Integer, primary_key=True)
     ID_1350 = Column(Integer)
     ID_1001 = Column(Integer)
@@ -3522,7 +3531,7 @@ class Registro1360(Base):
     DT_APLICACAO = Column(String)
 
 class Registro1370(Base):
-    __tablename__ = 'registro_1370'
+    __tablename__ = 'INFO1370'
     ID_1370 = Column(Integer, primary_key=True)
     ID_1350 = Column(Integer)
     ID_1001 = Column(Integer)
@@ -3532,14 +3541,14 @@ class Registro1370(Base):
     NUM_TANQUE = Column(Integer)
 
 class Registro1390(Base):
-    __tablename__ = 'registro_1390'
+    __tablename__ = 'INFO1390'
     ID_1390 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
     COD_PROD = Column(String)
 
 class Registro1391(Base):
-    __tablename__ = 'registro_1391'
+    __tablename__ = 'INFO1391'
     ID_1391 = Column(Integer, primary_key=True)
     ID_1390 = Column(Integer)
     ID_1001 = Column(Integer)
@@ -3568,7 +3577,7 @@ class Registro1391(Base):
     QTD_RESIDUO_CANA = Column(Float)
 
 class Registro1400(Base):
-    __tablename__ = 'registro_1400'
+    __tablename__ = 'INFO1400'
     ID_1400 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_1001 = Column(Integer)
@@ -3577,7 +3586,7 @@ class Registro1400(Base):
     VALOR = Column(Float)
 
 class Registro1500(Base):
-    __tablename__ = 'registro_1500'
+    __tablename__ = 'INFO1500'
     ID_1500 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     ID_1001 = Column(Integer)
@@ -3609,7 +3618,7 @@ class Registro1500(Base):
     COD_GRUPO_TENSAO = Column(Integer)
 
 class Registro1510(Base):
-    __tablename__ = 'registro_1510'
+    __tablename__ = 'INFO1510'
     ID_1510 = Column(Integer, primary_key=True)
     ID_1500 = Column(Integer)
     ID_1001 = Column(Integer)
@@ -3635,7 +3644,7 @@ class Registro1510(Base):
     COD_CTA = Column(String)
 
 class Registro1600(Base):
-    __tablename__ = 'registro_1600'
+    __tablename__ = 'INFO1600'
     ID_1600 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3643,7 +3652,7 @@ class Registro1600(Base):
     TOT_CREDITO = Column(Float)
     
 class Registro1601(Base):
-    __tablename__ = 'registro_1601'
+    __tablename__ = 'INFO1601'
     ID_1601 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3654,7 +3663,7 @@ class Registro1601(Base):
     TOT_OUTROS = Column(Float)
 
 class Registro1700(Base):
-    __tablename__ = 'registro_1700'
+    __tablename__ = 'INFO1700'
     ID_1700 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3668,7 +3677,7 @@ class Registro1700(Base):
 
 
 class Registro1710(Base):
-    __tablename__ = 'registro_1710'
+    __tablename__ = 'INFO1710'
     ID_1710 = Column(Integer, primary_key=True)
     ID_1700 = Column(Integer)
     ID_1001 = Column(Integer)
@@ -3678,7 +3687,7 @@ class Registro1710(Base):
 
 
 class Registro1800(Base):
-    __tablename__ = 'registro_1800'
+    __tablename__ = 'INFO1800'
     ID_1800 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3693,7 +3702,7 @@ class Registro1800(Base):
     VL_DIF = Column(Float)
 
 class Registro1900(Base):
-    __tablename__ = 'registro_1900'
+    __tablename__ = 'INFO1900'
     ID_1900 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3701,7 +3710,7 @@ class Registro1900(Base):
     DESCR_COMPL_OUT_APUR = Column(String)
 
 class Registro1910(Base):
-    __tablename__ = 'registro_1910'
+    __tablename__ = 'INFO1910'
     ID_1910 = Column(Integer, primary_key=True)
     ID_1900 = Column(Integer)
     ID_1001 = Column(Integer)
@@ -3710,7 +3719,7 @@ class Registro1910(Base):
     DT_FIN = Column(Date)
 
 class Registro1920(Base):
-    __tablename__ = 'registro_1920'
+    __tablename__ = 'INFO1920'
     ID_1920 = Column(Integer, primary_key=True)
     ID_1910 = Column(Integer)
     ID_1900 = Column(Integer)
@@ -3730,7 +3739,7 @@ class Registro1920(Base):
     DEB_ESP_OA = Column(Float)
 
 class Registro1921(Base):
-    __tablename__ = 'registro_1921'
+    __tablename__ = 'INFO1921'
     ID_1921 = Column(Integer, primary_key=True)
     ID_1920 = Column(Integer)
     ID_1910 = Column(Integer)
@@ -3742,7 +3751,7 @@ class Registro1921(Base):
     VL_AJ_APUR = Column(Float)
 
 class Registro1922(Base):
-    __tablename__ = 'registro_1922'
+    __tablename__ = 'INFO1922'
     ID_1922 = Column(Integer, primary_key=True)
     ID_1921 = Column(Integer)
     ID_1920 = Column(Integer)
@@ -3757,7 +3766,7 @@ class Registro1922(Base):
     TXT_COMPL = Column(String)
 
 class Registro1923(Base):
-    __tablename__ = 'registro_1923'
+    __tablename__ = 'INFO1923'
     ID_1923 = Column(Integer, primary_key=True)
     ID_1921 = Column(Integer)
     ID_1920 = Column(Integer)
@@ -3776,7 +3785,7 @@ class Registro1923(Base):
     CHV_DOCe = Column(String)
 
 class Registro1925(Base):
-    __tablename__ = 'registro_1925'
+    __tablename__ = 'INFO1925'
     ID_1925 = Column(Integer, primary_key=True)
     ID_1920 = Column(Integer)
     ID_1910 = Column(Integer)
@@ -3788,7 +3797,7 @@ class Registro1925(Base):
     DESCR_COMPL_AJ = Column(String)
 
 class Registro1926(Base):
-    __tablename__ = 'registro_1926'
+    __tablename__ = 'INFO1926'
     ID_1926 = Column(Integer, primary_key=True)
     ID_1920 = Column(Integer)
     ID_1910 = Column(Integer)
@@ -3806,7 +3815,7 @@ class Registro1926(Base):
     MES_REF = Column(String)
 
 class Registro1960(Base):
-    __tablename__ = 'registro_1960'
+    __tablename__ = 'INFO1960'
     ID_1960 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3824,7 +3833,7 @@ class Registro1960(Base):
     G1_11 = Column(Float)
 
 class Registro1970(Base):
-    __tablename__ = 'registro_1970'
+    __tablename__ = 'INFO1970'
     ID_1970 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3844,7 +3853,7 @@ class Registro1970(Base):
 
 
 class Registro1975(Base):
-    __tablename__ = 'registro_1975'
+    __tablename__ = 'INFO1975'
     ID_1975 = Column(Integer, primary_key=True)
     ID_1970 = Column(Integer)
     ID_1001 = Column(Integer)
@@ -3853,7 +3862,7 @@ class Registro1975(Base):
 
 
 class Registro1980(Base):
-    __tablename__ = 'registro_1980'
+    __tablename__ = 'INFO1980'
     ID_1980 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3874,7 +3883,7 @@ class Registro1980(Base):
     G4_14 = Column(Float)
 
 class Registro1990(Base):
-    __tablename__ = 'registro_1990'
+    __tablename__ = 'INFO1990'
     ID_1990 = Column(Integer, primary_key=True)
     ID_1001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3883,13 +3892,13 @@ class Registro1990(Base):
 ########################## BLOCO 9 ##########################
 
 class Registro9001(Base):
-    __tablename__ = 'registro_9001'
+    __tablename__ = 'INFO9001'
     ID_9001 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     IND_MOV = Column(Integer)
 
 class Registro9900(Base):
-    __tablename__ = 'registro_9900'
+    __tablename__ = 'INFO9900'
     ID_9900 = Column(Integer, primary_key=True)
     ID_9001 = Column(Integer)
     ID_0000 = Column(Integer)
@@ -3897,14 +3906,14 @@ class Registro9900(Base):
     QTD_REG_BLC = Column(Integer)
 
 class Registro9990(Base):
-    __tablename__ = 'registro_9990'
+    __tablename__ = 'INFO9990'
     ID_9990 = Column(Integer, primary_key=True)
     ID_9001 = Column(Integer)
     ID_0000 = Column(Integer)
     QTD_LIN_9 = Column(Integer)
 
 class Registro9999(Base):
-    __tablename__ = 'registro_9999'
+    __tablename__ = 'INFO9999'
     ID_9999 = Column(Integer, primary_key=True)
     ID_0000 = Column(Integer)
     QTD_LIN = Column(Integer)
