@@ -1033,13 +1033,11 @@ class DadosParametrizados:
     def BuscarGtin():
         endereco = r'parametrizacoes\GTIN.csv'
         temp1 = pd.read_csv(endereco, dtype={'GTIN': str, 'CLASSE': str})
-        temp1.drop_duplicates(subset=['GTIN'], inplace=True, keep='first')
         return temp1 
     
     def BuscarNcmParametrizados():
         endereco = r'parametrizacoes\NCMs PARAMETRIZADAS.csv'
         df = pd.read_csv(endereco, usecols = ['NCM', 'PARAMETRIZAÇÃO'], dtype={'NCM': str, 'PARAMETRIZAÇÃO': str})
-        df.drop_duplicates(subset=['NCM'], inplace=True, keep='first')
         return df
     
 
