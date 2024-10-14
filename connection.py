@@ -60,6 +60,9 @@ class DocumentacaoAuditoria:
         doc_usado.to_excel(doc, sheet_name='GIM', index=False)
         doc.close()
 
+        # Adicionando "cache" de memória secundária
+        self.path = path 
+
 
 
 
@@ -254,10 +257,13 @@ class DadosEscriturais:
                 """
 
         def retrieve(self):
-            with oracledb.connect(user=user, password=pw, dsn=dns_tns) as connection:
-                gim = pd.read_sql_query(self.query, con=connection)
-            
-            return gim 
+            try:    # Verificando se há dado importado na memória secundária
+                return pd.read_excel(self.path)
+            except:
+                with oracledb.connect(user=user, password=pw, dsn=dns_tns) as connection:
+                    gim = pd.read_sql_query(self.query, con=connection)
+                
+                return gim 
     
 
     def BuscarObrigatoriedade(cgf, data_inicio, data_fim):
@@ -322,7 +328,10 @@ class DadosCadastrais(DocumentacaoAuditoria):
                                 CONINSCNPJ2 = '{cnpj}'"""
             
         def retrieve(self):
-            return extrair_df(self.query)
+            try:    # Verificando se há dado importado na memória secundária
+                return pd.read_excel(self.path)
+            except:
+                return extrair_df(self.query)
     
     class HistoricoCadastroEstadual(DocumentacaoAuditoria):
         """ Classe que retorna o Histórico do Cadastro Geral Fazendário Estadual da empresa """
@@ -361,7 +370,11 @@ class DadosCadastrais(DocumentacaoAuditoria):
                                 AND HCONINSCNP2 = '{cnpj}'"""
         
         def retrieve(self):
-            cadastro_historico = extrair_df(self.query)
+            try:    # Verificando se há dado importado na memória secundária
+                cadastro_historico = pd.read_excel(self.path)
+            except:
+                cadastro_historico = extrair_df(self.query)
+
             cadastro_historico.sort_values(by='SequenciaHistorico', inplace=True)
             cadastro_historico['DataAlteracaoAnterior'] = cadastro_historico['DataAlteracao'].shift(1)
             cadastro_historico['SituacaoCadastralAnterior'] = cadastro_historico['SituacaoCadastral'].shift(1)
@@ -398,7 +411,10 @@ class DadosDebitos:
                     """
             
         def retrieve(self):
-            return extrair_df(self.query)
+            try:    # Verificando se há dado importado na memória secundária
+                return pd.read_excel(self.path)
+            except:
+                return extrair_df(self.query)
 
         def BuscarJustificativa(codigos: tuple):
 
@@ -445,7 +461,10 @@ class DadosDebitos:
                 ORDER BY ANO desc, MES desc"""
         
         def retrieve(self):
-            return extrair_df(self.query)
+            try:    # Verificando se há dado importado na memória secundária
+                return pd.read_excel(self.path)
+            except:
+                return extrair_df(self.query)
 
 
 class DadosOperacoes:
@@ -751,15 +770,19 @@ class DadosOperacoes:
                 
         def retrieve(self):
             dtypes = {'CFOP.ITEM': str}
-            df = pd.DataFrame()
-            for query in self.queries:
-                temp = extrair_df_de_lobs(query)
-                df = pd.concat([df, temp])
+            try:    # Verificando se há dado importado na memória secundária
+                return pd.read_excel(self.path, dtype=dtypes)
+            except:
+                dtypes = {'CFOP.ITEM': str}
+                df = pd.DataFrame()
+                for query in self.queries:
+                    temp = extrair_df_de_lobs(query)
+                    df = pd.concat([df, temp])
 
-            for col, tipo in dtypes.items():
-                df[col] = df[col].astype(tipo)
+                for col, tipo in dtypes.items():
+                    df[col] = df[col].astype(tipo)
 
-            return df
+                return df
     
         def quantidade(self):
             query = f""" SELECT 
@@ -1056,15 +1079,19 @@ class DadosOperacoes:
                 
         def retrieve(self):
             dtypes = {'CFOP.ITEM': str}
-            df = pd.DataFrame()
-            for query in self.queries:
-                temp = extrair_df_de_lobs(query)
-                df = pd.concat([df, temp])
+            try:    # Verificando se há dado importado na memória secundária
+                return pd.read_excel(self.path, dtype=dtypes)
+            except:
+                dtypes = {'CFOP.ITEM': str}
+                df = pd.DataFrame()
+                for query in self.queries:
+                    temp = extrair_df_de_lobs(query)
+                    df = pd.concat([df, temp])
 
-            for col, tipo in dtypes.items():
-                df[col] = df[col].astype(tipo)
+                for col, tipo in dtypes.items():
+                    df[col] = df[col].astype(tipo)
 
-            return df
+                return df
 
         def quantidade(self):
             query = f""" SELECT 
@@ -1214,11 +1241,14 @@ class DadosOperacoes:
             self.queries.append(query)
      
         def retrieve(self):
-            df = pd.DataFrame()
-            for query in self.queries:
-                temp = extrair_df_de_lobs(query)
-                df = pd.concat([df, temp])
-            return df
+            try:    # Verificando se há dado importado na memória secundária
+                return pd.read_excel(self.path)
+            except:
+                df = pd.DataFrame()
+                for query in self.queries:
+                    temp = extrair_df_de_lobs(query)
+                    df = pd.concat([df, temp])
+                return df
     
         def quantidade(self):
             query = f""" SELECT 
@@ -1259,11 +1289,14 @@ class DadosOperacoes:
                 inicial += 1000
         
         def retrieve(self):
-            df = pd.DataFrame()
-            for query in self.queries:
-                temp = extrair_df_de_lobs(query)
-                df = pd.concat([df, temp])
-            return df 
+            try:    # Verificando se há dado importado na memória secundária
+                return pd.read_excel(self.path)
+            except:
+                df = pd.DataFrame()
+                for query in self.queries:
+                    temp = extrair_df_de_lobs(query)
+                    df = pd.concat([df, temp])
+                return df 
     
     class EventosNotasConsumidor(DocumentacaoAuditoria):
         
@@ -1294,11 +1327,14 @@ class DadosOperacoes:
                 inicial += 1000
         
         def retrieve(self):
-            df = pd.DataFrame()
-            for query in self.queries:
-                temp = extrair_df_de_lobs(query)
-                df = pd.concat([df, temp])
-            return df 
+            try:    # Verificando se há dado importado na memória secundária
+                return pd.read_excel(self.path)
+            except:
+                df = pd.DataFrame()
+                for query in self.queries:
+                    temp = extrair_df_de_lobs(query)
+                    df = pd.concat([df, temp])
+                return df 
              
     class EventosDesembaraco(DocumentacaoAuditoria):
         
@@ -1321,11 +1357,14 @@ class DadosOperacoes:
                 inicial += 1000
         
         def retrieve(self):
-            df = pd.DataFrame()
-            for query in self.queries:
-                temp = extrair_df_de_lobs(query)
-                df = pd.concat([df, temp])
-            return df 
+            try:    # Verificando se há dado importado na memória secundária
+                return pd.read_excel(self.path)
+            except:
+                df = pd.DataFrame()
+                for query in self.queries:
+                    temp = extrair_df_de_lobs(query)
+                    df = pd.concat([df, temp])
+                return df 
 
 
 class DadosParametrizados:
