@@ -470,9 +470,6 @@ class DadosDebitos:
 class DadosOperacoes:
     """ Classe para armazenar subclasses (documentos fiscais) e eventos, extraídos do banco de dados """
     
-
-
-
     class NotasFiscaisEntrada(DocumentacaoAuditoria):
         """ Classe para importar apenas notas fiscais de entrada """
         def __init__(self, cnpj, data_inicio, data_fim):
@@ -801,7 +798,52 @@ class DadosOperacoes:
                     """
             return extrair_df(query)
 
+        def BuscarProdutosPorNotas(self, chv_acc):
+            
+            self.queries_fronteira = []
+            inicial = 0
 
+            while inicial < len(chv_acc):
+                final = min(inicial+1000, len(chv_acc))
+                query = f"""        
+                            SELECT
+                                PRD.DANF          "CHAVE",
+                                PRD.NFEPNITEM     "NUM_ITEM",
+                                PRD.NFEPORIG      "ORIGEM_MERC",
+                                PASP.TMPCLASSE    "CLASSE_FRONTEIRA",
+                                PRD.NFEPEAN       "GTIN_PRD",
+                                PRD.NFEPNCM       "NCM_PRD",  
+                                PRD.NFEPCFOP      "CFOP_ITEM",
+                                PRD.NFEPCST       "CST_NOTA",
+                                PRD.NFEPVICMS     "VALOR_ICMS_NOTA",
+                                PASP.TMPVICMSD    "VALOR_ICMS_DES_NOTA",
+                                PASP.TMPVST       "VALOR_ICMS_ST_NOTA" 
+                                 
+
+                            FROM 
+                                SIATE.NFEPRD PRD 
+                                    LEFT JOIN SIATE.FTMPASN PASN ON (PRD.DANF = PASN.TMDANF),
+                                    LEFT JOIN SIATE.FTMPASP PASP ON (PASN.TMPASSE = PASN.TMPASSE AND PASN.TMNSEQ  = PASP.TMNSEQ AND PRD.NFEPNITEM = PASP.TMPNITEM)
+
+                            WHERE 
+                                1=1
+
+                                AND PRD.DANF IN ({tuple(chv_acc[inicial:final])})
+                        """
+                inicial += 1000
+                self.queries_fronteira.append(query)  
+            
+            for query in self.queries_fronteira:
+                dtypes = {'CHAVE': str, 'CFOP_NOTA': str, 'NUM_ITEM': int, 'ORIGEM_MERC': str,'CLASSE_FRONTEIRA': str, 'GTIN_PRD': str, 'NCM_PRD': str, 'CFOP_ITEM': str, 'CST_NOTA': str,'VALOR_ICMS_NOTA': float, 'VALOR_ICMS_DES_NOTA': float, 'VALOR_ICMS_ST_NOTA': float}
+                df = pd.DataFrame()
+                for query in self.queries:
+                    temp = extrair_df_de_lobs(query)
+                    df = pd.concat([df, temp])
+                for col, tipo in dtypes.items():
+                    df[col] = df[col].astype(tipo)
+
+                return df
+            
 
     class NotasFiscaisSaida(DocumentacaoAuditoria):
         """ Classe para importar Notas Fiscais de Saída. Não inclui notas fiscais ao consumidor (NFC-e)"""
@@ -1385,6 +1427,77 @@ class DadosParametrizados:
         df = pd.read_csv(endereco, usecols = ['NCM', 'PARAMETRIZAÇÃO'], dtype={'NCM': str, 'PARAMETRIZAÇÃO': str})
         return df
     
+    def BuscarParametrizacaoGTIN(tupla_gtin):
+        
+        inicial = 0
+        queries = []
+        while inicial < len(tupla_gtin):
+            final = min(inicial+1000, len(tupla_gtin))
+            query = f"""
+                        SELECT
+                            DISTINCT
+                            GTIN.TMEANCOD,
+                            GTIN.TMEANDESC,
+                            GTIN.TMEANCLENT "PARAM_GTIN"
+
+                        FROM 
+                            SIATE.FTMEAN GTIN
+
+                        WHERE 
+                        1=1
+                            AND GTIN.TMEANSITU = 'A'
+                            AND GTIN.TMEANCOD IN {query[inicial:final]}
+                                    
+                        """
+            inicial += 1000
+            queries.append(query)
+            
+        metadados_gtin = {'TMEANCOD':str, 'TMEANDESC': str, 'PARAM_GTIN': str}
+        df = pd.DataFrame()
+        
+        for query in queries:
+            with oracledb.connect(user = user, password = pw, dsn = dns_tns) as connection:
+                temp = pd.read_sql_query(query, con = connection, dtype=metadados_gtin)
+            
+            df = pd.concat([df, temp])
+
+        return df
+    
+    def BuscarParametrizacaoNCM(tupla_ncm):
+        
+        inicial = 0
+        queries = []
+        while inicial < len(tupla_ncm):
+            final = min(inicial+1000, len(tupla_ncm))
+            query = f"""
+                        SELECT
+                            DISTINCT
+                            NCM.NCM_COD_NC,
+                            NCM.NCM_NOME_N,
+                            NCM.NCM_ANENTR PARAM_NCM
+
+                        FROM 
+                            SIATE.NCM NCM
+
+                        WHERE 
+                        1=1
+                            AND NCM.NCM_SIT = 'A'
+                            AND NCM.NCM_COD_NC IN {tupla_ncm[inicial:final]}       
+                        """
+            inicial += 1000
+            queries.append(query)
+            
+        metadados_ncm = {'NCM_COD_NC':str, 'NCM_NOME_N': str, 'PARAM_NCM': str}
+        df = pd.DataFrame()
+        
+        for query in queries:
+            with oracledb.connect(user = user, password = pw, dsn = dns_tns) as connection:
+                temp = pd.read_sql_query(query, con = connection, dtype=metadados_ncm)
+            
+            df = pd.concat([df, temp])
+
+        return df
+
 
     def BuscarClassesFronteira():
         endereco = r'parametrizacoes\CLASSE.xlsx'
