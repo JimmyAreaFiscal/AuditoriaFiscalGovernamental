@@ -51,19 +51,18 @@ class DocumentacaoAuditoria:
     def retrieve(self):
         with oracledb.connect(user=user, password=pw, dsn=dns_tns) as connection:
             doc = pd.read_sql_query(self.query, con=connection)
-            
+        
+        print(f'Recuperado {len(doc)} registros!')
         return doc
     
-    def save(self, path):
+    def save(self, path, sheet_name='GIM'):
         doc = pd.ExcelWriter(path=path)
         doc_usado = self.retrieve()
-        doc_usado.to_excel(doc, sheet_name='GIM', index=False)
+        doc_usado.to_excel(doc, sheet_name=sheet_name, index=False)
         doc.close()
 
         # Adicionando "cache" de memória secundária
         self.path = path 
-
-
 
 
 class DadosEscriturais:
@@ -262,10 +261,9 @@ class DadosEscriturais:
             except:
                 with oracledb.connect(user=user, password=pw, dsn=dns_tns) as connection:
                     gim = pd.read_sql_query(self.query, con=connection)
-                
+                print(f'Recuperado {len(gim)} registros!')
                 return gim 
     
-
     def BuscarObrigatoriedade(cgf, data_inicio, data_fim):
         
         dtype = {'OB_CNPJ': str, 'OB_DATA': 'datetime64[ns]'}
@@ -284,6 +282,131 @@ class DadosEscriturais:
             gim = pd.read_sql_query(query, con=connection, dtype=dtype)
         
         return gim 
+    
+
+    class PGDAS(DocumentacaoAuditoria):
+
+        def __init__(self, cnpj, data_inicio, data_fim):
+            
+            self.cnpj = cnpj 
+            self.data_inicio = data_inicio
+            self.data_fim = data_fim
+            
+            self.query = f""" 
+                    
+                    SELECT 
+                        "00000"."Pgdasd_ID_Declaracao",
+                        "00000"."Pgdasd_Dt_Transmissao",
+                        "00000"."Operação",
+                        "00000"."Regime",
+                        "AAAAA"."dt_ini",
+                        "03000"."CNPJ",
+                        "03000"."Vltotal",
+                        "03000"."ImpedidoIcmsIss",
+                        "03100"."Tipo",
+                        'A' AS "Faixa",
+                        "03100"."Vltotal",
+                        "03110'."UF",
+                        "03110"."ICMS",
+                        "03110"."Alíquota apurada de ICMS",
+                        "03110"."Valor apurado de ICMS"
+                        
+                        "03111"."Valor" AS "Valor de Isenção",
+                        "03112"."Valor" AS "Valor de Redução de BC",
+                        "03112"."Red" AS "Redução BC"
+                    FROM 
+                        AAAAA INNER JOIN "00000" ON (AAAAA.AAAAA_ID = "00000".AAAAA_ID)
+                            LEFT JOIN "03000" ON ("00000"."00000_ID" = "03000"."00000_ID")
+                            LEFT JOIN "03100" ON ("03000"."03000_ID" = "03100"."03000_ID")
+                            LEFT JOIN "03110" ON ("03100"."03100_ID" = "03110"."03100_ID")
+                            LEFT JOIN "03111" ON ("03110"."03110_ID" = "03111"."03110_ID")
+                            LEFT JOIN "03112" ON ("03110"."03110_ID" = "03112"."03110_ID")
+                        
+                    WHERE 
+
+                        "03000".CNPJ = '{cnpj}'
+                        AND "AAAAA".dt_ini BETWEEN '{data_inicio.strftime("%d/%m/%Y")}' AND '{data_fim.strftime("%d/%m/%Y")}' 
+
+                    UNION ALL
+
+                    SELECT 
+                        "00000"."Pgdasd_ID_Declaracao",
+                        "00000"."Pgdasd_Dt_Transmissao",
+                        "00000"."Operação",
+                        "00000"."Regime",
+                        "AAAAA"."dt_ini",
+                        "03000"."CNPJ",
+                        "03000"."Vltotal",
+                        "03000"."ImpedidoIcmsIss",
+                        "03100"."Tipo",
+                        'B' AS "Faixa",
+                        "03100"."Vltotal",
+                        "03120'."UF",
+                        "03120"."ICMS",
+                        "03120"."Alíquota apurada de ICMS",
+                        "03120"."Valor apurado de ICMS"
+                        
+                        '0' AS "Valor de Isenção",
+                        '0' AS "Valor de Redução de BC",
+                        '0' AS "Redução BC"
+                    FROM 
+                        AAAAA INNER JOIN "00000" ON (AAAAA.AAAAA_ID = "00000".AAAAA_ID)
+                            LEFT JOIN "03000" ON ("00000"."00000_ID" = "03000"."00000_ID")
+                            LEFT JOIN "03100" ON ("03000"."03000_ID" = "03100"."03000_ID")
+                            LEFT JOIN "03120" ON ("03100"."03100_ID" = "03120"."03100_ID")
+                        
+                    WHERE 
+
+                        "03000".CNPJ = '{cnpj}'
+                        AND "AAAAA".dt_ini BETWEEN '{data_inicio.strftime("%d/%m/%Y")}' AND '{data_fim.strftime("%d/%m/%Y")}' 
+
+                        
+                    UNION ALL 
+
+                    
+                    SELECT 
+                        "00000"."Pgdasd_ID_Declaracao",
+                        "00000"."Pgdasd_Dt_Transmissao",
+                        "00000"."Operação",
+                        "00000"."Regime",
+                        "AAAAA"."dt_ini",
+                        "03000"."CNPJ",
+                        "03000"."Vltotal",
+                        "03000"."ImpedidoIcmsIss",
+                        "03100"."Tipo",
+                        'C' AS "Faixa",
+                        "03100"."Vltotal",
+                        "03130'."UF",
+                        "03130"."ICMS",
+                        
+                        "03130"."Alíquota apurada de ICMS",
+                        "03130"."Valor apurado de ICMS"
+                        
+                        '0' AS "Valor de Isenção",
+                        '0' AS "Valor de Redução de BC",
+                        '0' AS "Redução BC"
+                    FROM 
+                        AAAAA INNER JOIN "00000" ON (AAAAA.AAAAA_ID = "00000".AAAAA_ID)
+                            LEFT JOIN "03000" ON ("00000"."00000_ID" = "03000"."00000_ID")
+                            LEFT JOIN "03100" ON ("03000"."03000_ID" = "03100"."03000_ID")
+                            LEFT JOIN "03130" ON ("03100"."03100_ID" = "03130"."03100_ID")
+                        
+                    WHERE 
+
+                        "03000".CNPJ = '{cnpj}'
+                        AND "AAAAA".dt_ini BETWEEN '{data_inicio.strftime("%d/%m/%Y")}' AND '{data_fim.strftime("%d/%m/%Y")}' 
+                    
+
+                """
+
+        def retrieve(self):
+            try:    # Verificando se há dado importado na memória secundária
+                return pd.read_excel(self.path)
+            except:
+                with oracledb.connect(user=user, password=pw, dsn=dns_tns) as connection:
+                    pgdas = pd.read_sql_query(self.query, con=connection)
+                print(f'Recuperado {len(pgdas)} registros!')
+                return pgdas 
     
 
 class DadosCadastrais(DocumentacaoAuditoria):
@@ -331,7 +454,9 @@ class DadosCadastrais(DocumentacaoAuditoria):
             try:    # Verificando se há dado importado na memória secundária
                 return pd.read_excel(self.path)
             except:
-                return extrair_df(self.query)
+                doc = extrair_df(self.query)
+                print(f'Recuperado {len(doc)} registros!')
+                return doc
     
     class HistoricoCadastroEstadual(DocumentacaoAuditoria):
         """ Classe que retorna o Histórico do Cadastro Geral Fazendário Estadual da empresa """
@@ -379,8 +504,9 @@ class DadosCadastrais(DocumentacaoAuditoria):
             cadastro_historico['DataAlteracaoAnterior'] = cadastro_historico['DataAlteracao'].shift(1)
             cadastro_historico['SituacaoCadastralAnterior'] = cadastro_historico['SituacaoCadastral'].shift(1)
             cadastro_historico['OptanteSimplesAnterior'] = cadastro_historico['OptanteSimples'].astype(int).shift(1)
-            return cadastro_historico
 
+            print(f'Recuperado {len(cadastro_historico)} registros!')
+            return cadastro_historico
 
 class DadosDebitos:
 
@@ -414,7 +540,9 @@ class DadosDebitos:
             try:    # Verificando se há dado importado na memória secundária
                 return pd.read_excel(self.path)
             except:
-                return extrair_df(self.query)
+                doc = extrair_df(self.query)
+                print(f'Recuperado {len(doc)} registros!')
+                return doc
 
         def BuscarJustificativa(codigos: tuple):
 
@@ -464,12 +592,91 @@ class DadosDebitos:
             try:    # Verificando se há dado importado na memória secundária
                 return pd.read_excel(self.path)
             except:
-                return extrair_df(self.query)
+                doc = extrair_df(self.query)
+                print(f'Recuperado {len(doc)} registros!')
+                return doc
 
 
 class DadosOperacoes:
     """ Classe para armazenar subclasses (documentos fiscais) e eventos, extraídos do banco de dados """
     
+    NOMENCLATURA = {
+            'CNPJ_REM' : 'CNPJ do remetente',
+            'REMETENTE': 'Razão Social do Remetente/Emitente',
+            'IE_REM': 'Inscrição Estadual do Remetente',
+            'UF_REM': 'UF do Remetente',
+            "REGIME": "Regime do Remetente",
+            "UF_DEST": "UF do Destinatário",
+            "DESTINATARIO": "Razão Social do Destinatário",
+            'CNPJ_DEST': 'CNPJ do Destinatário',
+            'IE_DEST': 'Inscrição Estadual do Destinatário',
+            'SUFRAMA': 'Nº SUFRAMA',
+            'NUM_NOTA': 'Número da Nota Fiscal',
+            'SITUACAO': 'Situação da Nota Fiscal',
+            'CHAVE_ACESSO': 'Chave de Acesso da Nota Fiscal',
+            'CFOP': 'CFOP do item da Nota Fiscal',
+            'DT_EMISSAO': 'Data de Emissão da Nota Fiscal',
+            'NAT_OPER': 'Natureza da Operação',
+            'CLASSE_FRONTEIRA': 'Classificação dada por Auditores Fiscais no Posto Fiscal ou Sistema',
+            'GTIN': 'Código GTIN do Produto',
+            'COD_PROD_EMIT': 'Código do Produto, conforme emitente da Nota Fiscal',
+            'NCM': 'NCM do item da nota fiscal',
+            'NUM_ITEM': 'Número do item da Nota Fiscal',
+            'DESCRICAO_PROD': 'Descrição do Produto',
+            'QTDE': 'Quantidade de produto tributável',
+            'UND': 'Unidade tributável do produto',
+            'VALOR_UNIT': 'Valor unitário do produto',
+            'VALOR_BRUTO_ITEM': 'Valor bruto do item',
+            'VALOR_DESCONTO_ITEM': 'Valor desconto do item',
+            'VALOR_LIQUIDO_ITEM': 'Valor líquido do item, considerando o valor bruto menos o desconto',
+            'CST': 'CST do produto, na visão do emissor',
+            'ORIGEM': 'Origem do item - Nacional ou Importado',
+            'REDUC_BC': 'Percentual da redução da Base de Cálculo do item',
+            'BC_ICMS': 'Base de Cálculo do ICMS do item',
+            'ALIQ': 'Alíquota do item',
+            'ICMS_ITEM': 'ICMS do item da Nota Fiscal',
+            'ICMS_DESON_ITEM': 'ICMS Desonerado do item',
+            'ICMS_DESON_NOTA': 'ICMS Desonerado da Nota Fiscal',
+            'ICMS_NOTA': 'ICMS Nota Fiscal'
+        }
+
+    TIPOS_NOTAS = {
+            'CNPJ_REM': str, 
+            'IE_REM': str, 
+            'REGIME_REM': str,
+            'CNPJ_DEST': str,
+            'IE_DEST': str,
+            'SUFRAMA': str,
+            'NUM_NOTA': str,
+            'CHAVE_ACESSO': str,
+            'CFOP_ITEM': str, 
+            'DT_EMISSAO': 'datetime64[ns]',
+            'CLASSE_FRONTEIRA': str, 
+            'GTIN_ITEM': str,
+            'COD_PROD_EMIT': str, 
+            'NCM_ITEM': str,
+            'NUM_ITEM': str, 
+            'CST_ITEM': str, 
+            'CHAVE_ACESSO_REF': str
+        }
+    
+    TIPOS_PRODUTOS = {
+            'CHAVE_ACESSO': str,
+            'NUM_ITEM': str,
+            'CLASSE_FRONTEIRA': str,
+            'GTIN_ITEM': str,
+            'NCM_ITEM': str,
+            'CFOP_ITEM': str,
+            'CST_ITEM': str, 
+        }
+    
+    TIPO_EVENTOS = {
+            'CHAVE_ACESSO': str, 
+            'DATA_EVENTO': 'datetime64[ns]',
+            'CODIGO_EVENTO': str
+            
+        }
+
     class NotasFiscaisEntrada(DocumentacaoAuditoria):
         """ Classe para importar apenas notas fiscais de entrada """
         def __init__(self, cnpj, data_inicio, data_fim):
@@ -479,10 +686,10 @@ class DadosOperacoes:
             self.queries = []
             self.queries.append(f""" 
                     SELECT 
-                        PASM.NFERDOCN AS "CNPJ.EMIT",
-                        PASM.NFERRAZ AS "RAZ.EMITENTE",
-                        PASM.NFERIEST AS "IE.ST.EMIT",
-                        PASM.NFERUF AS "UF.EMIT",
+                        PASM.NFERDOCN AS "CNPJ_REM",
+                        PASM.NFERRAZ AS "REMETENTE",
+                        PASM.NFERIEST AS "IE_REM",
+                        PASM.NFERUF AS "UF_REM",
                         CASE
                             WHEN PASM.NFERCRT = '1'
                             THEN 'SIMPLES'
@@ -491,13 +698,13 @@ class DadosOperacoes:
                             WHEN PASM.NFERCRT = '3'
                             THEN 'NORMAL'
                             ELSE 'N/A'
-                            END AS REGIME,
-                        PASM.NFEDUF     AS "UF.DEST/REMET",
-                        PASM.NFEDRAZ    AS "RAZ.DEST/REMET",
-                        PASM.NFEDDOCN   AS "DOC.DEST/REMET",
-                        PASM.NFEDINSC   AS "IE.DEST/REMET",
-                        PASM.NFESUFRAMA AS SUFRAMA,
-                        PASM.NFENNOT    AS "Nº.NF",
+                            END AS "REGIME_REM",
+                        PASM.NFEDUF     AS "UF_DEST",
+                        PASM.NFEDRAZ    AS "DESTINATARIO",
+                        PASM.NFEDDOCN   AS "CNPJ_DEST",
+                        PASM.NFEDINSC   AS "IE_DEST",
+                        PASM.NFESUFRAMA AS "SUFRAMA",
+                        PASM.NFENNOT    AS "NUM_NOTA",
                         CASE
                             WHEN PASM.NFECANC = 'S'
                             THEN 'CANCELADA'
@@ -505,74 +712,61 @@ class DadosOperacoes:
                             THEN 'DENEGADA'
                             WHEN PASM.NFECANC = 'N'
                             THEN 'ATIVA'
-                        END           AS "ATIVA/CANC",
-                        PASM.DANF     AS "ChaveAcesso",
-                        PASM.NFECFOP  AS "CFOP.NF",
-                        PRD.NFEPCFOP  AS "CFOP.ITEM",
-                        PASM.NFEDTEMI AS "DT.EMISSÃO",
-                        CASE
-                            WHEN PASM.NFESIT = '0'
-                            THEN 'NÃO.DESEMB'
-                            WHEN PASM.NFESIT = '1'
-                            THEN 'DESEMBARAÇADA'
-                            WHEN PASM.NFESIT = '2'
-                            THEN 'OP.DESCONH'
-                            WHEN PASM.NFESIT = '3'
-                            THEN 'ALT.FISCAL'
-                            WHEN PASM.NFESIT = '4'
-                            THEN 'INTERMUNIC'
-                        END                           AS SITUAÇÃO,
-                        RPAD(PASM.NFENATOP, 30)       AS "NAT.OPER",
-                        PASP.TMPCLASSE                AS "CLASSE.FRONT",
-                        PRD.NFEPEAN                   AS GTIN,
-                        PRD.NFEPCODITEM               AS "COD.PROD.EMIT",
-                        PRD.NFEPNCM                   AS NCM,
-                        PRD.NFEPNITEM                 AS "Nº.ITEM",
-                        PRD.NFEPNDESC                 AS "DESC.ITEM",
-                        PRD.NFEPQTRIB                 AS QNT,
-                        PRD.NFEPUTRIB                 AS UND,
-                        PRD.NFEPVUNTRIB               AS "VLR.UNT",
-                        PRD.NFEPVPROD                 AS "VLR.BRUTO.ITEM",
-                        PRD.NFEPVDESC                 AS "DESCON.ITEM",
-                        PRD.NFEPVPROD - PRD.NFEPVDESC AS "VLR.LIQ.ITEM",
-                        PRD.NFEPCST                   AS CST,
+                        END           AS "SITUACAO",
+                        PASM.DANF     AS "CHAVE_ACESSO",
+                        PRD.NFEPCFOP  AS "CFOP_ITEM",
+                        PASM.NFEDTEMI AS "DT_EMISSAO",
+                        
+                        RPAD(PASM.NFENATOP, 30)       AS "NAT_OPER",
+                        PASP.TMPCLASSE                AS "CLASSE_FRONTEIRA",
+                        PRD.NFEPEAN                   AS "GTIN_ITEM",
+                        PRD.NFEPCODITEM               AS "COD_PROD_EMIT",
+                        PRD.NFEPNCM                   AS "NCM_ITEM",
+                        PRD.NFEPNITEM                 AS "NUM_ITEM",
+                        PRD.NFEPNDESC                 AS "DESCRICAO_PROD",
+                        PRD.NFEPQTRIB                 AS "QTDE_ITEM",
+                        PRD.NFEPUTRIB                 AS "UND_ITEM",
+                        PRD.NFEPVUNTRIB               AS "VALOR_UNIT_ITEM",
+                        PRD.NFEPVPROD                 AS "VALOR_BRUTO_ITEM",
+                        PRD.NFEPVDESC                 AS "VALOR_DESCONTO_ITEM",
+                        PRD.NFEPVPROD - COALESCE(PRD.NFEPVDESC, 0) AS "VALOR_LIQUIDO_ITEM",
+                        PRD.NFEPCST                   AS "CST_ITEM",
                         CASE
                             WHEN PRD.NFEPORIG IN ('1', '2', '3', '8')
                             THEN 'IMPORT'
                             ELSE 'NACIONAL'
-                        END                AS ORIGEM,
-                        PRD.NFEPPREDBC     AS "%.RED.BC",
-                        PRD.NFEPVBC        AS "BC.ICMS.ITEM",
-                        PRD.NFEPPICMS      AS ALIQ,
-                        PRD.NFEPVICMS      AS "ICMS.ITEM",
-                        PRD.NFEPVICMSDESON AS "ICMS.DESON.ITEM",
-                        PASM.NFEVICMSD     AS "ICMS.DESON.NF",
-                        PASM.NFEVNICMS     AS "ICMS.NF",
-                        PRD.NFEPMDBCST     AS "MOD.BC.ST",
-                        PRD.NFEPVBCST      AS "BC.ST.ITEM",
-                        PRD.NFEPPMVAST     AS "MVA.ST",
-                        PRD.NFEPPST        AS "ALIQ.ST.ITEM",
-                        PRD.NFEPVST        AS "ST.RET.ITEM",
-                        PRD.NFEPVSTR       AS "ST.RET.ANT.ITEM",
-                        PRD.VICMSUFDE      AS "DIFAL.ITEM",
-                        PASM.VICMSUFDE     AS "DIFAL.NF",
-                        PRD.PICMSUFDE      AS "ALIQ.DEST",
-                        PASM.NFEBNICMS     AS "BC.ICMS.NF",
-                        PASM.NFEBSICMS     AS "BC.ST.NF",
-                        PASM.NFEVSICMS     AS "ICMS.ST.NF",
-                        PASM.NFETVPROD     AS "VLR.BR.ITENS.NF",
-                        PASM.NFETVFRET     AS "FRETE.NF",
-                        PASM.NFEVSEGU      AS "SEGURO.NF",
-                        PASM.NFEVSICMS     AS "ICMS.ST.NF.2",
-                        PASM.NFENVDESC     AS "DESCONTO.NF",
-                        PASM.NFEVNOTA      AS "VALOR.FINAL.NF",
+                        END                AS "ORIGEM",
+                        PRD.NFEPPREDBC     AS "REDUC_BC",
+                        PRD.NFEPVBC        AS "BC_ICMS_ITEM",
+                        PRD.NFEPPICMS      AS "ALIQ_ITEM",
+                        PRD.NFEPVICMS      AS "ICMS_ITEM",
+                        PRD.NFEPVICMSDESON AS "ICMS_DESON_ITEM",
+                        PASM.NFEVICMSD     AS "ICMS_DESON_NOTA",
+                        PASM.NFEVNICMS     AS "ICMS_NOTA",
+                        --PRD.NFEPMDBCST     AS "MOD.BC.ST",
+                        --PRD.NFEPVBCST      AS "BC.ST.ITEM",
+                        --PRD.NFEPPMVAST     AS "MVA.ST",
+                        --PRD.NFEPPST        AS "ALIQ.ST.ITEM",
+                        --PRD.NFEPVST        AS "ST.RET.ITEM",
+                        --PRD.NFEPVSTR       AS "ST.RET.ANT.ITEM",
+                        --PRD.VICMSUFDE      AS "DIFAL.ITEM",
+                        --PASM.VICMSUFDE     AS "DIFAL.NF",
+                        --PRD.PICMSUFDE      AS "ALIQ.DEST",
+                        --PASM.NFEBNICMS     AS "BC.ICMS.NF",
+                        --PASM.NFEBSICMS     AS "BC.ST.NF",
+                        --PASM.NFEVSICMS     AS "ICMS.ST.NF",
+                        --PASM.NFETVPROD     AS "VLR.BR.ITENS.NF",
+                        PASM.NFETVFRET     AS "FRETE_NOTA",
+                        PASM.NFEVSEGU      AS "SEGURO_NOTA",
+                        PASM.NFENVDESC     AS "DESCONTO_NOTA",
+                        PASM.NFEVNOTA      AS "VALOR_FINAL_NOTA",
                         CASE
                             WHEN PASM.NFETPNF = '0'
                             THEN 'ENTRADA'
                             WHEN PASM.NFETPNF = '1'
                             THEN 'SAÍDA'
                             ELSE 'N/A'
-                        END AS "TIPO.OPER",
+                        END AS "TIPO_OPER",
                         CASE
                             WHEN PASM.NFEFINEMI = '1'
                             THEN 'NORMAL'
@@ -583,7 +777,7 @@ class DadosOperacoes:
                             WHEN PASM.NFEFINEMI = '4'
                             THEN 'DEVOLUÇÃO'
                             ELSE 'N/A'
-                        END AS FINALIDADE,
+                        END AS "FINALIDADE",
                         CASE
                             WHEN PASM.NFEIDDEST = '1'
                             THEN 'INTERNA'
@@ -592,13 +786,10 @@ class DadosOperacoes:
                             WHEN PASM.NFEIDDEST = '3'
                             THEN 'EXTERIOR'
                             ELSE 'N/A'
-                        END               AS DESTINO,
-                        PASM.NFEREFNFE    AS "NF-e.REF",
-                        PASM.NFEINFADC    AS "DADOS.AD.P1",
-                        PASM.NFEINFADCLOB AS "DADOS.AD.P2",
-                        PASM.NFEDLOGRAD,
-                        PASM.NFEDBAI,
-                        PASM.NFEDNUM
+                        END               AS "DESTINO",
+                        PASM.NFEREFNFE    AS "CHAVE_ACESSO_REF",
+                        PASM.NFEINFADC    AS "INFORMACOES_ADC",
+                        PASM.NFEINFADCLOB AS "INFORMACOES_ADC_CLOB"
                     FROM 
                         SIATE.NFEPASM PASM,
                         SIATE.NFEPRD PRD,
@@ -628,10 +819,10 @@ class DadosOperacoes:
                 final = min(inicial+1000, len(chaves_acesso))
                 query = f""" 
                     SELECT 
-                        PASM.NFERDOCN AS "CNPJ.EMIT",
-                        PASM.NFERRAZ AS "RAZ.EMITENTE",
-                        PASM.NFERIEST AS "IE.ST.EMIT",
-                        PASM.NFERUF AS "UF.EMIT",
+                        PASM.NFERDOCN AS "CNPJ_REM",
+                        PASM.NFERRAZ AS "REMETENTE",
+                        PASM.NFERIEST AS "IE_REM",
+                        PASM.NFERUF AS "UF_REM",
                         CASE
                             WHEN PASM.NFERCRT = '1'
                             THEN 'SIMPLES'
@@ -640,13 +831,13 @@ class DadosOperacoes:
                             WHEN PASM.NFERCRT = '3'
                             THEN 'NORMAL'
                             ELSE 'N/A'
-                            END AS REGIME,
-                        PASM.NFEDUF     AS "UF.DEST/REMET",
-                        PASM.NFEDRAZ    AS "RAZ.DEST/REMET",
-                        PASM.NFEDDOCN   AS "DOC.DEST/REMET",
-                        PASM.NFEDINSC   AS "IE.DEST/REMET",
-                        PASM.NFESUFRAMA AS SUFRAMA,
-                        PASM.NFENNOT    AS "Nº.NF",
+                            END AS "REGIME_REM",
+                        PASM.NFEDUF     AS "UF_DEST",
+                        PASM.NFEDRAZ    AS "DESTINATARIO",
+                        PASM.NFEDDOCN   AS "CNPJ_DEST",
+                        PASM.NFEDINSC   AS "IE_DEST",
+                        PASM.NFESUFRAMA AS "SUFRAMA",
+                        PASM.NFENNOT    AS "NUM_NOTA",
                         CASE
                             WHEN PASM.NFECANC = 'S'
                             THEN 'CANCELADA'
@@ -654,74 +845,61 @@ class DadosOperacoes:
                             THEN 'DENEGADA'
                             WHEN PASM.NFECANC = 'N'
                             THEN 'ATIVA'
-                        END           AS "ATIVA/CANC",
-                        PASM.DANF     AS "ChaveAcesso",
-                        PASM.NFECFOP  AS "CFOP.NF",
-                        PRD.NFEPCFOP  AS "CFOP.ITEM",
-                        PASM.NFEDTEMI AS "DT.EMISSÃO",
-                        CASE
-                            WHEN PASM.NFESIT = '0'
-                            THEN 'NÃO.DESEMB'
-                            WHEN PASM.NFESIT = '1'
-                            THEN 'DESEMBARAÇADA'
-                            WHEN PASM.NFESIT = '2'
-                            THEN 'OP.DESCONH'
-                            WHEN PASM.NFESIT = '3'
-                            THEN 'ALT.FISCAL'
-                            WHEN PASM.NFESIT = '4'
-                            THEN 'INTERMUNIC'
-                        END                           AS SITUAÇÃO,
-                        RPAD(PASM.NFENATOP, 30)       AS "NAT.OPER",
-                        PASP.TMPCLASSE                AS "CLASSE.FRONT",
-                        PRD.NFEPEAN                   AS GTIN,
-                        PRD.NFEPCODITEM               AS "COD.PROD.EMIT",
-                        PRD.NFEPNCM                   AS NCM,
-                        PRD.NFEPNITEM                 AS "Nº.ITEM",
-                        PRD.NFEPNDESC                 AS "DESC.ITEM",
-                        PRD.NFEPQTRIB                 AS QNT,
-                        PRD.NFEPUTRIB                 AS UND,
-                        PRD.NFEPVUNTRIB               AS "VLR.UNT",
-                        PRD.NFEPVPROD                 AS "VLR.BRUTO.ITEM",
-                        PRD.NFEPVDESC                 AS "DESCON.ITEM",
-                        PRD.NFEPVPROD - PRD.NFEPVDESC AS "VLR.LIQ.ITEM",
-                        PRD.NFEPCST                   AS CST,
+                        END           AS "SITUACAO",
+                        PASM.DANF     AS "CHAVE_ACESSO",
+                        PRD.NFEPCFOP  AS "CFOP",
+                        PASM.NFEDTEMI AS "DT_EMISSAO",
+                        
+                        RPAD(PASM.NFENATOP, 30)       AS "NAT_OPER",
+                        PASP.TMPCLASSE                AS "CLASSE_FRONTEIRA",
+                        PRD.NFEPEAN                   AS "GTIN_ITEM",
+                        PRD.NFEPCODITEM               AS "COD_PROD_EMIT",
+                        PRD.NFEPNCM                   AS "NCM_ITEM",
+                        PRD.NFEPNITEM                 AS "NUM_ITEM",
+                        PRD.NFEPNDESC                 AS "DESCRICAO_PROD",
+                        PRD.NFEPQTRIB                 AS "QTDE_ITEM",
+                        PRD.NFEPUTRIB                 AS "UND_ITEM",
+                        PRD.NFEPVUNTRIB               AS "VALOR_UNIT_ITEM",
+                        PRD.NFEPVPROD                 AS "VALOR_BRUTO_ITEM",
+                        PRD.NFEPVDESC                 AS "VALOR_DESCONTO_ITEM",
+                        PRD.NFEPVPROD - COALESCE(PRD.NFEPVDESC, 0) AS "VALOR_LIQUIDO_ITEM",
+                        PRD.NFEPCST                   AS CST_ITEM,
                         CASE
                             WHEN PRD.NFEPORIG IN ('1', '2', '3', '8')
                             THEN 'IMPORT'
                             ELSE 'NACIONAL'
-                        END                AS ORIGEM,
-                        PRD.NFEPPREDBC     AS "%.RED.BC",
-                        PRD.NFEPVBC        AS "BC.ICMS.ITEM",
-                        PRD.NFEPPICMS      AS ALIQ,
-                        PRD.NFEPVICMS      AS "ICMS.ITEM",
-                        PRD.NFEPVICMSDESON AS "ICMS.DESON.ITEM",
-                        PASM.NFEVICMSD     AS "ICMS.DESON.NF",
-                        PASM.NFEVNICMS     AS "ICMS.NF",
-                        PRD.NFEPMDBCST     AS "MOD.BC.ST",
-                        PRD.NFEPVBCST      AS "BC.ST.ITEM",
-                        PRD.NFEPPMVAST     AS "MVA.ST",
-                        PRD.NFEPPST        AS "ALIQ.ST.ITEM",
-                        PRD.NFEPVST        AS "ST.RET.ITEM",
-                        PRD.NFEPVSTR       AS "ST.RET.ANT.ITEM",
-                        PRD.VICMSUFDE      AS "DIFAL.ITEM",
-                        PASM.VICMSUFDE     AS "DIFAL.NF",
-                        PRD.PICMSUFDE      AS "ALIQ.DEST",
-                        PASM.NFEBNICMS     AS "BC.ICMS.NF",
-                        PASM.NFEBSICMS     AS "BC.ST.NF",
-                        PASM.NFEVSICMS     AS "ICMS.ST.NF",
-                        PASM.NFETVPROD     AS "VLR.BR.ITENS.NF",
-                        PASM.NFETVFRET     AS "FRETE.NF",
-                        PASM.NFEVSEGU      AS "SEGURO.NF",
-                        PASM.NFEVSICMS     AS "ICMS.ST.NF.2",
-                        PASM.NFENVDESC     AS "DESCONTO.NF",
-                        PASM.NFEVNOTA      AS "VALOR.FINAL.NF",
+                        END                AS "ORIGEM",
+                        PRD.NFEPPREDBC     AS "REDUC_BC",
+                        PRD.NFEPVBC        AS "BC_ICMS_ITEM",
+                        PRD.NFEPPICMS      AS "ALIQ_ITEM",
+                        PRD.NFEPVICMS      AS "ICMS_ITEM",
+                        PRD.NFEPVICMSDESON AS "ICMS_DESON_ITEM",
+                        PASM.NFEVICMSD     AS "ICMS_DESON_NOTA",
+                        PASM.NFEVNICMS     AS "ICMS_NOTA",
+                        --PRD.NFEPMDBCST     AS "MOD.BC.ST",
+                        --PRD.NFEPVBCST      AS "BC.ST.ITEM",
+                        --PRD.NFEPPMVAST     AS "MVA.ST",
+                        --PRD.NFEPPST        AS "ALIQ.ST.ITEM",
+                        --PRD.NFEPVST        AS "ST.RET.ITEM",
+                        --PRD.NFEPVSTR       AS "ST.RET.ANT.ITEM",
+                        --PRD.VICMSUFDE      AS "DIFAL.ITEM",
+                        --PASM.VICMSUFDE     AS "DIFAL.NF",
+                        --PRD.PICMSUFDE      AS "ALIQ.DEST",
+                        --PASM.NFEBNICMS     AS "BC.ICMS.NF",
+                        --PASM.NFEBSICMS     AS "BC.ST.NF",
+                        --PASM.NFEVSICMS     AS "ICMS.ST.NF",
+                        --PASM.NFETVPROD     AS "VLR.BR.ITENS.NF",
+                        PASM.NFETVFRET     AS "FRETE_NOTA",
+                        PASM.NFEVSEGU      AS "SEGURO_NOTA",
+                        PASM.NFENVDESC     AS "DESCONTO_NOTA",
+                        PASM.NFEVNOTA      AS "VALOR_FINAL_NOTA",
                         CASE
                             WHEN PASM.NFETPNF = '0'
                             THEN 'ENTRADA'
                             WHEN PASM.NFETPNF = '1'
                             THEN 'SAÍDA'
                             ELSE 'N/A'
-                        END AS "TIPO.OPER",
+                        END AS "TIPO_OPER",
                         CASE
                             WHEN PASM.NFEFINEMI = '1'
                             THEN 'NORMAL'
@@ -742,12 +920,9 @@ class DadosOperacoes:
                             THEN 'EXTERIOR'
                             ELSE 'N/A'
                         END               AS DESTINO,
-                        PASM.NFEREFNFE    AS "NF-e.REF",
-                        PASM.NFEINFADC    AS "DADOS.AD.P1",
-                        PASM.NFEINFADCLOB AS "DADOS.AD.P2",
-                        PASM.NFEDLOGRAD,
-                        PASM.NFEDBAI,
-                        PASM.NFEDNUM
+                        PASM.NFEREFNFE    AS "CHAVE_ACESSO_REF",
+                        PASM.NFEINFADC    AS "INFORMACOES_ADC",
+                        PASM.NFEINFADCLOB AS "INFORMACOES_ADC_CLOB"
                     FROM 
                         SIATE.NFEPASM PASM,
                         SIATE.NFEPRD PRD,
@@ -766,19 +941,18 @@ class DadosOperacoes:
                 self.queries.append(query)    
                 
         def retrieve(self):
-            dtypes = {'CFOP.ITEM': str}
             try:    # Verificando se há dado importado na memória secundária
-                return pd.read_excel(self.path, dtype=dtypes)
+                return pd.read_excel(self.path, dtype=DadosOperacoes.TIPOS_NOTAS)
             except:
-                dtypes = {'CFOP.ITEM': str}
                 df = pd.DataFrame()
                 for query in self.queries:
                     temp = extrair_df_de_lobs(query)
                     df = pd.concat([df, temp])
 
-                for col, tipo in dtypes.items():
+                for col, tipo in DadosOperacoes.TIPOS_NOTAS.items():
                     df[col] = df[col].astype(tipo)
 
+                print(f'Recuperado {len(df)} registros!')
                 return df
     
         def quantidade(self):
@@ -786,7 +960,7 @@ class DadosOperacoes:
                             COUNT(*) AS quantidade
                         FROM 
                             SIATE.NFEPASM PASM
-                        WHERE 
+                        WHERE 1=1
                             AND ((PASM.NFEDDOCN  = '{self.cnpj}'
                                 AND PASM.NFETPNF     = '1')
                                 OR (PASM.NFERDOCN    = '{self.cnpj}'
@@ -807,16 +981,16 @@ class DadosOperacoes:
                 final = min(inicial+1000, len(chv_acc))
                 query = f"""        
                             SELECT
-                                PRD.DANF          "CHAVE",
+                                PRD.DANF          "CHAVE_ACESSO",
                                 PRD.NFEPNITEM     "NUM_ITEM",
-                                PRD.NFEPORIG      "ORIGEM_MERC",
+                                PRD.NFEPORIG      "ORIGEM",
                                 PASP.TMPCLASSE    "CLASSE_FRONTEIRA",
-                                PRD.NFEPEAN       "GTIN_PRD",
-                                PRD.NFEPNCM       "NCM_PRD",  
+                                PRD.NFEPEAN       "GTIN_ITEM",
+                                PRD.NFEPNCM       "NCM_ITEM",  
                                 PRD.NFEPCFOP      "CFOP_ITEM",
-                                PRD.NFEPCST       "CST_NOTA",
-                                PRD.NFEPVICMS     "VALOR_ICMS_NOTA",
-                                PASP.TMPVICMSD    "VALOR_ICMS_DES_NOTA",
+                                PRD.NFEPCST       "CST_ITEM",
+                                PRD.NFEPVICMS     "ICMS_NOTA",
+                                PASP.TMPVICMSD    "ICMS_DESON_NOTA",
                                 PASP.TMPVST       "VALOR_ICMS_ST_NOTA" 
                                  
 
@@ -834,118 +1008,131 @@ class DadosOperacoes:
                 self.queries_fronteira.append(query)  
             
             for query in self.queries_fronteira:
-                dtypes = {'CHAVE': str, 'CFOP_NOTA': str, 'NUM_ITEM': int, 'ORIGEM_MERC': str,'CLASSE_FRONTEIRA': str, 'GTIN_PRD': str, 'NCM_PRD': str, 'CFOP_ITEM': str, 'CST_NOTA': str,'VALOR_ICMS_NOTA': float, 'VALOR_ICMS_DES_NOTA': float, 'VALOR_ICMS_ST_NOTA': float}
+                
                 df = pd.DataFrame()
                 for query in self.queries:
                     temp = extrair_df_de_lobs(query)
                     df = pd.concat([df, temp])
-                for col, tipo in dtypes.items():
+                for col, tipo in DadosOperacoes.TIPOS_PRODUTOS.items():
                     df[col] = df[col].astype(tipo)
 
                 return df
             
-
     class NotasFiscaisSaida(DocumentacaoAuditoria):
+        
         """ Classe para importar Notas Fiscais de Saída. Não inclui notas fiscais ao consumidor (NFC-e)"""
+        
         def __init__(self, cnpj, data_inicio, data_fim):
             self.cnpj = cnpj
             self.data_inicio = data_inicio 
             self.data_fim = data_fim 
-            self.query = f""" 
-                    SELECT
-                        PASM.NFERDOCN                       AS "CNPJ.EMIT",            -- CNPJ do Remetente
-                        PASM.NFERRAZ                        AS "RAZ.EMITENTE",             -- 
-                        PASM.NFERIEST                       AS "IE.ST.EMIT",           -- Inscrição Estadual do Rementente em ST
-                        PASM.NFERUF                         AS "UF.EMIT",              -- UF Remetente
-
-                        CASE                                WHEN PASM.NFERCRT = '1' THEN 'SIMPLES'
-                                                            WHEN PASM.NFERCRT = '2' THEN 'SN.SUBLI.EXC'
-                                                            WHEN PASM.NFERCRT = '3' THEN 'NORMAL'
-                                                            ELSE 'N/A' END AS "REGIME.EMIT",              -- Código de Regime Tributario: 1=Simples Nacional; 2=Simples Nacional, excesso sublimite de receita bruta; 3=Regime Normal. (v2.0).
+            self.queries = []
+            self.queries.append(f"""
+                    SELECT 
+                        PASM.NFERDOCN AS "CNPJ_REM",
+                        PASM.NFERRAZ AS "REMETENTE",
+                        PASM.NFERIEST AS "IE_REM",
+                        PASM.NFERUF AS "UF_REM",
+                        CASE
+                            WHEN PASM.NFERCRT = '1'
+                            THEN 'SIMPLES'
+                            WHEN PASM.NFERCRT = '2'
+                            THEN 'SN.SUBLI.EXC'
+                            WHEN PASM.NFERCRT = '3'
+                            THEN 'NORMAL'
+                            ELSE 'N/A'
+                            END AS "REGIME_REM",
+                        PASM.NFEDUF     AS "UF_DEST",
+                        PASM.NFEDRAZ    AS "DESTINATARIO",
+                        PASM.NFEDDOCN   AS "CNPJ_DEST",
+                        PASM.NFEDINSC   AS "IE_DEST",
+                        PASM.NFESUFRAMA AS "SUFRAMA",
+                        PASM.NFENNOT    AS "NUM_NOTA",
+                        CASE
+                            WHEN PASM.NFECANC = 'S'
+                            THEN 'CANCELADA'
+                            WHEN PASM.NFECANC = 'D'
+                            THEN 'DENEGADA'
+                            WHEN PASM.NFECANC = 'N'
+                            THEN 'ATIVA'
+                        END           AS "SITUACAO",
+                        PASM.DANF     AS "CHAVE_ACESSO",
+                        PRD.NFEPCFOP  AS "CFOP_ITEM",
+                        PASM.NFEDTEMI AS "DT_EMISSAO",
                         
-                        PASM.NFEDUF                         AS "UF.DEST/REMET",             -- UF Destino
-                        PASM.NFEDRAZ                        AS "RAZ.DEST/REMET",
-                        PASM.NFEDDOCN                       AS "DOC.DEST/REMET",
-                        PASM.NFEDINSC                       AS "IE.DEST/REMET",
-                        PASM.NFESUFRAMA                     AS "SUFRAMA",
-                        PASM.NFENNOT                        AS "Nº.NF",
-                        CASE                                WHEN  pasm.NFECANC = 'S' THEN 'CANCELADA'
-                                                            WHEN  pasm.NFECANC = 'D' THEN 'DENEGADA'
-                                                            WHEN  pasm.NFECANC = 'N' THEN 'ATIVA' END AS "ATIVA/CANC", 
-                        PASM.DANF                           AS "CHAVE.NF",
-                        PASM.NFECFOP                        AS "CFOP.NF",            -- CFOP da Nota
-                        PASM.NFEDTEMI                       AS "DT.EMISSÃO",             -- Data da Emissão da NF-e 
-                        --PASM.NFEHORA                        AS "HORA",                -- Hora da Emissão da NF-e 
-                        CASE                                WHEN  PASM.NFESIT = '0' THEN 'NÃO.DESEMB'
-                                                            WHEN  PASM.NFESIT = '1' THEN 'DESEMBARAÇADA'
-                                                            WHEN  PASM.NFESIT = '2' THEN 'OP.DESCONH'
-                                                            WHEN  PASM.NFESIT = '3' THEN 'ALT.FISCAL'
-                                                            WHEN  PASM.NFESIT = '4' THEN 'INTERMUNIC' END AS "SITUAÇÃO", 
-                        RPAD(PASM.NFENATOP, 30)             AS "NAT.OPER",
-                        --CASE                                WHEN PASM.NFECANC = 'S' THEN 'Cancelada' 
-                                                            --WHEN PASM.NFECANC = 'D' THEN 'Denegada' 
-                                                            --ELSE 'ATIVA' END AS "NF.CANC?",
-                        PASP.TMPCLASSE                      AS "CLASSE.FRONT",
-                        PRD.NFEPEAN                         AS GTIN,
-                        PRD.NFEPCODITEM                     AS "COD.PROD.EMIT",             
-                        --PRD.NFEPCPRODANP                    AS ANP,                     
-                        PRD.NFEPNCM                         AS NCM,          
-                        PRD.NFEPCFOP                        AS "CFOP.ITEM",           -- CFOP do Produto
-                        PRD.NFEPNITEM                       AS "Nº.ITEM",              -- nº Item
-                        PRD.NFEPNDESC                       AS "DESC.ITEM",             -- Descrição do Produto
-                        PRD.NFEPQTRIB                       AS "QNT",                 -- Quantidade Tributável
-                        PRD.NFEPUTRIB                       AS "UND",                 -- Unidade
-                        PRD.NFEPVUNTRIB                     AS "VLR.UNT",
-                        PRD.NFEPVPROD                       AS "VLR.BRUTO.ITEM",               -- Valor do Produto
-                        PRD.NFEPVDESC                       AS "DESCON.ITEM",
-                        PRD.NFEPVPROD - PRD.NFEPVDESC       AS "VLR.LIQ.ITEM", 
-                        PRD.NFEPPREDBC                      as "%.RED.BC",
-                        PRD.NFEPVBC                         AS "BC.ICMS.ITEM",
-                        PRD.NFEPPICMS                       AS "ALIQ",
-                        PRD.NFEPVICMS                       AS "ICMS.ITEM",
-                        PRD.NFEPCST                         AS "CST",
-                        CASE                                WHEN  PRD.NFEPORIG IN ('1','2','3','8') THEN 'IMPORT'
-                                                            ELSE 'NACIONAL' END AS "ORIGEM", 
-                        PRD.NFEPMDBCST                      AS "MOD.BC.ST",
-                        PRD.NFEPPMVAST                      AS "MVA.ST",
-                        PRD.NFEPVBCST                       AS "BC.ST.ITEM",
-                        PRD.NFEPPST                         AS "ALIQ.ST.ITEM", 
-                        PRD.NFEPVST                         AS "ST.RET.ITEM",       -- Valor do ICMS ST (NFe N23)
-                        PRD.NFEPVICMSDESON                  AS "ICMS.DESON.ITEM",
-                        PRD.PICMSUFDE                       AS "ALIQ.DEST",           -- ALIQUOTA ICMS DESTINO - DIFAL
-                        PRD.VICMSUFDE                       AS "DIFAL.ITEM",     -- ICMS DESTINO por produto - DIFAL
-                        PASM.VICMSUFDE                      AS "DIFAL.NF",           -- Total de ICMS DESTINO - DIFAL
-                        PASM.NFETVPROD                      AS "VLR.BR.ITENS.NF",
-                        PASM.NFEBNICMS                      AS "BC.ICMS.NF",
-                        PASM.NFEVNICMS                      AS "ICMS.NF",
-                        PASM.NFEVICMSD                      AS "ICMS.DESON.NF",
-                        PASM.NFEBSICMS                      AS "BC.ST.NF",
-                        PASM.NFEVSICMS                      AS "ICMS.ST.NF",
-                        PASM.NFETVFRET                      AS "FRETE.NF",
-                        PASM.NFEVSEGU                       AS "SEGURO.NF",
-                        PASM.NFEVSICMS                      AS "ICMS.ST.NF",
-                        PASM.NFENVDESC                      AS "DESCONTO.NF",
-                        PASM.NFEVNOTA                       AS "VALOR.FINAL.NF",
-                                
-                        CASE                                WHEN PASM.NFETPNF = '0' THEN 'ENTRADA'
-                                                            WHEN PASM.NFETPNF = '1' THEN 'SAÍDA'
-                                                            ELSE 'N/A' END AS "TIPO.OPER",                -- Tipo de Operacao: 0 - Entrada e 1- Saida
-                        
-                        CASE                                WHEN PASM.NFEFINEMI = '1' THEN 'NORMAL'
-                                                            WHEN PASM.NFEFINEMI = '2' THEN 'COMPLEMENTAR'
-                                                            WHEN PASM.NFEFINEMI = '3' THEN 'AJUSTE'
-                                                            WHEN PASM.NFEFINEMI = '4' THEN 'DEVOLUÇÃO'
-                                                            ELSE 'N/A' END AS "FINALIDADE",                
-                            
-                        CASE                                WHEN PASM.NFEIDDEST = '1' THEN 'INTERNA'
-                                                            WHEN PASM.NFEIDDEST = '2' THEN 'INTERESTADUAL'
-                                                            WHEN PASM.NFEIDDEST = '3' THEN 'EXTERIOR'
-                                                            ELSE 'N/A' END AS "DESTINO",
-                        PASM.NFEREFNFE                      AS "NF-e.REF",
-                        PASM.NFEINFADC                      AS "DADOS.AD.P1",
-                        PASM.NFEINFADCLOB                   AS "DADOS.AD.P2"
-                                
-
+                        RPAD(PASM.NFENATOP, 30)       AS "NAT_OPER",
+                        PASP.TMPCLASSE                AS "CLASSE_FRONTEIRA",
+                        PRD.NFEPEAN                   AS "GTIN_ITEM",
+                        PRD.NFEPCODITEM               AS "COD_PROD_EMIT",
+                        PRD.NFEPNCM                   AS "NCM_ITEM",
+                        PRD.NFEPNITEM                 AS "NUM_ITEM",
+                        PRD.NFEPNDESC                 AS "DESCRICAO_PROD",
+                        PRD.NFEPQTRIB                 AS "QTDE_ITEM",
+                        PRD.NFEPUTRIB                 AS "UND_ITEM",
+                        PRD.NFEPVUNTRIB               AS "VALOR_UNIT_ITEM",
+                        PRD.NFEPVPROD                 AS "VALOR_BRUTO_ITEM",
+                        PRD.NFEPVDESC                 AS "VALOR_DESCONTO_ITEM",
+                        PRD.NFEPVPROD - COALESCE(PRD.NFEPVDESC, 0) AS "VALOR_LIQUIDO_ITEM",
+                        PRD.NFEPCST                   AS CST_ITEM,
+                        CASE
+                            WHEN PRD.NFEPORIG IN ('1', '2', '3', '8')
+                            THEN 'IMPORT'
+                            ELSE 'NACIONAL'
+                        END                AS "ORIGEM",
+                        PRD.NFEPPREDBC     AS "REDUC_BC",
+                        PRD.NFEPVBC        AS "BC_ICMS_ITEM",
+                        PRD.NFEPPICMS      AS "ALIQ_ITEM",
+                        PRD.NFEPVICMS      AS "ICMS_ITEM",
+                        PRD.NFEPVICMSDESON AS "ICMS_DESON_ITEM",
+                        PASM.NFEVICMSD     AS "ICMS_DESON_NOTA",
+                        PASM.NFEVNICMS     AS "ICMS_NOTA",
+                        --PRD.NFEPMDBCST     AS "MOD.BC.ST",
+                        --PRD.NFEPVBCST      AS "BC.ST.ITEM",
+                        --PRD.NFEPPMVAST     AS "MVA.ST",
+                        --PRD.NFEPPST        AS "ALIQ.ST.ITEM",
+                        --PRD.NFEPVST        AS "ST.RET.ITEM",
+                        --PRD.NFEPVSTR       AS "ST.RET.ANT.ITEM",
+                        --PRD.VICMSUFDE      AS "DIFAL.ITEM",
+                        --PASM.VICMSUFDE     AS "DIFAL.NF",
+                        --PRD.PICMSUFDE      AS "ALIQ.DEST",
+                        --PASM.NFEBNICMS     AS "BC.ICMS.NF",
+                        --PASM.NFEBSICMS     AS "BC.ST.NF",
+                        --PASM.NFEVSICMS     AS "ICMS.ST.NF",
+                        --PASM.NFETVPROD     AS "VLR.BR.ITENS.NF",
+                        PASM.NFETVFRET     AS "FRETE_NOTA",
+                        PASM.NFEVSEGU      AS "SEGURO_NOTA",
+                        PASM.NFENVDESC     AS "DESCONTO_NOTA",
+                        PASM.NFEVNOTA      AS "VALOR_FINAL_NOTA",
+                        CASE
+                            WHEN PASM.NFETPNF = '0'
+                            THEN 'ENTRADA'
+                            WHEN PASM.NFETPNF = '1'
+                            THEN 'SAÍDA'
+                            ELSE 'N/A'
+                        END AS "TIPO_OPER",
+                        CASE
+                            WHEN PASM.NFEFINEMI = '1'
+                            THEN 'NORMAL'
+                            WHEN PASM.NFEFINEMI = '2'
+                            THEN 'COMPLEMENTAR'
+                            WHEN PASM.NFEFINEMI = '3'
+                            THEN 'AJUSTE'
+                            WHEN PASM.NFEFINEMI = '4'
+                            THEN 'DEVOLUÇÃO'
+                            ELSE 'N/A'
+                        END AS FINALIDADE,
+                        CASE
+                            WHEN PASM.NFEIDDEST = '1'
+                            THEN 'INTERNA'
+                            WHEN PASM.NFEIDDEST = '2'
+                            THEN 'INTERESTADUAL'
+                            WHEN PASM.NFEIDDEST = '3'
+                            THEN 'EXTERIOR'
+                            ELSE 'N/A'
+                        END               AS DESTINO,
+                        PASM.NFEREFNFE    AS "CHAVE_ACESSO_REF",
+                        PASM.NFEINFADC    AS "INFORMACOES_ADC",
+                        PASM.NFEINFADCLOB AS "INFORMACOES_ADC_CLOB"
 
                     FROM
                         
@@ -973,7 +1160,7 @@ class DadosOperacoes:
                         PASM.NFEDTEMI DESC, 
                         PASM.NFEHORA desc, 
                         PASM.DANF
-                """
+                """)
         
         def AdicionarNotasFiscaisExtemporaneas(self, chaves_acesso):
             inicial = 0
@@ -982,10 +1169,10 @@ class DadosOperacoes:
                 final = min(inicial+1000, len(chaves_acesso))
                 query = f""" 
                     SELECT 
-                        PASM.NFERDOCN AS "CNPJ.EMIT",
-                        PASM.NFERRAZ AS "RAZ.EMITENTE",
-                        PASM.NFERIEST AS "IE.ST.EMIT",
-                        PASM.NFERUF AS "UF.EMIT",
+                        PASM.NFERDOCN AS "CNPJ_REM",
+                        PASM.NFERRAZ AS "REMETENTE",
+                        PASM.NFERIEST AS "IE_REM",
+                        PASM.NFERUF AS "UF_REM",
                         CASE
                             WHEN PASM.NFERCRT = '1'
                             THEN 'SIMPLES'
@@ -994,13 +1181,13 @@ class DadosOperacoes:
                             WHEN PASM.NFERCRT = '3'
                             THEN 'NORMAL'
                             ELSE 'N/A'
-                            END AS REGIME,
-                        PASM.NFEDUF     AS "UF.DEST/REMET",
-                        PASM.NFEDRAZ    AS "RAZ.DEST/REMET",
-                        PASM.NFEDDOCN   AS "DOC.DEST/REMET",
-                        PASM.NFEDINSC   AS "IE.DEST/REMET",
-                        PASM.NFESUFRAMA AS SUFRAMA,
-                        PASM.NFENNOT    AS "Nº.NF",
+                            END AS "REGIME_REM",
+                        PASM.NFEDUF     AS "UF_DEST",
+                        PASM.NFEDRAZ    AS "DESTINATARIO",
+                        PASM.NFEDDOCN   AS "CNPJ_DEST",
+                        PASM.NFEDINSC   AS "IE_DEST",
+                        PASM.NFESUFRAMA AS "SUFRAMA",
+                        PASM.NFENNOT    AS "NUM_NOTA",
                         CASE
                             WHEN PASM.NFECANC = 'S'
                             THEN 'CANCELADA'
@@ -1008,74 +1195,61 @@ class DadosOperacoes:
                             THEN 'DENEGADA'
                             WHEN PASM.NFECANC = 'N'
                             THEN 'ATIVA'
-                        END           AS "ATIVA/CANC",
-                        PASM.DANF     AS "ChaveAcesso",
-                        PASM.NFECFOP  AS "CFOP.NF",
-                        PRD.NFEPCFOP  AS "CFOP.ITEM",
-                        PASM.NFEDTEMI AS "DT.EMISSÃO",
-                        CASE
-                            WHEN PASM.NFESIT = '0'
-                            THEN 'NÃO.DESEMB'
-                            WHEN PASM.NFESIT = '1'
-                            THEN 'DESEMBARAÇADA'
-                            WHEN PASM.NFESIT = '2'
-                            THEN 'OP.DESCONH'
-                            WHEN PASM.NFESIT = '3'
-                            THEN 'ALT.FISCAL'
-                            WHEN PASM.NFESIT = '4'
-                            THEN 'INTERMUNIC'
-                        END                           AS SITUAÇÃO,
-                        RPAD(PASM.NFENATOP, 30)       AS "NAT.OPER",
-                        PASP.TMPCLASSE                AS "CLASSE.FRONT",
-                        PRD.NFEPEAN                   AS GTIN,
-                        PRD.NFEPCODITEM               AS "COD.PROD.EMIT",
-                        PRD.NFEPNCM                   AS NCM,
-                        PRD.NFEPNITEM                 AS "Nº.ITEM",
-                        PRD.NFEPNDESC                 AS "DESC.ITEM",
-                        PRD.NFEPQTRIB                 AS QNT,
-                        PRD.NFEPUTRIB                 AS UND,
-                        PRD.NFEPVUNTRIB               AS "VLR.UNT",
-                        PRD.NFEPVPROD                 AS "VLR.BRUTO.ITEM",
-                        PRD.NFEPVDESC                 AS "DESCON.ITEM",
-                        PRD.NFEPVPROD - PRD.NFEPVDESC AS "VLR.LIQ.ITEM",
-                        PRD.NFEPCST                   AS CST,
+                        END           AS "SITUACAO",
+                        PASM.DANF     AS "CHAVE_ACESSO",
+                        PRD.NFEPCFOP  AS "CFOP_ITEM",
+                        PASM.NFEDTEMI AS "DT_EMISSAO",
+                        
+                        RPAD(PASM.NFENATOP, 30)       AS "NAT_OPER",
+                        PASP.TMPCLASSE                AS "CLASSE_FRONTEIRA",
+                        PRD.NFEPEAN                   AS "GTIN_ITEM",
+                        PRD.NFEPCODITEM               AS "COD_PROD_EMIT",
+                        PRD.NFEPNCM                   AS "NCM_ITEM",
+                        PRD.NFEPNITEM                 AS "NUM_ITEM",
+                        PRD.NFEPNDESC                 AS "DESCRICAO_PROD",
+                        PRD.NFEPQTRIB                 AS "QTDE_ITEM",
+                        PRD.NFEPUTRIB                 AS "UND_ITEM",
+                        PRD.NFEPVUNTRIB               AS "VALOR_UNIT_ITEM",
+                        PRD.NFEPVPROD                 AS "VALOR_BRUTO_ITEM",
+                        PRD.NFEPVDESC                 AS "VALOR_DESCONTO_ITEM",
+                        PRD.NFEPVPROD - COALESCE(PRD.NFEPVDESC, 0) AS "VALOR_LIQUIDO_ITEM",
+                        PRD.NFEPCST                   AS CST_ITEM,
                         CASE
                             WHEN PRD.NFEPORIG IN ('1', '2', '3', '8')
                             THEN 'IMPORT'
                             ELSE 'NACIONAL'
-                        END                AS ORIGEM,
-                        PRD.NFEPPREDBC     AS "%.RED.BC",
-                        PRD.NFEPVBC        AS "BC.ICMS.ITEM",
-                        PRD.NFEPPICMS      AS ALIQ,
-                        PRD.NFEPVICMS      AS "ICMS.ITEM",
-                        PRD.NFEPVICMSDESON AS "ICMS.DESON.ITEM",
-                        PASM.NFEVICMSD     AS "ICMS.DESON.NF",
-                        PASM.NFEVNICMS     AS "ICMS.NF",
-                        PRD.NFEPMDBCST     AS "MOD.BC.ST",
-                        PRD.NFEPVBCST      AS "BC.ST.ITEM",
-                        PRD.NFEPPMVAST     AS "MVA.ST",
-                        PRD.NFEPPST        AS "ALIQ.ST.ITEM",
-                        PRD.NFEPVST        AS "ST.RET.ITEM",
-                        PRD.NFEPVSTR       AS "ST.RET.ANT.ITEM",
-                        PRD.VICMSUFDE      AS "DIFAL.ITEM",
-                        PASM.VICMSUFDE     AS "DIFAL.NF",
-                        PRD.PICMSUFDE      AS "ALIQ.DEST",
-                        PASM.NFEBNICMS     AS "BC.ICMS.NF",
-                        PASM.NFEBSICMS     AS "BC.ST.NF",
-                        PASM.NFEVSICMS     AS "ICMS.ST.NF",
-                        PASM.NFETVPROD     AS "VLR.BR.ITENS.NF",
-                        PASM.NFETVFRET     AS "FRETE.NF",
-                        PASM.NFEVSEGU      AS "SEGURO.NF",
-                        PASM.NFEVSICMS     AS "ICMS.ST.NF.2",
-                        PASM.NFENVDESC     AS "DESCONTO.NF",
-                        PASM.NFEVNOTA      AS "VALOR.FINAL.NF",
+                        END                AS "ORIGEM",
+                        PRD.NFEPPREDBC     AS "REDUC_BC",
+                        PRD.NFEPVBC        AS "BC_ICMS_ITEM",
+                        PRD.NFEPPICMS      AS "ALIQ_ITEM",
+                        PRD.NFEPVICMS      AS "ICMS_ITEM",
+                        PRD.NFEPVICMSDESON AS "ICMS_DESON_ITEM",
+                        PASM.NFEVICMSD     AS "ICMS_DESON_NOTA",
+                        PASM.NFEVNICMS     AS "ICMS_NOTA",
+                        --PRD.NFEPMDBCST     AS "MOD.BC.ST",
+                        --PRD.NFEPVBCST      AS "BC.ST.ITEM",
+                        --PRD.NFEPPMVAST     AS "MVA.ST",
+                        --PRD.NFEPPST        AS "ALIQ.ST.ITEM",
+                        --PRD.NFEPVST        AS "ST.RET.ITEM",
+                        --PRD.NFEPVSTR       AS "ST.RET.ANT.ITEM",
+                        --PRD.VICMSUFDE      AS "DIFAL.ITEM",
+                        --PASM.VICMSUFDE     AS "DIFAL.NF",
+                        --PRD.PICMSUFDE      AS "ALIQ.DEST",
+                        --PASM.NFEBNICMS     AS "BC.ICMS.NF",
+                        --PASM.NFEBSICMS     AS "BC.ST.NF",
+                        --PASM.NFEVSICMS     AS "ICMS.ST.NF",
+                        --PASM.NFETVPROD     AS "VLR.BR.ITENS.NF",
+                        PASM.NFETVFRET     AS "FRETE_NOTA",
+                        PASM.NFEVSEGU      AS "SEGURO_NOTA",
+                        PASM.NFENVDESC     AS "DESCONTO_NOTA",
+                        PASM.NFEVNOTA      AS "VALOR_FINAL_NOTA",
                         CASE
                             WHEN PASM.NFETPNF = '0'
                             THEN 'ENTRADA'
                             WHEN PASM.NFETPNF = '1'
                             THEN 'SAÍDA'
                             ELSE 'N/A'
-                        END AS "TIPO.OPER",
+                        END AS "TIPO_OPER",
                         CASE
                             WHEN PASM.NFEFINEMI = '1'
                             THEN 'NORMAL'
@@ -1096,12 +1270,9 @@ class DadosOperacoes:
                             THEN 'EXTERIOR'
                             ELSE 'N/A'
                         END               AS DESTINO,
-                        PASM.NFEREFNFE    AS "NF-e.REF",
-                        PASM.NFEINFADC    AS "DADOS.AD.P1",
-                        PASM.NFEINFADCLOB AS "DADOS.AD.P2",
-                        PASM.NFEDLOGRAD,
-                        PASM.NFEDBAI,
-                        PASM.NFEDNUM
+                        PASM.NFEREFNFE    AS "CHAVE_ACESSO_REF",
+                        PASM.NFEINFADC    AS "INFORMACOES_ADC",
+                        PASM.NFEINFADCLOB AS "INFORMACOES_ADC_CLOB"
                     FROM 
                         SIATE.NFEPASM PASM,
                         SIATE.NFEPRD PRD,
@@ -1120,19 +1291,18 @@ class DadosOperacoes:
                 self.queries.append(query)    
                 
         def retrieve(self):
-            dtypes = {'CFOP.ITEM': str}
             try:    # Verificando se há dado importado na memória secundária
-                return pd.read_excel(self.path, dtype=dtypes)
+                return pd.read_excel(self.path, dtype=DadosOperacoes.TIPOS_PRODUTOS)
             except:
-                dtypes = {'CFOP.ITEM': str}
                 df = pd.DataFrame()
                 for query in self.queries:
                     temp = extrair_df_de_lobs(query)
                     df = pd.concat([df, temp])
 
-                for col, tipo in dtypes.items():
+                for col, tipo in DadosOperacoes.TIPOS_PRODUTOS.items():
                     df[col] = df[col].astype(tipo)
-
+                
+                print(f'Recuperado {len(df)} registros!')
                 return df
 
         def quantidade(self):
@@ -1151,6 +1321,20 @@ class DadosOperacoes:
 
     class NotasFiscaisConsumidor(DocumentacaoAuditoria):
         
+        TIPOS_NOTAS_CONSUMIDOR = {
+            'CNPJ_REM': str, 
+            'CNPJ_DEST': str,
+            'NUM_NOTA': str,
+            'CHAVE_ACESSO': str,
+            'CFOP_ITEM': str, 
+            'DT_EMISSAO': 'datetime64[ns]',
+            'GTIN_ITEM': str,
+            'COD_PROD_EMIT': str, 
+            'NCM_ITEM': str,
+            'NUM_ITEM': str, 
+            'CST_ITEM': str, 
+        }
+
         def __init__(self, cnpj, data_inicio, data_fim):
             self.cnpj = cnpj
             self.data_inicio = data_inicio
@@ -1159,48 +1343,47 @@ class DadosOperacoes:
             self.queries.append(f""" 
                     SELECT 
                         
-                        X.NFCE_NR_DOC_REM       AS "CNPJ.EMIT",
-                        x.NFCE_NM_RAZ_REM       as "EMIT",
-                        x.NFCE_NM_RAZ_DES       AS "DEST",
-                        X.NFCE_NR_DOC_DES       AS "CNPJ.DEST",
-                        X.NFCE_DT_EMISSAO       AS "DT.EMISSAO",
-                        X.NFCE_NR_DANF          AS "CHAVE",
-                        X.NFCE_NR_NOTA          AS "Nº.NFC-e",
-                        x.NFCE_NAT_OPER         as "NAT.OPER",
-                        x.NFCE_CD_CFOP          as "CFOP.NFC-e",
-                        Y.NFCP_CD_EAN           AS "GTIN",
-                        Y.NFCP_CODIGO_ITEM      AS "COD.ITEM",
-                        Y.NFCP_CD_NCM           AS "NCM",
-                        Y.NFCP_CD_CFOP          AS "CFOP.ITEM",
-                        Y.NFCP_CLAS_TRIB        AS "CLASS.TRIB",
-                        Y.NFCP_CD_OP_SN         AS "SIT.OPE",
-                        Y.NFCP_NR_ITEM          AS "Nº.ITEM",
-                        Y.NFCP_DESC             AS "DESC",
-                        Y.NFCP_UN_TRIB          AS "UND",
-                        Y.NFCP_QT_TRIB          AS "QNT",
-                        y.NFCP_VL_UNIT_TRIB     AS "VLR.UNT.TRIB",
-                        Y.NFCP_TT_PROD          AS "VLR.BR.PRODUTOS",
-                        Y.NFCP_VL_DESC          AS "DESCONTO",
-                        Y.NFCP_TT_PROD - Y.NFCP_VL_DESC as "VLR.LIQ.PRODUTOS",
-                        Y.NFCP_VL_BC            AS "BC.ICMS.ITEM",
-                        Y.NFCP_ALIQ_ICMS        AS "ALIQ",
-                        Y.NFCP_VL_ICMS          AS "ICMS.ITEM",
-                        Y.NFCP_VL_FRETE         AS "FRETE",
-                        Y.NFCP_VL_SEGURO        AS "SEGURO",
-                        Y.NFCP_VL_OUTROS        AS "OUTROS",
-                        Y.NFCP_CLAS_TRIB        AS "CST",
-                        Y.NFCP_ORIGEM           AS "ORIGEM",
-                        CASE                                WHEN  Y.NFCP_ORIGEM IN ('1','2','3','8') THEN 'IMPORT'
-                                                            ELSE 'NACIONAL' END AS "ORIGEM", 
-                        X.NFCE_BS_ICMS          AS "BC.NFC-e",
-                        x.NFCE_VL_ICMS          as "ICMS.NFC-e",
-                        Y.NFCP_PC_MVAST         AS "MVA",
-                        Y.NFCP_VL_BCST          AS "BC.ST",
-                        Y.NFCP_ALIQ_ICMS_ST     AS "ALIQ.ST",
-                        Y.NFCP_VL_ICMS_ST       AS "ICMS.ST",
-                        Y.NFCP_VL_BCSTR         AS "BC.ICMS.Ret",
-                        Y.NFCP_VL_ICMS_STR      AS "VLR.ICMS.Ret",
-                        X.NFCE_TT_NOTA          AS "TOTAL.LIQ.NFC-e"
+                        X.NFCE_NR_DOC_REM       AS "CNPJ_REM",
+                        x.NFCE_NM_RAZ_REM       as "REMETENTE",
+                        x.NFCE_NM_RAZ_DES       AS "DESTINATARIO",
+                        X.NFCE_NR_DOC_DES       AS "CNPJ_DEST",
+                        X.NFCE_DT_EMISSAO       AS "DT_EMISSAO",
+                        X.NFCE_NR_DANF          AS "CHAVE_ACESSO",
+                        X.NFCE_NR_NOTA          AS "NUM_NOTA",
+                        x.NFCE_NAT_OPER         as "NAT_OPER",
+                        Y.NFCP_CD_EAN           AS "GTIN_ITEM",
+                        Y.NFCP_CODIGO_ITEM      AS "COD_PROD_EMIT",
+                        Y.NFCP_CD_NCM           AS "NCM_ITEM",
+                        Y.NFCP_CD_CFOP          AS "CFOP_ITEM",
+                        Y.NFCP_CD_OP_SN         AS "SITUACAO",
+                        Y.NFCP_NR_ITEM          AS "NUM_ITEM",
+                        Y.NFCP_DESC             AS "DESCRICAO_PROD",
+                        Y.NFCP_UN_TRIB          AS "UND_ITEM",
+                        Y.NFCP_QT_TRIB          AS "QTDE_ITEM",
+                        y.NFCP_VL_UNIT_TRIB     AS "VALOR_UNIT_ITEM",
+                        Y.NFCP_TT_PROD          AS "VALOR_BRUTO_ITEM",
+                        Y.NFCP_VL_DESC          AS "VALOR_DESCONTO_ITEM",
+                        Y.NFCP_TT_PROD - COALESCE(Y.NFCP_VL_DESC, 0) as "VALOR_LIQUIDO_ITEM",
+                        Y.NFCP_VL_BC            AS "BC_ICMS_ITEM",
+                        Y.NFCP_ALIQ_ICMS        AS "ALIQ_ITEM",
+                        Y.NFCP_VL_ICMS          AS "ICMS_ITEM",
+                        Y.NFCP_VL_FRETE         AS "FRETE_ITEM",
+                        Y.NFCP_VL_SEGURO        AS "SEGURO_ITEM",
+                        Y.NFCP_VL_OUTROS        AS "OUTROS_ITEM",
+                        Y.NFCP_CLAS_TRIB        AS "CST_ITEM",
+                        CASE 
+                            WHEN  Y.NFCP_ORIGEM IN ('1','2','3','8') THEN 'IMPORT'
+                            ELSE 'NACIONAL' 
+                        END                     AS "ORIGEM", 
+                        --X.NFCE_BS_ICMS          AS "BC.NFC-e",
+                        --x.NFCE_VL_ICMS          as "ICMS.NFC-e",
+                       -- Y.NFCP_PC_MVAST         AS "MVA",
+                       -- Y.NFCP_VL_BCST          AS "BC.ST",
+                        --Y.NFCP_ALIQ_ICMS_ST     AS "ALIQ.ST",
+                        --Y.NFCP_VL_ICMS_ST       AS "ICMS.ST",
+                        --Y.NFCP_VL_BCSTR         AS "BC.ICMS.Ret",
+                        --Y.NFCP_VL_ICMS_STR      AS "VLR.ICMS.Ret",
+                        X.NFCE_TT_NOTA          AS "VALOR_FINAL_NOTA"
                         
 
                     FROM 
@@ -1223,59 +1406,54 @@ class DadosOperacoes:
             query = f""" 
                     SELECT 
                         
-                        X.NFCE_NR_DOC_REM       AS "CNPJ.EMIT",
-                        x.NFCE_NM_RAZ_REM       as "EMIT",
-                        x.NFCE_NM_RAZ_DES       AS "DEST",
-                        X.NFCE_NR_DOC_DES       AS "CNPJ.DEST",
-                        X.NFCE_DT_EMISSAO       AS "DT.EMISSAO",
-                        X.NFCE_NR_DANF          AS "CHAVE",
-                        X.NFCE_NR_NOTA          AS "Nº.NFC-e",
-                        x.NFCE_NAT_OPER         as "NAT.OPER",
-                        x.NFCE_CD_CFOP          as "CFOP.NFC-e",
-                        Y.NFCP_CD_EAN           AS "GTIN",
-                        Y.NFCP_CODIGO_ITEM      AS "COD.ITEM",
-                        Y.NFCP_CD_NCM           AS "NCM",
-                        Y.NFCP_CD_CFOP          AS "CFOP.ITEM",
-                        Y.NFCP_CLAS_TRIB        AS "CLASS.TRIB",
-                        Y.NFCP_CD_OP_SN         AS "SIT.OPE",
-                        Y.NFCP_NR_ITEM          AS "Nº.ITEM",
-                        Y.NFCP_DESC             AS "DESC",
-                        Y.NFCP_UN_TRIB          AS "UND",
-                        Y.NFCP_QT_TRIB          AS "QNT",
-                        y.NFCP_VL_UNIT_TRIB     AS "VLR.UNT.TRIB",
-                        Y.NFCP_TT_PROD          AS "VLR.BR.PRODUTOS",
-                        Y.NFCP_VL_DESC          AS "DESCONTO",
-                        Y.NFCP_TT_PROD - Y.NFCP_VL_DESC as "VLR.LIQ.PRODUTOS",
-                        Y.NFCP_VL_BC            AS "BC.ICMS.ITEM",
-                        Y.NFCP_ALIQ_ICMS        AS "ALIQ",
-                        Y.NFCP_VL_ICMS          AS "ICMS.ITEM",
-                        Y.NFCP_VL_FRETE         AS "FRETE",
-                        Y.NFCP_VL_SEGURO        AS "SEGURO",
-                        Y.NFCP_VL_OUTROS        AS "OUTROS",
-                        Y.NFCP_CLAS_TRIB        AS "CST",
-                        Y.NFCP_ORIGEM           AS "ORIGEM",
-                        CASE                                WHEN  Y.NFCP_ORIGEM IN ('1','2','3','8') THEN 'IMPORT'
-                                                            ELSE 'NACIONAL' END AS "ORIGEM", 
-                        X.NFCE_BS_ICMS          AS "BC.NFC-e",
-                        x.NFCE_VL_ICMS          as "ICMS.NFC-e",
-                        Y.NFCP_PC_MVAST         AS "MVA",
-                        Y.NFCP_VL_BCST          AS "BC.ST",
-                        Y.NFCP_ALIQ_ICMS_ST     AS "ALIQ.ST",
-                        Y.NFCP_VL_ICMS_ST       AS "ICMS.ST",
-                        Y.NFCP_VL_BCSTR         AS "BC.ICMS.Ret",
-                        Y.NFCP_VL_ICMS_STR      AS "VLR.ICMS.Ret",
-                        X.NFCE_TT_NOTA          AS "TOTAL.LIQ.NFC-e"
+                        X.NFCE_NR_DOC_REM       AS "CNPJ_REM",
+                        x.NFCE_NM_RAZ_REM       as "REMETENTE",
+                        x.NFCE_NM_RAZ_DES       AS "DESTINATARIO",
+                        X.NFCE_NR_DOC_DES       AS "CNPJ_DEST",
+                        X.NFCE_DT_EMISSAO       AS "DT_EMISSAO",
+                        X.NFCE_NR_DANF          AS "CHAVE_ACESSO",
+                        X.NFCE_NR_NOTA          AS "NUM_NOTA",
+                        x.NFCE_NAT_OPER         as "NAT_OPER",
+                        Y.NFCP_CD_EAN           AS "GTIN_ITEM",
+                        Y.NFCP_CODIGO_ITEM      AS "COD_PROD_EMIT",
+                        Y.NFCP_CD_NCM           AS "NCM_ITEM",
+                        Y.NFCP_CD_CFOP          AS "CFOP_ITEM",
+                        Y.NFCP_CD_OP_SN         AS "SITUACAO",
+                        Y.NFCP_NR_ITEM          AS "NUM_ITEM",
+                        Y.NFCP_DESC             AS "DESCRICAO_PROD",
+                        Y.NFCP_UN_TRIB          AS "UND_ITEM",
+                        Y.NFCP_QT_TRIB          AS "QTDE_ITEM",
+                        y.NFCP_VL_UNIT_TRIB     AS "VALOR_UNIT_ITEM",
+                        Y.NFCP_TT_PROD          AS "VALOR_BRUTO_ITEM",
+                        Y.NFCP_VL_DESC          AS "VALOR_DESCONTO_ITEM",
+                        Y.NFCP_TT_PROD - COALESCE(Y.NFCP_VL_DESC, 0) as "VALOR_LIQUIDO_ITEM",
+                        Y.NFCP_VL_BC            AS "BC_ICMS_ITEM",
+                        Y.NFCP_ALIQ_ICMS        AS "ALIQ_ITEM",
+                        Y.NFCP_VL_ICMS          AS "ICMS_ITEM",
+                        Y.NFCP_VL_FRETE         AS "FRETE_ITEM",
+                        Y.NFCP_VL_SEGURO        AS "SEGURO_ITEM",
+                        Y.NFCP_VL_OUTROS        AS "OUTROS_ITEM",
+                        Y.NFCP_CLAS_TRIB        AS "CST_ITEM",
+                        CASE 
+                            WHEN  Y.NFCP_ORIGEM IN ('1','2','3','8') THEN 'IMPORT'
+                            ELSE 'NACIONAL' 
+                        END                     AS "ORIGEM", 
+                        --X.NFCE_BS_ICMS          AS "BC.NFC-e",
+                        --x.NFCE_VL_ICMS          as "ICMS.NFC-e",
+                       -- Y.NFCP_PC_MVAST         AS "MVA",
+                       -- Y.NFCP_VL_BCST          AS "BC.ST",
+                        --Y.NFCP_ALIQ_ICMS_ST     AS "ALIQ.ST",
+                        --Y.NFCP_VL_ICMS_ST       AS "ICMS.ST",
+                        --Y.NFCP_VL_BCSTR         AS "BC.ICMS.Ret",
+                        --Y.NFCP_VL_ICMS_STR      AS "VLR.ICMS.Ret",
+                        X.NFCE_TT_NOTA          AS "VALOR_FINAL_NOTA"
                         
-
                     FROM 
-
                         NFCE_OWNER.TB_NFCE X,
                         NFCE_OWNER.TB_NFCEPRD Y
-
                     WHERE 
                         X.NFCE_NR_DANF   = Y.NFCP_NR_DANF
-                    AND NFCE_NR_DANF IN {chaves_acesso}
-
+                        AND NFCE_NR_DANF IN {chaves_acesso}
                     ORDER BY 
                         X.NFCE_DT_EMISSAO desc, X.NFCE_NR_DANF, Y.NFCP_NR_ITEM
                 """
@@ -1284,12 +1462,17 @@ class DadosOperacoes:
      
         def retrieve(self):
             try:    # Verificando se há dado importado na memória secundária
-                return pd.read_excel(self.path)
+                return pd.read_excel(self.path, dtype=self.TIPOS_NOTAS_CONSUMIDOR)
             except:
                 df = pd.DataFrame()
                 for query in self.queries:
                     temp = extrair_df_de_lobs(query)
                     df = pd.concat([df, temp])
+
+                for col, dtype in self.TIPOS_NOTAS_CONSUMIDOR.items():
+                    df[col] = df[col].astype(dtype)
+
+                print(f'Recuperado {len(df)} registros!')
                 return df
     
         def quantidade(self):
@@ -1306,6 +1489,7 @@ class DadosOperacoes:
     
     class EventosNotas(DocumentacaoAuditoria):
         
+        
         def __init__(self, chaves_acesso):
         
             inicial = 0
@@ -1314,13 +1498,13 @@ class DadosOperacoes:
                 final = min(inicial+1000, len(chaves_acesso))
                 query = f"""
                             SELECT
-                                DANF AS "ChaveAcesso", 
-                                NFEEVSEQ AS "SequenciaEvento",
-                                NFEEVDATA AS "DataEvento",
-                                NFEEVHORA AS "HoraEvento",
-                                NFEEVCOD AS "CodigoEvento",
-                                NFEEVDESC AS "DescricaoEvento",
-                                NFEEVJUST AS "Justificativa"
+                                DANF AS "CHAVE_ACESSO", 
+                                NFEEVSEQ AS "SEQUENCIA_EVENTO",
+                                NFEEVDATA AS "DATA_EVENTO",
+                                NFEEVHORA AS "HORA_EVENTO",
+                                NFEEVCOD AS "CODIGO_EVENTO",
+                                NFEEVDESC AS "DESCRICAO_EVENTO",
+                                NFEEVJUST AS "JUSTIFICATIVA"
                             FROM
                                 SIATE.NFEEVEN
                             WHERE
@@ -1338,6 +1522,11 @@ class DadosOperacoes:
                 for query in self.queries:
                     temp = extrair_df_de_lobs(query)
                     df = pd.concat([df, temp])
+
+                for col, dtype in DadosOperacoes.TIPO_EVENTOS.items():
+                    df[col] = df[col].astype(dtype)
+
+                print(f'Recuperado {len(df)} registros!')
                 return df 
     
     class EventosNotasConsumidor(DocumentacaoAuditoria):
@@ -1350,15 +1539,14 @@ class DadosOperacoes:
             while inicial < len(chaves_acesso):
                 final = min(inicial+1000, len(chaves_acesso))
                 query = f"""
-                        SELECT
                             SELECT
-                                NFCE_NR_DANF AS "ChaveAcesso", 
-                                NFCE_EVSEQ AS "SequenciaEvento",
-                                NFCE_EVDATA AS "DataEvento",
-                                NFCE_EVHORA AS "HoraEvento",
-                                NFCE_EVCOD AS "CodigoEvento",
-                                NFCE_EVDESC AS "DescricaoEvento",
-                                NFCE_EVJUST AS "Justificativa"
+                                NFCE_NR_DANF AS "CHAVE_ACESSO", 
+                                NFCE_EVSEQ AS "SEQUENCIA_EVENTO",
+                                NFCE_EVDATA AS "DATA_EVENTO",
+                                NFCE_EVHORA AS "HORA_EVENTO",
+                                NFCE_EVCOD AS "CODIGO_EVENTO",
+                                NFCE_EVDESC AS "DESCRICAO_EVENTO",
+                                NFCE_EVJUST AS "JUSTIFICATIVA"
                             FROM
                                 NFCE_OWNER.TB_NFCEEVEN
                             WHERE
@@ -1376,10 +1564,21 @@ class DadosOperacoes:
                 for query in self.queries:
                     temp = extrair_df_de_lobs(query)
                     df = pd.concat([df, temp])
+                
+                for col, dtype in DadosOperacoes.TIPO_EVENTOS.items():
+                    df[col] = df[col].astype(dtype)
+
+                print(f'Recuperado {len(df)} registros!')
                 return df 
              
     class EventosDesembaraco(DocumentacaoAuditoria):
         
+        TIPO_DESEMBARACO = {
+            'CHAVE_ACESSO': str, 
+            'DATA_PASSAGEM': 'datetime64[ns]'
+
+        }
+
         def __init__(self, chaves_acesso):
             inicial = 0
             self.queries = []
@@ -1387,7 +1586,7 @@ class DadosOperacoes:
                 final = min(inicial+1000, len(chaves_acesso))
                 query = f""" 
                             SELECT
-                                TMDANF AS "CHV_ACC",
+                                TMDANF AS "CHAVE_ACESSO",
                                 TMDTPAS AS "DATA_PASSAGEM",
                                 TMHRPAS AS "HORA_PASSAGEM"
                             FROM
@@ -1406,6 +1605,11 @@ class DadosOperacoes:
                 for query in self.queries:
                     temp = extrair_df_de_lobs(query)
                     df = pd.concat([df, temp])
+                
+                for col, dtype in self.TIPO_DESEMBARACO.items():
+                    df[col] = df[col].astype(dtype)
+
+                print(f'Recuperado {len(df)} registros!')
                 return df 
 
 
