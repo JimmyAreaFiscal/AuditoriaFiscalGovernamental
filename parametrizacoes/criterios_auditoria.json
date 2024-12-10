@@ -1,0 +1,145 @@
+{
+    "Auditoria de Obrigações Acessórias e Cadastrais": {
+      "titulo": "AUDITORIA DE OBRIGAÇÕES TRIBUTÁRIAS ACESSÓRIAS",
+      "descricao_introdutoria": "Conforme legislação federal e estadual, as pessoas jurídicas, contribuintes ou não do Imposto sobre Circulação de Mercadorias e Serviços (ICMS), devem cumprir um conjunto de obrigações acessórias...",
+      "criterios": [
+        {
+          "titulo": "Contribuinte inscrito no Cadastro Nacional de Pessoas Jurídicas (CNPJ)",
+          "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
+          "fundamentacao": [
+            "Decreto nº 3.000/1999",
+            "Lei Complementar nº 123/2006"
+          ]
+        },
+        {
+          "titulo": "Contribuinte inscrito no Cadastro Geral da Fazenda (CGF)",
+          "descricao": "De acordo com o Decreto nº 4.335/2001, que regulamenta o ICMS no estado de Roraima...",
+          "fundamentacao": [
+            "Decreto nº 4.335/2001"
+          ]
+        },
+        {
+          "titulo": "Contribuinte com emissão de documentos fiscais no período",
+          "descricao": "O artigo 113 do CTN e o Regulamento do ICMS de Roraima dispõem que os contribuintes são obrigados a emitir documentos fiscais...",
+          "fundamentacao": [
+            "Art. 113, CTN",
+            "Decreto nº 4.335/2001"
+          ]
+        },
+        {
+          "titulo": "Contribuinte com entrega de Guia de Informação Mensal do ICMS (GIM)",
+          "descricao": "Conforme o Regulamento do ICMS de Roraima, é obrigatória a entrega mensal da Guia de Informação do ICMS (GIM)...",
+          "fundamentacao": [
+            "Decreto nº 4.335/2001"
+          ]
+        },
+        {
+          "titulo": "Contribuinte com declaração do PGDAS",
+          "descricao": "A Lei Complementar nº 123/2006 e as Resoluções CGSN estabelecem que os optantes pelo Simples Nacional devem apresentar a declaração do PGDAS-D...",
+          "fundamentacao": [
+            "Lei Complementar nº 123/2006",
+            "Resoluções CGSN nº 94/2011 e nº 140/2018"
+          ]
+        }
+      ]
+    },
+
+    "Auditoria de Situação Fiscal": {
+      "titulo": "AUDITORIA DE SITUAÇÃO FISCAL",
+      "descricao_introdutoria": "Conforme legislação federal e estadual, as pessoas jurídicas, contribuintes ou não do Imposto sobre Circulação de Mercadorias e Serviços (ICMS), devem cumprir um conjunto de obrigações acessórias...",
+      "criterios": [
+        {
+          "titulo": "Inexistências de créditos tributários lançados e não suspensos",
+          "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
+          "fundamentacao": [
+            "Decreto nº 3.000/1999",
+            "Lei Complementar nº 123/2006"
+          ]
+        }]
+    },
+  
+    "Auditoria de Operações e Prestações de Entrada": {
+      "titulo": "AUDITORIA DE OPERAÇÕES E PRESTAÇÕES DE ENTRADA",
+      "descricao_introdutoria": "Conforme legislação federal e estadual, as pessoas jurídicas, contribuintes ou não do Imposto sobre Circulação de Mercadorias e Serviços (ICMS), devem cumprir um conjunto de obrigações acessórias...",
+      "criterios": [
+        {
+          "titulo": "Notas Fiscais Interestaduais apresentadas à Secretaria da Fazenda de Roraima",
+          "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
+          "fundamentacao": [
+            "Decreto nº 3.000/1999",
+            "Lei Complementar nº 123/2006"
+          ]
+        }
+    
+        ]
+    },
+
+    "Auditoria de Operações e Prestações de Saída": {
+      "titulo": "AUDITORIA DE OPERAÇÕES E PRESTAÇÕES DE SAÍDA",
+      "descricao_introdutoria": "Conforme legislação federal e estadual, as pessoas jurídicas, contribuintes ou não do Imposto sobre Circulação de Mercadorias e Serviços (ICMS), devem cumprir um conjunto de obrigações acessórias...",
+      "criterios": [
+            {
+          "titulo": "Ausência de Desempenho Negativo (por mês)",
+          "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
+          "fundamentacao": [
+            "Decreto nº 3.000/1999",
+            "Lei Complementar nº 123/2006"
+          ]
+            },
+
+            {
+            "titulo": "Ausência de Desempenho Negativo (por produto)",
+            "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
+            "fundamentacao": [
+              "Decreto nº 3.000/1999",
+              "Lei Complementar nº 123/2006"
+            ]
+          },
+
+          {
+            "titulo": "Emissão de Notas Fiscais de Saída para documentar baixa de estoque (vendas, perdas, transferências)",
+            "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
+            "fundamentacao": [
+              "Decreto nº 3.000/1999",
+              "Lei Complementar nº 123/2006"
+            ]
+          }
+    
+        ]
+    },
+
+    "Auditoria de Faturamento": {
+      "titulo": "AUDITORIA DE FATURAMENTO",
+      "descricao_introdutoria": "Conforme legislação federal e estadual, as pessoas jurídicas, contribuintes ou não do Imposto sobre Circulação de Mercadorias e Serviços (ICMS), devem cumprir um conjunto de obrigações acessórias...",
+      "criterios": [
+            {
+          "titulo": "Faturamento declarado em PGDAS compatível com as emissões de documentos fiscais de saída",
+          "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
+          "fundamentacao": [
+            "Decreto nº 3.000/1999",
+            "Lei Complementar nº 123/2006"
+          ]
+            },
+
+            {
+            "titulo": "Faturamento declarado em PGDAS compatível com o recebimento de notas fiscais de entrada com mercadorias",
+            "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
+            "fundamentacao": [
+              "Decreto nº 3.000/1999",
+              "Lei Complementar nº 123/2006"
+            ]
+          },
+
+          {
+            "titulo": "Faturamento declarado em PGDAS compatível com as despesas declaradas em Notas Fiscais",
+            "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
+            "fundamentacao": [
+              "Decreto nº 3.000/1999",
+              "Lei Complementar nº 123/2006"
+            ]
+          }
+    
+        ]
+    }
+  }
+  

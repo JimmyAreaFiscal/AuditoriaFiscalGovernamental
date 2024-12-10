@@ -4,6 +4,9 @@ from dados import user, pw, dns_tns
 from dateutil.relativedelta import relativedelta
 import warnings
 import functools
+from sqlalchemy import create_engine
+
+
 
 
 oracledb.init_oracle_client()
@@ -285,6 +288,9 @@ class DadosEscriturais:
     
 
     class PGDAS(DocumentacaoAuditoria):
+        # Parâmetros de conexão com o PostgreSQL
+        DATABASE_URL = "postgresql+psycopg2://auditor:1234@localhost:5432/simples_nacional"
+        engine = create_engine(DATABASE_URL)
 
         def __init__(self, cnpj, data_inicio, data_fim):
             
@@ -292,121 +298,126 @@ class DadosEscriturais:
             self.data_inicio = data_inicio
             self.data_fim = data_fim
             
-            self.query = f""" 
-                    
-                    SELECT 
-                        "00000"."Pgdasd_ID_Declaracao",
-                        "00000"."Pgdasd_Dt_Transmissao",
-                        "00000"."Operação",
-                        "00000"."Regime",
-                        "AAAAA"."dt_ini",
-                        "03000"."CNPJ",
-                        "03000"."Vltotal",
-                        "03000"."ImpedidoIcmsIss",
-                        "03100"."Tipo",
-                        'A' AS "Faixa",
-                        "03100"."Vltotal",
-                        "03110'."UF",
-                        "03110"."ICMS",
-                        "03110"."Alíquota apurada de ICMS",
-                        "03110"."Valor apurado de ICMS"
-                        
-                        "03111"."Valor" AS "Valor de Isenção",
-                        "03112"."Valor" AS "Valor de Redução de BC",
-                        "03112"."Red" AS "Redução BC"
-                    FROM 
-                        AAAAA INNER JOIN "00000" ON (AAAAA.AAAAA_ID = "00000".AAAAA_ID)
-                            LEFT JOIN "03000" ON ("00000"."00000_ID" = "03000"."00000_ID")
-                            LEFT JOIN "03100" ON ("03000"."03000_ID" = "03100"."03000_ID")
-                            LEFT JOIN "03110" ON ("03100"."03100_ID" = "03110"."03100_ID")
-                            LEFT JOIN "03111" ON ("03110"."03110_ID" = "03111"."03110_ID")
-                            LEFT JOIN "03112" ON ("03110"."03110_ID" = "03112"."03110_ID")
-                        
-                    WHERE 
+            self.query = f"""
 
-                        "03000".CNPJ = '{cnpj}'
-                        AND "AAAAA".dt_ini BETWEEN '{data_inicio.strftime("%d/%m/%Y")}' AND '{data_fim.strftime("%d/%m/%Y")}' 
+            with PGDAS_VALIDOS as 
+                (SELECT 
+                    NORMAL."Pgdasd_ID_Declaracao" 
+                FROM 
+                    "pgdas"."00000" NORMAL
+                WHERE 
+                    NOT EXISTS (
+                        SELECT 
+                            1
+                        FROM 
+                            "pgdas"."00000" RETIF
+                        WHERE 
+                            NORMAL."Cnpjmatriz" = RETIF."Cnpjmatriz" 
+                            AND NORMAL."PA" = RETIF."PA"
+                            AND RETIF."Operacao" = 'R'  -- Literal de string corrigido
+                            AND NORMAL."Pgdasd_Dt_Transmissao" < RETIF."Pgdasd_Dt_Transmissao"
+                    ))
 
-                    UNION ALL
+            SELECT 
+               "00000"."Pgdasd_ID_Declaracao",
+                "00000"."Pgdasd_Dt_Transmissao",
+                "00000"."Operacao",
+                "00000"."Regime",
+                "AAAAA"."DT_INI",
+                "03000"."CNPJ",
+                "03000"."ImpedidoIcmsIss",
+                "03100"."Tipo",
+                'A' AS "Faixa",
+                "03100"."Vltotal",
+                "03110"."UF",
+                "03110"."ICMS",
+                "03110"."Aliq_ICMS" as "Alíquota apurada de ICMS",
+                "03110"."Valor_ICMS" as "Valor apurado de ICMS",
+                "03111"."Valor" AS "Valor de Isenção",
+                "03112"."Valor" AS "Valor de Redução de BC",
+                "03112"."Red" AS "Redução BC"
+            FROM 
+                "pgdas"."AAAAA" INNER JOIN "pgdas"."00000" ON ("AAAAA".id = "00000"."AAAAA_id")
+                    LEFT JOIN "pgdas"."03000" ON ("00000".id = "03000"."00000_id")
+                    LEFT JOIN "pgdas"."03100" ON ("03000".id = "03100"."03000_id")
+                    LEFT JOIN "pgdas"."03110" ON ("03100".id = "03110"."03100_id")
+                    LEFT JOIN "pgdas"."03111" ON ("03110".id = "03111"."03110_id")
+                    LEFT JOIN "pgdas"."03112" ON ("03110".id = "03112"."03110_id")
+            WHERE 
+                "03000"."CNPJ" = '{cnpj}'
+                AND "AAAAA"."DT_INI" BETWEEN '{data_inicio.strftime("%Y-%m-%d")}' AND '{data_fim.strftime("%Y-%m-%d")}'
+                AND "00000"."Pgdasd_ID_Declaracao" IN (SELECT PGDAS_VALIDOS."Pgdasd_ID_Declaracao" FROM PGDAS_VALIDOS)
+            UNION ALL
+            
+            SELECT  
+                "00000"."Pgdasd_ID_Declaracao",
+                "00000"."Pgdasd_Dt_Transmissao",
+                "00000"."Operacao",
+                "00000"."Regime",
+                "AAAAA"."DT_INI",
+                "03000"."CNPJ",
+                "03000"."ImpedidoIcmsIss",
+                "03100"."Tipo",
+                'B' AS "Faixa",
+                "03100"."Vltotal",
+                "03000"."Uf",
+                '00' AS "ICMS",
+                "03120"."Aliq_ICMS" as "Alíquota apurada de ICMS",
+                "03120"."Valor_ICMS" as "Valor apurado de ICMS",
+                '0' AS "Valor de Isenção",
+                '0' AS "Valor de Redução de BC",
+                '0' AS "Redução BC"
+            FROM 
+                "pgdas"."AAAAA" INNER JOIN "pgdas"."00000" ON ("AAAAA".id = "00000"."AAAAA_id")
+                    LEFT JOIN "pgdas"."03000" ON ("00000".id = "03000"."00000_id")
+                    LEFT JOIN "pgdas"."03100" ON ("03000".id = "03100"."03000_id")
+                    LEFT JOIN "pgdas"."03120" ON ("03100".id = "03120"."03100_id")
 
-                    SELECT 
-                        "00000"."Pgdasd_ID_Declaracao",
-                        "00000"."Pgdasd_Dt_Transmissao",
-                        "00000"."Operação",
-                        "00000"."Regime",
-                        "AAAAA"."dt_ini",
-                        "03000"."CNPJ",
-                        "03000"."Vltotal",
-                        "03000"."ImpedidoIcmsIss",
-                        "03100"."Tipo",
-                        'B' AS "Faixa",
-                        "03100"."Vltotal",
-                        "03120'."UF",
-                        "03120"."ICMS",
-                        "03120"."Alíquota apurada de ICMS",
-                        "03120"."Valor apurado de ICMS"
-                        
-                        '0' AS "Valor de Isenção",
-                        '0' AS "Valor de Redução de BC",
-                        '0' AS "Redução BC"
-                    FROM 
-                        AAAAA INNER JOIN "00000" ON (AAAAA.AAAAA_ID = "00000".AAAAA_ID)
-                            LEFT JOIN "03000" ON ("00000"."00000_ID" = "03000"."00000_ID")
-                            LEFT JOIN "03100" ON ("03000"."03000_ID" = "03100"."03000_ID")
-                            LEFT JOIN "03120" ON ("03100"."03100_ID" = "03120"."03100_ID")
-                        
-                    WHERE 
+            WHERE 
+                "03000"."CNPJ" = '{cnpj}'
+                AND "AAAAA"."DT_INI" BETWEEN '{data_inicio.strftime("%Y-%m-%d")}' AND '{data_fim.strftime("%Y-%m-%d")}'
+                AND "00000"."Pgdasd_ID_Declaracao" IN (SELECT PGDAS_VALIDOS."Pgdasd_ID_Declaracao" FROM PGDAS_VALIDOS)
 
-                        "03000".CNPJ = '{cnpj}'
-                        AND "AAAAA".dt_ini BETWEEN '{data_inicio.strftime("%d/%m/%Y")}' AND '{data_fim.strftime("%d/%m/%Y")}' 
+            UNION ALL
+            
+            SELECT 
 
-                        
-                    UNION ALL 
+                 
+                "00000"."Pgdasd_ID_Declaracao",
+                "00000"."Pgdasd_Dt_Transmissao",
+                "00000"."Operacao",
+                "00000"."Regime",
+                "AAAAA"."DT_INI",
+                "03000"."CNPJ",
+                "03000"."ImpedidoIcmsIss",
+                "03100"."Tipo",
+                'B' AS "Faixa",
+                "03100"."Vltotal",
+                "03000"."Uf",
+                '00' AS "ICMS",
+                "03130"."Aliq_ICMS" as "Alíquota apurada de ICMS",
+                "03130"."Valor_ICMS" as "Valor apurado de ICMS",
+                '0' AS "Valor de Isenção",
+                '0' AS "Valor de Redução de BC",
+                '0' AS "Redução BC"
+            FROM 
+                "pgdas"."AAAAA" INNER JOIN "pgdas"."00000" ON ("AAAAA".id = "00000"."AAAAA_id")
+                    LEFT JOIN "pgdas"."03000" ON ("00000".id = "03000"."00000_id")
+                    LEFT JOIN "pgdas"."03100" ON ("03000".id = "03100"."03000_id")
+                    LEFT JOIN "pgdas"."03130" ON ("03100".id = "03130"."03100_id")
 
-                    
-                    SELECT 
-                        "00000"."Pgdasd_ID_Declaracao",
-                        "00000"."Pgdasd_Dt_Transmissao",
-                        "00000"."Operação",
-                        "00000"."Regime",
-                        "AAAAA"."dt_ini",
-                        "03000"."CNPJ",
-                        "03000"."Vltotal",
-                        "03000"."ImpedidoIcmsIss",
-                        "03100"."Tipo",
-                        'C' AS "Faixa",
-                        "03100"."Vltotal",
-                        "03130'."UF",
-                        "03130"."ICMS",
-                        
-                        "03130"."Alíquota apurada de ICMS",
-                        "03130"."Valor apurado de ICMS"
-                        
-                        '0' AS "Valor de Isenção",
-                        '0' AS "Valor de Redução de BC",
-                        '0' AS "Redução BC"
-                    FROM 
-                        AAAAA INNER JOIN "00000" ON (AAAAA.AAAAA_ID = "00000".AAAAA_ID)
-                            LEFT JOIN "03000" ON ("00000"."00000_ID" = "03000"."00000_ID")
-                            LEFT JOIN "03100" ON ("03000"."03000_ID" = "03100"."03000_ID")
-                            LEFT JOIN "03130" ON ("03100"."03100_ID" = "03130"."03100_ID")
-                        
-                    WHERE 
-
-                        "03000".CNPJ = '{cnpj}'
-                        AND "AAAAA".dt_ini BETWEEN '{data_inicio.strftime("%d/%m/%Y")}' AND '{data_fim.strftime("%d/%m/%Y")}' 
-                    
-
-                """
+            WHERE 
+                "03000"."CNPJ" = '{cnpj}'
+                AND "AAAAA"."DT_INI" BETWEEN '{data_inicio.strftime("%Y-%m-%d")}' AND '{data_fim.strftime("%Y-%m-%d")}'
+                AND "00000"."Pgdasd_ID_Declaracao" IN (SELECT PGDAS_VALIDOS."Pgdasd_ID_Declaracao" FROM PGDAS_VALIDOS)
+            
+        """
 
         def retrieve(self):
-            try:    # Verificando se há dado importado na memória secundária
-                return pd.read_excel(self.path)
-            except:
-                with oracledb.connect(user=user, password=pw, dsn=dns_tns) as connection:
-                    pgdas = pd.read_sql_query(self.query, con=connection)
-                print(f'Recuperado {len(pgdas)} registros!')
-                return pgdas 
+            with self.engine.connect() as connection:
+                pgdas = pd.read_sql_query(self.query, con=connection)
+            print(f'Recuperado {len(pgdas)} registros!')
+            return pgdas
     
 
 class DadosCadastrais(DocumentacaoAuditoria):
