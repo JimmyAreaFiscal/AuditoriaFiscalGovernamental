@@ -287,6 +287,63 @@ class DadosEscriturais:
         return gim 
     
 
+    class DEFIS(DocumentacaoAuditoria):
+        # Parâmetros de conexão com o PostgreSQL
+        DATABASE_URL = "postgresql+psycopg2://auditor:1234@localhost:5432/simples_nacional"
+        engine = create_engine(DATABASE_URL)
+
+        def __init__(self, cnpj, data_inicio, data_fim):
+            
+            self.cnpj = cnpj 
+            ano_inicial = int(data_inicio.strftime('%Y'))
+            ano_final = int(data_fim.strftime('%Y'))
+            lista_anos = [x for x in range(ano_inicial, ano_final+1)]
+            self.query = f"""
+
+            with defis_valida as (
+                select 
+                    ULTIMO."id"
+                from 
+                    "defis"."D1000" ULTIMO
+                where 
+                    not exists (select 
+                                    1 
+                                from 
+                                    "defis"."D1000" ANTERIORES 
+                                where 
+                                    SUBSTR(ANTERIORES."DEFIS_ID_DECLARACAO", 0, 12) = SUBSTR(ULTIMO."DEFIS_ID_DECLARACAO", 0, 12)
+                                    and ANTERIORES."DEFIS_DT_TRANSMISSAO" > ULTIMO."DEFIS_DT_TRANSMISSAO")
+            )
+
+            select
+                D1000."DEFIS_DT_TRANSMISSAO" AS "DATA_DECLARACAO",
+                D1000."DEFIS_ID_DECLARACAO" AS "DEFIS_ID_DECLARACAO",
+                D1000."TDSN_ID_TIPO" AS "TIPO_DECLARACAO",
+                D1000."DEFIS_EXERCICIO" AS "DEFIS_EXERCICIO",
+                D5300."DESN_CNPJ_ESTABELECIMENTO" AS "CNPJ",
+                D5300."DESN_VL_ESTOQUE_INICIAL" AS "ESTOQUE_INICIAL",
+                D5300."DESN_VL_ESTOQUE_FINAL" AS "ESTOQUE_FINAL",
+                D5300."DESN_VL_SALDO_CX_BANCO_INICIAL" AS "CAIXA_INICIAL",
+                D5300."DESN_VL_SALDO_CX_BANCO_FINAL" AS "CAIXA_FINAL",
+                D5300."DESN_VL_TOT_ENTRADAS" AS "TOTAL_ENTRADA_DECLARADO",
+                D5300."DESN_VL_TOT_AQUIS_MERC_COM_IND" AS "TOTAL_ENTRADA_MERCADORIA_DECLARADO"
+            from 
+                "defis"."D1000" D1000
+                    inner join "defis_valida" on (D1000.id = defis_valida."id")
+                    left join "defis"."D5300" D5300 on (D1000.id = D5300."D1000_id")
+            WHERE 
+                D5300."DESN_CNPJ_ESTABELECIMENTO" = '{cnpj}'
+                AND D1000."DEFIS_EXERCICIO" IN {tuple(lista_anos)}
+            
+        """
+
+        def retrieve(self):
+            with self.engine.connect() as connection:
+                defis = pd.read_sql_query(self.query, con=connection, dtype={'DESN_CNPJ_ESTABELECIMENTO': str, 'TDSN_ID_TIPO': str, 'DEFIS_ID_DECLARACAO': str})
+            print(f'Recuperado {len(defis)} registros!')
+            return defis
+
+
     class PGDAS(DocumentacaoAuditoria):
         # Parâmetros de conexão com o PostgreSQL
         DATABASE_URL = "postgresql+psycopg2://auditor:1234@localhost:5432/simples_nacional"
