@@ -1,6 +1,6 @@
 import pandas as pd 
 import numpy as np 
-from .connection import DadosParametrizados
+from ..conexoes.connection import DadosParametrizados
 
 class PreprocessamentoEFD:
     """ Classe para pré processar EFD a fim de permitir auditorias sobre itens """

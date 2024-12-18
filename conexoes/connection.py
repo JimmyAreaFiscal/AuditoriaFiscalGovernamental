@@ -316,7 +316,19 @@ class DadosEscriturais:
                             AND NORMAL."PA" = RETIF."PA"
                             AND RETIF."Operacao" = 'R'  -- Literal de string corrigido
                             AND NORMAL."Pgdasd_Dt_Transmissao" < RETIF."Pgdasd_Dt_Transmissao"
-                    ))
+                    )),
+            
+            faturamento_beneficiados AS (
+                SELECT 
+                    COALESCE("03111"."03110_id", "03112"."03110_id") AS "03110_id",
+                    SUM(COALESCE("03111"."Valor", 0)) AS "Valor de Isenção",
+                    SUM(COALESCE("03112"."Valor", 0)) AS "Valor de Redução de BC"
+                FROM 
+                    "pgdas"."03111"
+                        FULL OUTER JOIN "pgdas"."03112" ON ("03111"."03110_id" = "03112"."03110_id")
+                GROUP BY
+                    COALESCE("03111"."03110_id", "03112"."03110_id")
+            )
 
             SELECT 
                "00000"."Pgdasd_ID_Declaracao",
@@ -333,16 +345,15 @@ class DadosEscriturais:
                 "03110"."ICMS",
                 "03110"."Aliq_ICMS" as "Alíquota apurada de ICMS",
                 "03110"."Valor_ICMS" as "Valor apurado de ICMS",
-                "03111"."Valor" AS "Valor de Isenção",
-                "03112"."Valor" AS "Valor de Redução de BC",
-                "03112"."Red" AS "Redução BC"
+                faturamento_beneficiados."Valor de Isenção",
+                faturamento_beneficiados."Valor de Redução de BC"
+                
             FROM 
                 "pgdas"."AAAAA" INNER JOIN "pgdas"."00000" ON ("AAAAA".id = "00000"."AAAAA_id")
                     LEFT JOIN "pgdas"."03000" ON ("00000".id = "03000"."00000_id")
                     LEFT JOIN "pgdas"."03100" ON ("03000".id = "03100"."03000_id")
                     LEFT JOIN "pgdas"."03110" ON ("03100".id = "03110"."03100_id")
-                    LEFT JOIN "pgdas"."03111" ON ("03110".id = "03111"."03110_id")
-                    LEFT JOIN "pgdas"."03112" ON ("03110".id = "03112"."03110_id")
+                    LEFT JOIN faturamento_beneficiados ON (faturamento_beneficiados."03110_id" = "03110"."id")
             WHERE 
                 "03000"."CNPJ" = '{cnpj}'
                 AND "AAAAA"."DT_INI" BETWEEN '{data_inicio.strftime("%Y-%m-%d")}' AND '{data_fim.strftime("%Y-%m-%d")}'
@@ -365,8 +376,7 @@ class DadosEscriturais:
                 "03120"."Aliq_ICMS" as "Alíquota apurada de ICMS",
                 "03120"."Valor_ICMS" as "Valor apurado de ICMS",
                 '0' AS "Valor de Isenção",
-                '0' AS "Valor de Redução de BC",
-                '0' AS "Redução BC"
+                '0' AS "Valor de Redução de BC"
             FROM 
                 "pgdas"."AAAAA" INNER JOIN "pgdas"."00000" ON ("AAAAA".id = "00000"."AAAAA_id")
                     LEFT JOIN "pgdas"."03000" ON ("00000".id = "03000"."00000_id")
@@ -398,8 +408,7 @@ class DadosEscriturais:
                 "03130"."Aliq_ICMS" as "Alíquota apurada de ICMS",
                 "03130"."Valor_ICMS" as "Valor apurado de ICMS",
                 '0' AS "Valor de Isenção",
-                '0' AS "Valor de Redução de BC",
-                '0' AS "Redução BC"
+                '0' AS "Valor de Redução de BC"
             FROM 
                 "pgdas"."AAAAA" INNER JOIN "pgdas"."00000" ON ("AAAAA".id = "00000"."AAAAA_id")
                     LEFT JOIN "pgdas"."03000" ON ("00000".id = "03000"."00000_id")
@@ -623,6 +632,7 @@ class DadosOperacoes:
             'IE_DEST': 'Inscrição Estadual do Destinatário',
             'SUFRAMA': 'Nº SUFRAMA',
             'NUM_NOTA': 'Número da Nota Fiscal',
+            'SERIE_NOTA': 'Série da Nota Fiscal',
             'SITUACAO': 'Situação da Nota Fiscal',
             'CHAVE_ACESSO': 'Chave de Acesso da Nota Fiscal',
             'CFOP': 'CFOP do item da Nota Fiscal',
@@ -716,6 +726,7 @@ class DadosOperacoes:
                         PASM.NFEDINSC   AS "IE_DEST",
                         PASM.NFESUFRAMA AS "SUFRAMA",
                         PASM.NFENNOT    AS "NUM_NOTA",
+                        PASM.NFENSER AS "SERIE_NOTA",
                         CASE
                             WHEN PASM.NFECANC = 'S'
                             THEN 'CANCELADA'
@@ -849,6 +860,7 @@ class DadosOperacoes:
                         PASM.NFEDINSC   AS "IE_DEST",
                         PASM.NFESUFRAMA AS "SUFRAMA",
                         PASM.NFENNOT    AS "NUM_NOTA",
+                        PASM.NFENSER AS "SERIE_NOTA",
                         CASE
                             WHEN PASM.NFECANC = 'S'
                             THEN 'CANCELADA'
@@ -858,7 +870,7 @@ class DadosOperacoes:
                             THEN 'ATIVA'
                         END           AS "SITUACAO",
                         PASM.DANF     AS "CHAVE_ACESSO",
-                        PRD.NFEPCFOP  AS "CFOP",
+                        PRD.NFEPCFOP  AS "CFOP_ITEM",
                         PASM.NFEDTEMI AS "DT_EMISSAO",
                         
                         RPAD(PASM.NFENATOP, 30)       AS "NAT_OPER",
@@ -1059,6 +1071,7 @@ class DadosOperacoes:
                         PASM.NFEDINSC   AS "IE_DEST",
                         PASM.NFESUFRAMA AS "SUFRAMA",
                         PASM.NFENNOT    AS "NUM_NOTA",
+                        PASM.NFENSER AS "SERIE_NOTA",
                         CASE
                             WHEN PASM.NFECANC = 'S'
                             THEN 'CANCELADA'
@@ -1068,6 +1081,7 @@ class DadosOperacoes:
                             THEN 'ATIVA'
                         END           AS "SITUACAO",
                         PASM.DANF     AS "CHAVE_ACESSO",
+                        
                         PRD.NFEPCFOP  AS "CFOP_ITEM",
                         PASM.NFEDTEMI AS "DT_EMISSAO",
                         
@@ -1199,6 +1213,7 @@ class DadosOperacoes:
                         PASM.NFEDINSC   AS "IE_DEST",
                         PASM.NFESUFRAMA AS "SUFRAMA",
                         PASM.NFENNOT    AS "NUM_NOTA",
+                        PASM.NFENSER AS "SERIE_NOTA",
                         CASE
                             WHEN PASM.NFECANC = 'S'
                             THEN 'CANCELADA'
@@ -1361,6 +1376,7 @@ class DadosOperacoes:
                         X.NFCE_DT_EMISSAO       AS "DT_EMISSAO",
                         X.NFCE_NR_DANF          AS "CHAVE_ACESSO",
                         X.NFCE_NR_NOTA          AS "NUM_NOTA",
+                        X.NFCE_NR_SERIE         AS "SERIE_NOTA",
                         x.NFCE_NAT_OPER         as "NAT_OPER",
                         Y.NFCP_CD_EAN           AS "GTIN_ITEM",
                         Y.NFCP_CODIGO_ITEM      AS "COD_PROD_EMIT",
@@ -1627,18 +1643,18 @@ class DadosOperacoes:
 class DadosParametrizados:
     
     def BuscarCFOPTributados():
-        endereco = r'parametrizacoes\CFOPs.xlsx'
+        endereco = r'.\parametrizacoes\CFOPs.xlsx'
         CFOP = pd.read_excel(endereco, dtype={'CFOP': str, 'GERA_CREDITO': bool})
         CFOP['TRIBUTADO'] = [True if linha['TMCLOE']=='TRIB' else False for idx, linha in CFOP.iterrows()]
         return CFOP[['CFOP', 'GERA_CREDITO', 'TRIBUTADO']]
     
     def BuscarGtin():
-        endereco = r'parametrizacoes\GTIN.csv'
+        endereco = r'.\parametrizacoes\GTIN.csv'
         temp1 = pd.read_csv(endereco, dtype={'GTIN': str, 'CLASSE': str})
         return temp1 
     
     def BuscarNcmParametrizados():
-        endereco = r'parametrizacoes\NCMs PARAMETRIZADAS.csv'
+        endereco = r'.\parametrizacoes\NCMs PARAMETRIZADAS.csv'
         df = pd.read_csv(endereco, usecols = ['NCM', 'PARAMETRIZAÇÃO'], dtype={'NCM': str, 'PARAMETRIZAÇÃO': str})
         return df
     
@@ -1715,7 +1731,7 @@ class DadosParametrizados:
 
 
     def BuscarClassesFronteira():
-        endereco = r'parametrizacoes\CLASSE.xlsx'
+        endereco = r'.\parametrizacoes\CLASSE.xlsx'
         try:
             return pd.read_excel(endereco, dtypes={'CLASSE': str})
         except:

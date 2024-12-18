@@ -1,145 +1,266 @@
 {
-    "Auditoria de Obrigações Acessórias e Cadastrais": {
-      "titulo": "AUDITORIA DE OBRIGAÇÕES TRIBUTÁRIAS ACESSÓRIAS",
-      "descricao_introdutoria": "Conforme legislação federal e estadual, as pessoas jurídicas, contribuintes ou não do Imposto sobre Circulação de Mercadorias e Serviços (ICMS), devem cumprir um conjunto de obrigações acessórias...",
-      "criterios": [
+  "Auditoria de Obrigações Acessórias e Cadastrais": {
+    "titulo": "AUDITORIA DE OBRIGAÇÕES TRIBUTÁRIAS ACESSÓRIAS",
+    "descricao_introdutoria": "Esta auditoria busca verificar o cumprimento das obrigações acessórias de natureza cadastral e declaratória, exigidas pela legislação tributária aplicável no Brasil e no Estado de Roraima. Tais obrigações são fundamentais para garantir a regularidade fiscal do contribuinte, assegurar o correto recolhimento do ICMS e permitir a fiscalização adequada por parte do Fisco. \nA importância desta auditoria decorre do fato de que, ao manter os cadastros atualizados e cumprir com as declarações acessórias, o contribuinte demonstra transparência nas suas operações, evitando penalidades e autuações decorrentes de irregularidades.",
+    "criterios": [
         {
           "titulo": "Contribuinte inscrito no Cadastro Nacional de Pessoas Jurídicas (CNPJ)",
-          "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
+          "descricao": "Verifica-se se a pessoa jurídica está devidamente inscrita no CNPJ, conforme exigência da legislação federal. O cumprimento desse critério assegura a identificação unívoca do contribuinte, permitindo o controle das operações econômicas, financeiras e fiscais. Caso não atendido, o contribuinte pode ser penalizado com multas, impedimentos à emissão de documentos fiscais e outras restrições legais.",
           "fundamentacao": [
-            "Decreto nº 3.000/1999",
-            "Lei Complementar nº 123/2006"
+            {
+              "referencia": "Código Tributário Nacional (CTN)",
+              "comentario": "O CTN, especialmente em seu art. 113, estabelece obrigações acessórias que incluem a manutenção de cadastro atualizado, assegurando a identificação do contribuinte para fins de controle e fiscalização."
+            },
+            {
+              "referencia": "Instrução Normativa RFB nº 1.863/2018",
+              "comentario": "Disciplina a inscrição, alteração e baixa do CNPJ, determinando condições e procedimentos a serem observados pelo contribuinte para manter a regularidade cadastral."
+            },
+            {
+              "referencia": "Lei Complementar nº 123/2006 (Simples Nacional)",
+              "comentario": "A opção e a permanência no Simples Nacional exigem a regularidade do CNPJ, pois a ausência de inscrição válida impede o gozo dos benefícios e simplificações previstas neste regime especial."
+            },
+            {
+              "referencia": "Regulamento do ICMS do Estado de Roraima (RICMS/RR)",
+              "comentario": "O RICMS/RR e normas complementares da SEFAZ/RR reforçam a necessidade de identificação correta do contribuinte, exigindo a regularidade do CNPJ para o cumprimento das obrigações relativas ao ICMS."
+            },
+            {
+              "referencia": "Conclusão do Parecer Jurídico",
+              "comentario": "A não observância da exigência de inscrição no CNPJ resulta em sanções, perda de benefícios fiscais e impedimentos legais, comprometendo a capacidade do contribuinte de operar regularmente e de cumprir adequadamente as obrigações tributárias."
+            }
           ]
         },
+
         {
           "titulo": "Contribuinte inscrito no Cadastro Geral da Fazenda (CGF)",
-          "descricao": "De acordo com o Decreto nº 4.335/2001, que regulamenta o ICMS no estado de Roraima...",
+          "descricao": "Examina-se a regular inscrição do contribuinte no Cadastro Geral da Fazenda do Estado de Roraima, conforme o Regulamento do ICMS estadual. Esta inscrição é essencial para a apuração do imposto, controle das operações e cumprimento das obrigações acessórias no âmbito estadual. A não conformidade pode implicar em impedimento para emissão de notas fiscais, restrições na obtenção de incentivos fiscais e aplicação de penalidades previstas na legislação estadual.",
           "fundamentacao": [
-            "Decreto nº 4.335/2001"
+            {
+              "referencia": "Código Tributário Nacional (CTN)",
+              "comentario": "O CTN estabelece obrigações acessórias, incluindo a adequada identificação do contribuinte para fins fiscais, o que abrange a manutenção de cadastros exigidos pelos entes federados."
+            },
+            {
+              "referencia": "Regulamento do ICMS do Estado de Roraima (Decreto nº 4.335/2001)",
+              "comentario": "Dispõe sobre a obrigatoriedade de inscrição no CGF, detalhando requisitos para ingresso, manutenção e alterações, assegurando a legitimidade das operações e o controle fiscal pelo Estado."
+            },
+            {
+              "referencia": "Atos Normativos da SEFAZ/RR",
+              "comentario": "Complementam as regras do RICMS/RR e disciplinam procedimentos para inscrição, atualização e baixa no CGF, reforçando a importância da conformidade cadastral."
+            }
           ]
         },
         {
           "titulo": "Contribuinte com emissão de documentos fiscais no período",
-          "descricao": "O artigo 113 do CTN e o Regulamento do ICMS de Roraima dispõem que os contribuintes são obrigados a emitir documentos fiscais...",
+          "descricao": "Verifica-se a correta emissão de documentos fiscais, conforme exigência do CTN e do Regulamento do ICMS de Roraima. A emissão adequada de documentos fiscais garante a lisura das operações comerciais, a correta apuração do ICMS e a transmissão transparente de informações ao Fisco. A ausência ou irregularidade na emissão de documentos fiscais pode resultar em autuação, cobrança de tributos não declarados e multas.",
           "fundamentacao": [
-            "Art. 113, CTN",
-            "Decreto nº 4.335/2001"
+            {
+              "referencia": "Código Tributário Nacional (CTN)",
+              "comentario": "Determina a obrigação acessória de emitir documentos fiscais regularmente, assegurando a comprovação das operações e a base de incidência tributária."
+            },
+            {
+              "referencia": "Regulamento do ICMS do Estado de Roraima (Decreto nº 4.335/2001)",
+              "comentario": "Prevê a emissão correta de notas fiscais, estabelecendo procedimentos, prazos e formas de registro, bem como sanções pelo descumprimento."
+            },
+            {
+              "referencia": "Legislação da Nota Fiscal Eletrônica (NF-e)",
+              "comentario": "Normas que regulamentam a emissão da NF-e, garantindo padronização, autenticação e controle digital sobre as operações fiscais."
+            }
           ]
         },
         {
           "titulo": "Contribuinte com entrega de Guia de Informação Mensal do ICMS (GIM)",
-          "descricao": "Conforme o Regulamento do ICMS de Roraima, é obrigatória a entrega mensal da Guia de Informação do ICMS (GIM)...",
+          "descricao": "Avalia-se se o contribuinte entrega regularmente a Guia de Informação Mensal (GIM) do ICMS, conforme determinado no Regulamento do ICMS de Roraima. A GIM é um documento que comprova a apuração mensal do imposto, servindo para o controle do Fisco sobre as operações do contribuinte. A falta de entrega ou entrega com informações incorretas pode resultar em multas, autuações e dificuldades no controle e regularização da situação fiscal.",
           "fundamentacao": [
-            "Decreto nº 4.335/2001"
+            {
+              "referencia": "Regulamento do ICMS do Estado de Roraima (Decreto nº 4.335/2001)",
+              "comentario": "Disciplina a obrigação de apresentar a GIM, especificando prazos, forma e conteúdo, assegurando ao Fisco o acompanhamento mensal das operações do contribuinte."
+            },
+            {
+              "referencia": "Atos Normativos e Instruções da SEFAZ/RR",
+              "comentario": "Orientam a forma de preenchimento e encaminhamento da GIM, bem como as penalidades aplicáveis em caso de omissões ou incorreções."
+            }
           ]
         },
         {
           "titulo": "Contribuinte com declaração do PGDAS",
-          "descricao": "A Lei Complementar nº 123/2006 e as Resoluções CGSN estabelecem que os optantes pelo Simples Nacional devem apresentar a declaração do PGDAS-D...",
+          "descricao": "Confere-se se o contribuinte optante pelo Simples Nacional apresenta mensalmente a declaração do PGDAS-D (Programa Gerador do Documento de Arrecadação do Simples Nacional – Declaratório), conforme exige a Lei Complementar nº 123/2006 e a Resolução CGSN nº 140/2018. O cumprimento assegura o cálculo correto dos tributos devidos, a comprovação da regularidade perante o regime simplificado e evita a aplicação de multas, exclusões do Simples Nacional e questionamentos fiscais futuros.",
           "fundamentacao": [
-            "Lei Complementar nº 123/2006",
-            "Resoluções CGSN nº 94/2011 e nº 140/2018"
+            {
+              "referencia": "Lei Complementar nº 123/2006 (Simples Nacional)",
+              "comentario": "Estabelece o regime simplificado de tributação, exigindo que o contribuinte mantenha declarações mensais atualizadas, como o PGDAS-D, para usufruir dos benefícios do regime."
+            },
+            {
+              "referencia": "Resolução CGSN nº 140/2018",
+              "comentario": "Regulamenta o PGDAS-D, detalhando prazos, forma de preenchimento e apresentação, bem como penalidades em caso de descumprimento."
+            },
+            {
+              "referencia": "Instruções Normativas da Receita Federal do Brasil",
+              "comentario": "Fornecem diretrizes complementares para a apresentação do PGDAS-D, assegurando clareza nos procedimentos e consistência das informações prestadas pelo contribuinte."
+            }
           ]
         }
-      ]
-    },
+    ]
+  },
 
-    "Auditoria de Situação Fiscal": {
-      "titulo": "AUDITORIA DE SITUAÇÃO FISCAL",
-      "descricao_introdutoria": "Conforme legislação federal e estadual, as pessoas jurídicas, contribuintes ou não do Imposto sobre Circulação de Mercadorias e Serviços (ICMS), devem cumprir um conjunto de obrigações acessórias...",
-      "criterios": [
+  "Auditoria de Situação Fiscal": {
+    "titulo": "AUDITORIA DE SITUAÇÃO FISCAL",
+    "descricao_introdutoria": "Esta auditoria avalia a situação fiscal do contribuinte perante o Fisco, verificando a existência de débitos tributários não liquidados ou não suspensos e se a regularidade fiscal é mantida. \nUma situação fiscal regular demonstra o correto cumprimento das obrigações principais e acessórias, assegura o acesso a incentivos fiscais, evita barreiras em operações comerciais e reduz riscos de autuações e sanções.",
+    "criterios": [
+      {
+        "titulo": "Inexistências de créditos tributários lançados e não suspensos",
+        "descricao": "Verifica-se se o contribuinte não possui créditos tributários (dívidas de impostos) lançados, sem pagamento ou suspensão legal. A manutenção de débitos não regularizados pode impedir a manutenção da empresa no regime do Simples Nacional. ",
+        "fundamentacao": [
+          {
+            "referencia": "art. 81, II, d, Resolução CGSN nº 140/2018",
+            "comentario": "Estabelece, em seu art. 81, II, alínea d, hipótese de exclusão de ofício do Simples Nacional por existência de débitos com a Fazenda Estadual, a partir do primeiro dia do exercício seguinte ao constatado. "
+          }
+        ]
+      }
+    ]
+  },
+
+  "Auditoria de Operações e Prestações de Entrada": {
+    "titulo": "AUDITORIA DE OPERAÇÕES E PRESTAÇÕES DE ENTRADA",
+    "descricao_introdutoria": "Esta auditoria examina as operações de entrada de mercadorias e serviços, incluindo aquisições interestaduais, a fim de verificar se o contribuinte está observando as normas tributárias. \nA correta documentação e contabilização das entradas são essenciais para a apuração do ICMS, controle de créditos fiscais e garantia da regularidade fiscal. O não cumprimento das obrigações relacionadas às entradas pode resultar em glosas de crédito, multas e demais sanções.",
+    "criterios": [
+      {
+        "titulo": "Notas Fiscais Interestaduais apresentadas à Secretaria da Fazenda de Roraima",
+        "descricao": "Avalia-se se o contribuinte apresenta devidamente as notas fiscais de mercadorias adquiridas de outros estados, conforme exigido pela legislação aplicável.",
+        "fundamentacao": [
+          {
+            "referencia": "Regulamento do ICMS do Estado de Roraima (Decreto nº 4.335/2001)",
+            "comentario": "O Regulamento estabelece em seu Art. 110, XIII, a obrigação do destinatário de receber documentos fiscais devidamente desembaraçados quando da passagem das mercadorias ou bens pela primeira repartição fiscal do Estado, procedentes de outra unidade da Federação ou do exterior, incluindo os documentos referentes à prestação de serviço de transporte, exceto nos casos previstos na legislação. A não apresentação sujeita o contribuinte ao lançamento de ofício do imposto, com acréscimos legais, conforme §1º do referido artigo."
+          }
+          
+        ]
+      }
+    ]
+  },
+
+  "Auditoria de Operações e Prestações de Saída": {
+    "titulo": "AUDITORIA DE OPERAÇÕES E PRESTAÇÕES DE SAÍDA",
+    "descricao_introdutoria": "Esta auditoria analisa as operações de saída de mercadorias e prestações de serviços, verificando a correta emissão de notas fiscais, o alinhamento entre o faturamento e as entregas, bem como a inexistência de distorções nos registros. \nA conformidade nas operações de saída é crucial para assegurar a correta apuração do ICMS e garantir a integridade das informações perante o Fisco. Irregularidades podem resultar em autuações, multas, suspensão de benefícios e repercussões fiscais negativas.",
+    "criterios": [
+      {
+        "titulo": "Ausência de Desempenho Negativo (por mês)",
+        "descricao": "Verifica-se se não há divergências negativas mensais entre o faturamento declarado e os documentos fiscais emitidos. A ausência de desempenho negativo garante a consistência das informações prestadas e o correto recolhimento do ICMS. Divergências não justificadas podem ensejar questionamentos, ajustes de ofício, cobrança de diferenças tributárias e aplicação de penalidades.",
+        "fundamentacao": [
+          {
+          "referencia": "Art. 91, Resolução CGSN nº 140/2018",
+          "comentario": "Segundo a Resolução CGSN, aplicam-se às ME/EPP optantes pelo Simples Nacional todas as presunções de omissão de receita existentes nas legislações de regência dos tributos incluídos no Simples Nacional, inclusive ICMS."
+          },
+          {
+            "referencia": "Art. 94, I, Resolução CGSN nº 140/2018",
+            "comentario": "Segundo a Resolução CGSN, considera-se incorrida infração quando constatada omissão de receita."
+            },
+         {
+          "referencia": "Art. 859, II, Regulamento do ICMS do Estado de Roraima (Decreto nº 4.335/2001)",
+          "comentario": "Segundo o Art. 859, II, do regulamento, presume-se operação ou prestação tributável não registrada quando se constatar diferença apurada pelo saídas registradas e o valor das saídas a preço de custo acrescido do lucro apurado mediante a aplicação de percentual fixado em portaria do Secretário de Estado da Fazenda."
+        },
         {
-          "titulo": "Inexistências de créditos tributários lançados e não suspensos",
-          "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
-          "fundamentacao": [
-            "Decreto nº 3.000/1999",
-            "Lei Complementar nº 123/2006"
-          ]
-        }]
-    },
-  
-    "Auditoria de Operações e Prestações de Entrada": {
-      "titulo": "AUDITORIA DE OPERAÇÕES E PRESTAÇÕES DE ENTRADA",
-      "descricao_introdutoria": "Conforme legislação federal e estadual, as pessoas jurídicas, contribuintes ou não do Imposto sobre Circulação de Mercadorias e Serviços (ICMS), devem cumprir um conjunto de obrigações acessórias...",
-      "criterios": [
-        {
-          "titulo": "Notas Fiscais Interestaduais apresentadas à Secretaria da Fazenda de Roraima",
-          "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
-          "fundamentacao": [
-            "Decreto nº 3.000/1999",
-            "Lei Complementar nº 123/2006"
-          ]
+          "referencia": "Art. 84, IV, j, Resolução CGSN nº 140/2018",
+          "comentario": "Há a previsão ne exclusão de ofício do Simples Nacional, a partir do mês em que incorrido, quando constatado que se for constatado que a empresa, de forma reiterada, não emite documento fiscal de venda ou prestação de serviço. "
         }
-    
+
         ]
-    },
-
-    "Auditoria de Operações e Prestações de Saída": {
-      "titulo": "AUDITORIA DE OPERAÇÕES E PRESTAÇÕES DE SAÍDA",
-      "descricao_introdutoria": "Conforme legislação federal e estadual, as pessoas jurídicas, contribuintes ou não do Imposto sobre Circulação de Mercadorias e Serviços (ICMS), devem cumprir um conjunto de obrigações acessórias...",
-      "criterios": [
-            {
-          "titulo": "Ausência de Desempenho Negativo (por mês)",
-          "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
-          "fundamentacao": [
-            "Decreto nº 3.000/1999",
-            "Lei Complementar nº 123/2006"
-          ]
-            },
-
-            {
-            "titulo": "Ausência de Desempenho Negativo (por produto)",
-            "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
-            "fundamentacao": [
-              "Decreto nº 3.000/1999",
-              "Lei Complementar nº 123/2006"
-            ]
-          },
-
+      },
+      {
+        "titulo": "Ausência de Desempenho Negativo (por produto)",
+        "descricao": "Constata-se se não há divergências entre a quantidade de produtos vendida e a informação declarada no PGDAS-D ou em outras obrigações acessórias, analisando a coerência entre estoque, vendas e emissão de notas fiscais. A conformidade evita questionamentos do Fisco sobre supostas vendas não declaradas ou estoques fictícios, afastando penalidades, recolhimentos complementares e possíveis exclusões de regimes diferenciados.",
+        "fundamentacao": [
           {
-            "titulo": "Emissão de Notas Fiscais de Saída para documentar baixa de estoque (vendas, perdas, transferências)",
-            "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
-            "fundamentacao": [
-              "Decreto nº 3.000/1999",
-              "Lei Complementar nº 123/2006"
-            ]
-          }
-    
-        ]
-    },
-
-    "Auditoria de Faturamento": {
-      "titulo": "AUDITORIA DE FATURAMENTO",
-      "descricao_introdutoria": "Conforme legislação federal e estadual, as pessoas jurídicas, contribuintes ou não do Imposto sobre Circulação de Mercadorias e Serviços (ICMS), devem cumprir um conjunto de obrigações acessórias...",
-      "criterios": [
-            {
-          "titulo": "Faturamento declarado em PGDAS compatível com as emissões de documentos fiscais de saída",
-          "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
-          "fundamentacao": [
-            "Decreto nº 3.000/1999",
-            "Lei Complementar nº 123/2006"
-          ]
+            "referencia": "Art. 91, Resolução CGSN nº 140/2018",
+            "comentario": "Segundo a Resolução CGSN, aplicam-se às ME/EPP optantes pelo Simples Nacional todas as presunções de omissão de receita existentes nas legislações de regência dos tributos incluídos no Simples Nacional, inclusive ICMS."
             },
-
             {
-            "titulo": "Faturamento declarado em PGDAS compatível com o recebimento de notas fiscais de entrada com mercadorias",
-            "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
-            "fundamentacao": [
-              "Decreto nº 3.000/1999",
-              "Lei Complementar nº 123/2006"
-            ]
+              "referencia": "Art. 94, I, Resolução CGSN nº 140/2018",
+              "comentario": "Segundo a Resolução CGSN, considera-se incorrida infração quando constatada omissão de receita."
+              },
+           {
+            "referencia": "Art. 859, II, Regulamento do ICMS do Estado de Roraima (Decreto nº 4.335/2001)",
+            "comentario": "Segundo o Art. 859, II, do regulamento, presume-se operação ou prestação tributável não registrada quando se constatar diferença apurada pelo saídas registradas e o valor das saídas a preço de custo acrescido do lucro apurado mediante a aplicação de percentual fixado em portaria do Secretário de Estado da Fazenda."
           },
-
           {
-            "titulo": "Faturamento declarado em PGDAS compatível com as despesas declaradas em Notas Fiscais",
-            "descricao": "Conforme o Decreto nº 3.000/1999 (RIR) e a Lei Complementar nº 123/2006, as pessoas jurídicas devem estar regularmente inscritas no CNPJ...",
-            "fundamentacao": [
-              "Decreto nº 3.000/1999",
-              "Lei Complementar nº 123/2006"
-            ]
+            "referencia": "Art. 84, IV, j, Resolução CGSN nº 140/2018",
+            "comentario": "Há a previsão ne exclusão de ofício do Simples Nacional, a partir do mês em que incorrido, quando constatado que se for constatado que a empresa, de forma reiterada, não emite documento fiscal de venda ou prestação de serviço. "
           }
-    
         ]
-    }
+      },
+      {
+        "titulo": "Emissão de Notas Fiscais de Saída para documentar baixa de estoque (vendas, perdas, transferências)",
+        "descricao": "Examina-se se todas as baixas de estoque, seja por venda, perda, transferência ou qualquer outra saída, são devidamente registradas por meio de notas fiscais de saída. Esse procedimento é obrigatório para assegurar a transparência e rastreabilidade das movimentações de mercadorias. A falta de documentação adequada pode levar a autuações por supostas omissões de receita, exigência de ICMS não recolhido e multas.",
+        "fundamentacao": [
+          {
+            "referencia": "Art. 91, Resolução CGSN nº 140/2018",
+            "comentario": "Segundo a Resolução CGSN, aplicam-se às ME/EPP optantes pelo Simples Nacional todas as presunções de omissão de receita existentes nas legislações de regência dos tributos incluídos no Simples Nacional, inclusive ICMS."
+            },
+            {
+              "referencia": "Art. 94, I, Resolução CGSN nº 140/2018",
+              "comentario": "Segundo a Resolução CGSN, considera-se incorrida infração quando constatada omissão de receita."
+              },
+           {
+            "referencia": "Art. 859, VI, Regulamento do ICMS do Estado de Roraima (Decreto nº 4.335/2001)",
+            "comentario": "Segundo o Art. 859, VI, do regulamento, presume-se operação ou prestação tributável não registrada quando se constatar diferença apurada mediante controle quantitativo de mercadorias, assim entendido o confronto entre a quantidade de unidades estocadas e as quantidades de entradas e de saídas."
+          },
+          {
+            "referencia": "Art. 84, IV, j, Resolução CGSN nº 140/2018",
+            "comentario": "Há a previsão ne exclusão de ofício do Simples Nacional, a partir do mês em que incorrido, quando constatado que se for constatado que a empresa, de forma reiterada, não emite documento fiscal de venda ou prestação de serviço. "
+          }
+        ]
+      }
+    ]
+  },
+
+  "Auditoria de Faturamento": {
+    "titulo": "AUDITORIA DE FATURAMENTO",
+    "descricao_introdutoria": "Esta auditoria tem por objetivo verificar se o faturamento declarado pelo contribuinte está coerente com as notas fiscais emitidas e recebidas, bem como com os registros contábeis e obrigações acessórias do Simples Nacional. \nA compatibilidade das informações garante a correta apuração dos tributos, evitando inconsistências que possam resultar em questionamentos fiscais, cobranças adicionais, multas e até exclusão do regime simplificado.",
+    "criterios": [
+      {
+        "titulo": "Faturamento declarado em PGDAS compatível com as emissões de documentos fiscais de saída",
+        "descricao": "Analisa-se se o valor do faturamento informado no PGDAS-D reflete adequadamente o total das notas fiscais de saída emitidas. O cumprimento garante a fidedignidade das informações, a segurança no cálculo do Simples Nacional e a observância das exigências fiscais. Caso seja constatada disparidade injustificada, o contribuinte estará sujeito à fiscalização, autuações e correções de ofício.",
+        "fundamentacao": [
+          {
+            "referencia": "Art. 94, I, Resolução CGSN nº 140/2018",
+            "comentario": "Segundo a Resolução CGSN, considera-se incorrida infração quando constatada omissão de receita."
+          }
+        ]
+      },
+      {
+        "titulo": "Faturamento declarado em PGDAS compatível com o recebimento de notas fiscais de entrada com mercadorias",
+        "descricao": "Verifica-se se o faturamento declarado é coerente com as mercadorias adquiridas, considerando as notas fiscais de entrada. A compatibilidade entre as entradas e as vendas é essencial para confirmar a legitimidade das operações. Divergências sem justificativa podem levar a questionamentos sobre sonegação, resultando em autuações, multas e recálculo dos tributos devidos.",
+        "fundamentacao": [
+          {
+            "referencia": "Art. 84, IV, i, Resolução CGSN nº 140/2018",
+            "comentario": "Há a previsão ne exclusão de ofício do Simples Nacional, a partir do mês em que incorrido, quando constatado que durante o ano-calendário o valor das aquisições de mercadorias para comercialização ou industrialização, ressalvadas hipóteses justificadas de aumento de estoque, foi superior a 80% (oitenta por cento) dos ingressos de recursos no mesmo período, excluído o ano de início de atividade, conforme Art. 84, IV, alínea i, "
+          },
+          {
+            "referencia": "Art. 84, IV, j, Resolução CGSN nº 140/2018",
+            "comentario": "Há a previsão ne exclusão de ofício do Simples Nacional, a partir do mês em que incorrido, quando constatado que se for constatado que a empresa, de forma reiterada, não emite documento fiscal de venda ou prestação de serviço. "
+          }
+        ]
+      },
+      {
+        "titulo": "Faturamento declarado em PGDAS compatível com as despesas declaradas em Notas Fiscais",
+        "descricao": "Avalia-se se o faturamento declarado guarda correspondência com as despesas registradas em notas fiscais de serviços ou aquisições diversas. A coerência entre receitas e despesas é imprescindível para demonstrar a veracidade da operação econômica e garantir a correta tributação. Discrepâncias não justificadas podem caracterizar irregularidades, acarretando penalidades, ajustes no recolhimento do imposto e eventuais medidas judiciais.",
+        "fundamentacao": [
+          {
+            "referencia": "Art. 84, IV, h, Resolução CGSN nº 140/2018",
+            "comentario": "Há a previsão ne exclusão de ofício do Simples Nacional, a partir do mês em que incorrido, quando constatado que se for constatado que durante o ano-calendário o valor das despesas pagas supera em 20% (vinte por cento) o valor de ingressos de recursos no mesmo período, excluído o ano de início de atividade. "
+          },
+          {
+            "referencia": "Art. 84, IV, j, Resolução CGSN nº 140/2018",
+            "comentario": "Há a previsão ne exclusão de ofício do Simples Nacional, a partir do mês em que incorrido, quando constatado que se for constatado que a empresa, de forma reiterada, não emite documento fiscal de venda ou prestação de serviço. "
+          }
+        ]
+      },
+      {
+        "titulo": "Faturamento declarado em PGDAS por situação tributária compatível percentualmente com os valores percentuais de itens em Notas Fiscais",
+        "descricao": "Verifica-se se a distribuição do faturamento declarado no PGDAS-D, conforme a situação tributária dos produtos ou serviços, mantém proporcionalidade com a composição percentual dos itens constantes nas notas fiscais emitidas. Ou seja, o contribuinte deve refletir no PGDAS-D a mesma proporção de produtos e serviços tributados, isentos ou sujeitos à substituição tributária observada nas notas fiscais. Caso haja incompatibilidade relevante e não justificada, o contribuinte pode sofrer autuações, ajustes forçados na tributação e multas por irregularidades na declaração.",
+        "fundamentacao": [
+          
+        ]
+      }
+    ]
   }
+}
+
   
